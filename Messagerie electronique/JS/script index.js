@@ -219,88 +219,82 @@ document.addEventListener('DOMContentLoaded', function() {
 // Gestion du partage de fichiers
 
 document.addEventListener('DOMContentLoaded', function() {
-    const fileButton = document.getElementById('fileButton');
-    const fileInput = document.getElementById('fileInput');
+    // File sharing implementation
+    const fileButton = document.querySelector('.input-action[aria-label="Joindre un fichier"]');
+    const fileInput = document.getElementById('file-input') || document.createElement('input');
     const chatMessages = document.querySelector('.chat-messages');
-    const chatInput = document.querySelector('.chat-input');
-    const inputField = document.querySelector('.input-field');
+    const chatArea = document.querySelector('.chat-area');
+    
+    // If file input doesn't exist, create it
+    if (!document.getElementById('file-input')) {
+        fileInput.type = 'file';
+        fileInput.id = 'file-input';
+        fileInput.style.display = 'none';
+        fileInput.multiple = true;
+        document.body.appendChild(fileInput);
+    }
 
-    // Ouvrir le selecteur de fichiers quand on clique sur le bouton d'attachement 
-    fileButton.addEventListener('click', function() {
-        fileInput.click();
-    });
+    // Only add event listeners if elements exist
+    if (fileButton) {
+        fileButton.addEventListener('click', function() {
+            fileInput.click();
+        });
+    }
 
-    // Traiter les fichiers sélectionnés
-    fileInput.addEventListener('change', function(e) {
-        if (this.files.length > 0) {
-            handlesFiles(this.files);
-        }
-    });
+    if (fileInput) {
+        fileInput.addEventListener('change', function(e) {
+            const files = e.target.files;
+            if (files.length > 0) {
+                handleFiles(files);
+            }
+        });
+    }
 
-    // Configuration du drag and drop
-    chatArea.addEventListener('dragover', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.classList.add('drag-over');
-    });
+    if (chatArea) {
+        // Drag and drop configuration
+        chatArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            chatArea.classList.add('drag-over');
+        });
 
-    chatArea.addEventListener('dragleave', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.classList.remove('drag-over');
-    });
+        chatArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            chatArea.classList.remove('drag-over');
+        });
 
-    chatArea.addEventListener('drop', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.classList.remove('drag-over');
+        chatArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            chatArea.classList.remove('drag-over');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFiles(files);
+            }
+        });
+    }
 
-        if (e.dataTransfer.files.length > 0) {
-            handlesFiles(e.dataTransfer.files);
-        }
-    });
+    // Fonction pour traiter les fichiers sélectionnés
+function handleFiles(files) {
+    // Vérifier que l'élément chatMessages existe
+    const chatMessages = document.querySelector('.chat-messages');
+    if (!chatMessages) {
+        console.error("Erreur: élément chatMessages introuvable");
+        return;
+    }
+    
+    Array.from(files).forEach(file => {
+        // Créer un nouveau message de fichier
+        const messageElement = document.createElement('div');
+        messageElement.className = 'message message-sent';
 
-    // Fonction pour traiter les fichiers selectionnés
-    function handlesFiles(files) {
-        Array.from(files).forEach(file => {
-            // Créer un nouveau message de fichier
-            const messageElement = document.createElement('div');
-            messageElement.className = 'message message-sent';
-
-            // Afficher différement selon le type de fichier
-            if (file.type.startsWith('image/')) {
-                // Pour les images, créer une previsualisation
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    messageElement.innerHTML = `
-                    <div class="file-message">
-                            <div class="file-preview">
-                                <img src="${e.target.result}" alt="Image partagée" style="max-width: 100%; max-height: 200px; border-radius: 8px;">
-                            </div>
-                            <div class="file-info">
-                                <div class="file-name">${file.name}</div>
-                                <div class="file-size">${formatFileSize(file.size)}</div>
-                            </div>
-                        </div>
-                        <div class="message-time">${getCurrentTime()}</div>
-                    `;
-
-                    // Ajouter le message à la conversation et faire defiler 
-                    chatMessages.appendChild(messageElement);
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-
-                    // Simuler une reponse
-                    simulateFileResponse(file.name);
-                };
-                reader.readAsDataURL(file);
-            } else {
-                // Pour les autres types de fichiers
-                let fileIcon = getFileIcon(file.type);
-
+        // Afficher différemment selon le type de fichier
+        if (file.type.startsWith('image/')) {
+            // Pour les images, créer une prévisualisation
+            const reader = new FileReader();
+            reader.onload = function(e) {
                 messageElement.innerHTML = `
                 <div class="file-message">
-                        <div class="file-icon">
-                            <span class="material-symbols-rounded">${fileIcon}</span>
+                        <div class="file-preview">
+                            <img src="${e.target.result}" alt="Image partagée" style="max-width: 100%; max-height: 200px; border-radius: 8px;">
                         </div>
                         <div class="file-info">
                             <div class="file-name">${file.name}</div>
@@ -310,56 +304,102 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="message-time">${getCurrentTime()}</div>
                 `;
 
-                // Ajouter le message à la conversation et faire defiler 
+                // Ajouter le message à la conversation et faire défiler 
                 chatMessages.appendChild(messageElement);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
 
-                // Simuler une reponse
-                simulateFileResponse(file.name);
-            }
-        });
+                // Simuler une réponse
+                simulateFileResponse(file.name, chatMessages);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            // Pour les autres types de fichiers
+            let fileIcon = getFileIcon(file.type);
 
-        // Réinitialiser l'input file pour permettre de selectionner à nouveau le memes fichiers
+            messageElement.innerHTML = `
+            <div class="file-message">
+                    <div class="file-icon">
+                        <span class="material-symbols-rounded">${fileIcon}</span>
+                    </div>
+                    <div class="file-info">
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-size">${formatFileSize(file.size)}</div>
+                    </div>
+                </div>
+                <div class="message-time">${getCurrentTime()}</div>
+            `;
+
+            // Ajouter le message à la conversation et faire défiler 
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Simuler une réponse
+            simulateFileResponse(file.name, chatMessages);
+        }
+    });
+
+    // Réinitialiser l'input file pour permettre de sélectionner à nouveau les mêmes fichiers
+    const fileInput = document.getElementById('fileInput') || document.getElementById('file-input');
+    if (fileInput) {
         fileInput.value = '';
     }
+}
 
-    // Simuler une reponse après l'envoi du fichier
-    function simulateFileResponse(fileName) {
-        // Afficher l'indicateur de saisie 
+// Simuler une réponse après l'envoi du fichier
+function simulateFileResponse(fileName, chatMessages) {
+    // Récupérer l'indicateur de saisie s'il existe
+    const typingIndicator = document.querySelector('.typing-indicator');
+    
+    // Masquer l'indicateur de saisie s'il existe
+    if (typingIndicator) {
         typingIndicator.style.display = 'none';
-
-        // Créer et ajouter la reponse
+    }
+    
+    // Créer un délai pour simuler la réponse
+    setTimeout(() => {
+        // Créer et ajouter la réponse
         const responseElement = document.createElement('div');
         responseElement.className = 'message message-received';
         responseElement.innerHTML = `
             J'ai bien reçu votre fichier "${fileName}". Merci !
-                <div class="message-time">${getCurrentTime()}</div>
-            `;
-
+            <div class="message-time">${getCurrentTime()}</div>
+        `;
+        
         chatMessages.appendChild(responseElement);
         chatMessages.scrollTop = chatMessages.scrollHeight;
-    } 
-    
-}, 1500);
+    }, 1500);
+}
 
 
 // Formatage de la taille du fichier
 function formatFileSize(bytes) {
-    if (bytes < 1024) return bytes + ' octets';
-    else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' Ko';
-    return (bytes / 1048576).toFixed(1) + ' Mo';
+    if (bytes < 1024) {
+        return bytes + ' octets';
+    } else if (bytes < 1048576) {
+        return (bytes / 1024).toFixed(1) + ' Ko';
+    } else {
+        return (bytes / 1048576).toFixed(1) + ' Mo';
+    }
 }
 
 // Obtenir l'icone approprié selon le type de fichier
 function getFileIcon(fileType) {
-    if (fileType.startsWith('image/')) return 'image';
-    if (fileType.startsWith('video/')) return 'videocam';
-    if (fileType.startsWith('audio/')) return 'music_note';
-    if (fileType.includes('pdf')) return 'picture_as_pdf';
-    if (fileType.includes('word') || fileType.includes('document')) return 'description';
-    if (fileType.includes('spreadsheet') || fileType.includes('excel')) return 'table_chart';
-    if (fileType.includes('presentation') || fileType.includes('powerpoint')) return 'slideshow';
-    if (fileType.includes('zip') || fileType.includes('compressed')) return 'folder_zip';
+    if (fileType.startsWith('image/'))
+        return 'image';
+    if (fileType.startsWith('video/'))
+        return 'videocam';
+    if (fileType.startsWith('audio/'))
+        return 'audiotrack';
+    if (fileType.includes('pdf'))
+        return 'picture_as_pdf';
+    if (fileType.includes('word') || fileType.includes('document'))
+        return 'description';
+    if (fileType.includes('spreadsheet') || fileType.includes('excel'))
+        return 'table_chart';
+    if (fileType.includes('presentation') || fileType.includes('powerpoint'))
+        return 'slideshow';
+    if (fileType.includes('zip') || fileType.includes('compressed'))
+        return 'folder_zip';
     return 'insert_drive_file';
 }
 
