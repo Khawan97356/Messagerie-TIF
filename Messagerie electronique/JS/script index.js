@@ -273,103 +273,103 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Fonction pour traiter les fichiers sélectionnés
+// Function to handle selected files
 function handleFiles(files) {
-    // Vérifier que l'élément chatMessages existe
-    const chatMessages = document.querySelector('.chat-messages');
     if (!chatMessages) {
-        console.error("Erreur: élément chatMessages introuvable");
-        return;
+        const chatMessages = document.querySelector('.chat-messages');
+        if (!chatMessages) {
+            console.error("Erreur: élément chatMessages introuvable");
+            return;
+        }
     }
     
     Array.from(files).forEach(file => {
-        // Créer un nouveau message de fichier
-        const messageElement = document.createElement('div');
-        messageElement.className = 'message message-sent';
-
-        // Afficher différemment selon le type de fichier
+        // Create file message element
+        const messageEl = document.createElement('div');
+        messageEl.className = 'message message-sent';
+        
+        const fileMessage = document.createElement('div');
+        fileMessage.className = 'file-message';
+        
+        // File icon based on type
+        const fileIcon = document.createElement('div');
+        fileIcon.className = 'file-icon';
+        const iconSpan = document.createElement('span');
+        iconSpan.className = 'material-symbols-rounded';
+        iconSpan.textContent = getFileIcon(file.type);
+        fileIcon.appendChild(iconSpan);
+        
+        // File info
+        const fileInfo = document.createElement('div');
+        fileInfo.className = 'file-info';
+        
+        const fileName = document.createElement('div');
+        fileName.className = 'file-name';
+        fileName.textContent = file.name;
+        
+        const fileSize = document.createElement('div');
+        fileSize.className = 'file-size';
+        fileSize.textContent = formatFileSize(file.size);
+        
+        fileInfo.appendChild(fileName);
+        fileInfo.appendChild(fileSize);
+        
+        // Add image preview if it's an image
         if (file.type.startsWith('image/')) {
-            // Pour les images, créer une prévisualisation
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                messageElement.innerHTML = `
-                <div class="file-message">
-                        <div class="file-preview">
-                            <img src="${e.target.result}" alt="Image partagée" style="max-width: 100%; max-height: 200px; border-radius: 8px;">
-                        </div>
-                        <div class="file-info">
-                            <div class="file-name">${file.name}</div>
-                            <div class="file-size">${formatFileSize(file.size)}</div>
-                        </div>
-                    </div>
-                    <div class="message-time">${getCurrentTime()}</div>
-                `;
-
-                // Ajouter le message à la conversation et faire défiler 
-                chatMessages.appendChild(messageElement);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-
-                // Simuler une réponse
-                simulateFileResponse(file.name, chatMessages);
-            };
-            reader.readAsDataURL(file);
-        } else {
-            // Pour les autres types de fichiers
-            let fileIcon = getFileIcon(file.type);
-
-            messageElement.innerHTML = `
-            <div class="file-message">
-                    <div class="file-icon">
-                        <span class="material-symbols-rounded">${fileIcon}</span>
-                    </div>
-                    <div class="file-info">
-                        <div class="file-name">${file.name}</div>
-                        <div class="file-size">${formatFileSize(file.size)}</div>
-                    </div>
-                </div>
-                <div class="message-time">${getCurrentTime()}</div>
-            `;
-
-            // Ajouter le message à la conversation et faire défiler 
-            chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            // Simuler une réponse
-            simulateFileResponse(file.name, chatMessages);
+            const preview = document.createElement('div');
+            preview.className = 'file-preview';
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            preview.appendChild(img);
+            fileMessage.appendChild(preview);
         }
+        
+        fileMessage.appendChild(fileIcon);
+        fileMessage.appendChild(fileInfo);
+        messageEl.appendChild(fileMessage);
+        
+        // Add time
+        const timeSpan = document.createElement('span');
+        timeSpan.className = 'message-time';
+        timeSpan.textContent = getCurrentTime();
+        messageEl.appendChild(timeSpan);
+        
+        // Add to chat
+        const chatMessages = document.querySelector('.chat-messages');
+        chatMessages.appendChild(messageEl);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Reset file input
+        const fileInput = document.getElementById('file-input');
+        if (fileInput) {
+            fileInput.value = "";
+        }
+        
+        // Simulate response
+        setTimeout(() => {
+            simulateFileResponse(file.name, chatMessages);
+        }, 1500);
     });
-
-    // Réinitialiser l'input file pour permettre de sélectionner à nouveau les mêmes fichiers
-    const fileInput = document.getElementById('fileInput') || document.getElementById('file-input');
-    if (fileInput) {
-        fileInput.value = '';
-    }
 }
 
 // Simuler une réponse après l'envoi du fichier
-function simulateFileResponse(fileName, chatMessages) {
-    // Récupérer l'indicateur de saisie s'il existe
-    const typingIndicator = document.querySelector('.typing-indicator');
-    
-    // Masquer l'indicateur de saisie s'il existe
-    if (typingIndicator) {
-        typingIndicator.style.display = 'none';
-    }
-    
-    // Créer un délai pour simuler la réponse
-    setTimeout(() => {
-        // Créer et ajouter la réponse
-        const responseElement = document.createElement('div');
-        responseElement.className = 'message message-received';
-        responseElement.innerHTML = `
-            J'ai bien reçu votre fichier "${fileName}". Merci !
-            <div class="message-time">${getCurrentTime()}</div>
-        `;
-        
-        chatMessages.appendChild(responseElement);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }, 1500);
-}
 
+function simulateFileResponse(fileName, chatMessages) {
+    // Create response message
+    const messageEl = document.createElement('div');
+    messageEl.className = 'message message-received';
+    messageEl.textContent = `J'ai bien reçu votre fichier "${fileName}". Merci !`;
+    
+    // Add time to response
+    const timeSpan = document.createElement('span');
+    timeSpan.className = 'message-time';
+    timeSpan.textContent = getCurrentTime();
+    messageEl.appendChild(timeSpan);
+    
+    // Add response to chat and scroll
+    chatMessages.appendChild(messageEl);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
 
 // Formatage de la taille du fichier
 function formatFileSize(bytes) {
@@ -380,6 +380,29 @@ function formatFileSize(bytes) {
     } else {
         return (bytes / 1048576).toFixed(1) + ' Mo';
     }
+}
+
+
+// Replace incomplete fileInput event listener
+if (fileInput) {
+    fileInput.addEventListener('change', function(e) {
+        const files = e.target.files;
+        if (files.length > 0) {
+            handleFiles(files);
+        }
+    });
+}
+
+// Replace incomplete chatArea drop event listener
+if (chatArea) {
+    chatArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        chatArea.classList.remove('drag-over');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            handleFiles(files);
+        }
+    });
 }
 
 // Obtenir l'icone approprié selon le type de fichier
@@ -1007,4 +1030,4 @@ document.addEventListener('DOMContentLoaded', function() {
         const now = new Date();
         return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
     }
-});
+}) });
