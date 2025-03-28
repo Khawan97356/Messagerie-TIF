@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parametre</title>
+
+    <!-- css stylesheet -->
+    <link rel="stylesheet" href="../CSS/style parametre.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>Paramètres</h1>
+        </div>
+
+        <!-- Affichage -->
+        <div class="settings-card settings-section">
+            <div class="settings-header">
+                <div class="settings-header-title">
+                    <svg class="settings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <span>Affichage</span>
+                </div>
+                <svg class="settings-icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6"/>
+                </svg>
+            </div>
+            <div class="settings-content">
+                <div class="settings-row">
+                    <span>Mode sombre</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="settings-row">
+                    <span>Taille de la police</span>
+                    <input type="range" min="1" max="5" value="3" class="range-slider" id="fontSizeSlider">
+                </div>
+                <div class="settings-row">
+                    <span>Contraste élevé</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="highContrastToggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accessibilité -->
+        <div class="settings-card settings-section">
+            <div class="settings-header">
+                <div class="settings-header-title">
+                    <svg class="settings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/>
+                        <path d="M12 6a2 2 0 1 0 2 2 2 2 0 0 0-2-2zm0 10a1 1 0 0 0-1-1h-2a1 1 0 0 0 0 2h2a1 1 0 0 0 1-1z"/>
+                    </svg>
+                    <span>Accessibilité</span>
+                </div>
+                <svg class="settings-icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6"/>
+                </svg>
+            </div>
+            <div class="settings-content">
+                <div class="settings-row">
+                    <span>Réduire les animations</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="reduceMotionToggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="settings-row">
+                    <span>Lecteur d'écran</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="screenReaderToggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sécurité -->
+        <div class="settings-card settings-section">
+            <div class="settings-header">
+                <div class="settings-header-title">
+                    <svg class="settings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <span>Sécurité</span>
+                </div>
+                <svg class="settings-icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6"/>
+                </svg>
+            </div>
+            <div class="setting-content">
+                <!-- Niveau de sécurité -->
+                 <div class="security-level">
+                     <span>Niveau de sécurité</span>
+                     <span class="security-score">75%</span>
+                </div>
+                <div class="security-progress-bar">
+                    <div class="security-progress" style="width: 75%"></div>
+                 </div>
+            </div>
+
+            <!-- Options de sécurité -->
+            <div class="settings-row">
+                <div class="security-option">
+                    <span>Authentification à deux facteurs</span>
+                    <span class="security-status inactive">Inactif</span>
+                </div>
+                <button class="btn-icon" id="setup2fa">
+                    Configurer
+                </button>
+            </div>
+    
+            <div class="settings-row">
+                <div class="security-option">
+                    <span>Mot de passe</span>
+                    <span class="security-status warning">Dernier changement : 3 mois</span>
+                </div>
+                <button class="btn-icon" id="changePassword">
+                    Modifier
+                </button>
+            </div>
+    
+            <div class="settings-row">
+                <div class="security-option">
+                    <span>Appareils connectés</span>
+                    <span class="security-status">3 appareils actifs</span>
+                </div>
+                <button class="btn-icon" id="manageDevices">
+                    Gérer
+                </button>
+            </div>
+    
+            <div class="settings-row">
+                <div class="security-option">
+                    <span>Historique des connexions</span>
+                    <span class="security-status">Dernière : Aujourd'hui</span>
+                </div>
+                <button class="btn-icon" id="viewHistory">
+                    Voir
+                </button>
+            </div>
+    
+            <div class="settings-row">
+                <span>Verrouillage automatique</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="autoLockToggle">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+    
+            <div class="settings-row">
+                <span>Notifications de connexion</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="loginNotificationsToggle">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+    
+            <!-- Actions de sécurité avancées -->
+            <div class="security-actions">
+                <button class="btn btn-secondary" id="backupCodes">
+                    Codes de récupération
+                </button>
+                <button class="btn btn-secondary" id="securityAudit">
+                    Audit de sécurité
+                </button>
+                <button class="btn btn-danger" id="revokeAccess">
+                    Révoquer tous les accès
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="../JS/script parametre.js"></script>
+</body>
+</html>
