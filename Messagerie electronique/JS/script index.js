@@ -1,3 +1,96 @@
+let mediaRecorder;
+let audioChunks = [];
+let isRecording = false;
+let recordingTimer;
+let startTime;
+
+const voiceMessageBtn = document.getElementById('voice-message');
+const micIcon = voiceMessageBtn.querySelector('.mic-icon');
+const recordingDuration = voiceMessageBtn.querySelector('.recording-duration');
+
+voiceMessageBtn.addEventListener('click', toggleVoiceRecording);
+
+async function toggleVoiceRecording() {
+    if (!isRecording) {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            setupAudioAnalysis(stream);
+        } catch (err) {
+            console.error('Erreur lors de l\'accès au micro :', err);
+            alert('Impossible d\'accéder au micro. Vérifiez vos permissions.');
+        }
+    } else {
+        stopRecording();
+    }
+}
+
+function startRecording(stream) {
+    audioChunks = [];
+    mediaRecorder = new MediaRecorder(stream);
+
+    mediaRecorder.ondataavailable = (event) => {
+        audioChunks.push(event.data);
+    };
+
+    mediaRecorder.onstop = () => {
+        const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+        sendAudioMessage(audioBlob);
+    };
+
+    mediaRecorder.start();
+    isRecording = true;
+    startTime = Date.now();
+    micIcon.textContent = 'stop';
+    voiceMessageBtn.classList.add('recording');
+
+    updateRecordingDuration();
+}
+
+function stopRecording() {
+    if (mediaRecorder && isRecording) {
+        mediaRecorder.stop();
+        mediaRecorder.stream.getTracks().forEach(track => track.stop());
+        isRecording = false;
+        micIcon.textContent = 'mic';
+        voiceMessageBtn.classList.remove('recording');
+        clearInterval(recordingTimer);
+        recordingDuration.textContent = '';
+    }
+}
+
+function updateRecordingDuration() {
+    recordingTimer = setInterval(() => {
+        const duration = Math.floor((Date.now() - startTime) / 1000);
+        const minutes = Math.floor(duration / 60);
+        const seconds = duration % 60;
+        recordingDuration.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }, 1000);
+}
+
+function sendAudioMessage(audioBlob) {
+    // Créer un élément audio pour le message
+    const audioURL = URL.createObjectURL(audioBlob);
+    const messageContainer = document.createElement('div');
+    messageContainer.className = 'message message-sent';
+    
+    const audio = document.createElement('audio');
+    audio.controls = true;
+    audio.src = audioURL;
+    
+    messageContainer.appendChild(audio);
+    
+    // Ajouter l'heure
+    const timeSpan = document.createElement('span');
+    timeSpan.className = 'message-time';
+    timeSpan.textContent = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+    messageContainer.appendChild(timeSpan);
+    
+    // Ajouter le message à la conversation
+    document.querySelector('.chat-messages').appendChild(messageContainer);
+}
+
+
+
 function setupAudioAnalysis(stream) {
     // Créer le contexte audio
     audioContext = new (window.AudioContext || window.webkitAudioContext)();
