@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap">
     <link rel="stylesheet" href="../CSS/style index.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@latest/dist/index.min.js"></script>
+    
 </head>
 
 <body>
@@ -99,19 +102,18 @@
     <!-- Liste des Disucssions -->
 
     <main class="chat-container">
-        <div class="dicussions-list">
+        <div class="discussions-list">
             <div class="discussions-header">
                 <h2>Discussions</h2>
                 <button class="new-chat-btn">
                     <i class='bx bx-plus'></i>
-                    Nouvelle discussion
                 </button>
             </div>
 
             <div class="dicusssions">
                 <div class="chat-item">
                     <div class="chat-avatar">
-                        <img src="https://via.placeholder.com/50" alt="Avatar de l'utilisateur">
+                        <img src="https://via.placeholder.com/50" alt="">
                         <span class="status-dot online"></span>
                     </div>
                     <div class="chat-info">
@@ -125,7 +127,7 @@
                 </div>
                 <div class="chat-item">
                     <div class="chat-avatar">
-                        <img src="https://via.placeholder.com/50" alt="Avatar de l'utilisateur">
+                        <img src="https://via.placeholder.com/50" alt="">
                         <span class="status-dot offline"></span>
                     </div>
                     <div class="chat-info">
@@ -140,7 +142,7 @@
 
                 <div class="chat-item">
                     <div class="chat-avatar">
-                        <img src="https://via.placeholder.com/50" alt="Avatar de l'utilisateur">
+                        <img src="https://via.placeholder.com/50" alt="">
                         <span class="status-dot offline"></span>
                     </div>
                     <div class="chat-info">
@@ -155,7 +157,7 @@
 
                 <div class="chat-item">
                     <div class="chat-avatar">
-                        <img src="https://via.placeholder.com/50" alt="Avatar de l'utilisateur">
+                        <img src="https://via.placeholder.com/50" alt="">
                         <span class="status-dot offline"></span>
                     </div>
                     <div class="chat-info">
@@ -170,7 +172,7 @@
 
                 <div class="chat-item">
                     <div class="chat-avatar">
-                        <img src="https://via.placeholder.com/50" alt="Avatar de l'utilisateur">
+                        <img src="https://via.placeholder.com/50" alt="">
                         <span class="status-dot offline"></span>
                     </div>
                     <div class="chat-info">
@@ -185,7 +187,7 @@
 
                 <div class="chat-item">
                     <div class="chat-avatar">
-                        <img src="https://via.placeholder.com/50" alt="Avatar de l'utilisateur">
+                        <img src="https://via.placeholder.com/50" alt="">
                         <span class="status-dot offline"></span>
                     </div>
                     <div class="chat-info">
@@ -200,7 +202,7 @@
 
                 <div class="chat-item">
                     <div class="chat-avatar">
-                        <img src="https://via.placeholder.com/50" alt="Avatar de l'utilisateur">
+                        <img src="https://via.placeholder.com/50" alt="">
                         <span class="status-dot offline"></span>
                     </div>
                     <div class="chat-info">
@@ -221,16 +223,38 @@
      <div class="chat-box">
         <div class="chat-header">
             <div class="chat-user-info">
-                <img src="https://via.placeholder.com/50" alt="Avatar de l'utilisateur">
+                <img src="https://via.placeholder.com/50" alt="">
                 <div class="user-details">
                     <h3>Nom du contact</h3>
                     <span class="status">Enligne</span>
                 </div>
             </div>
-            <div class="chat-actions">
+            <div class="chat-actions" style="margin-left: auto;">
                 <button class="action-btn"><i class="bx bx-phone"></i></button>
                 <button class="action-btn"><i class="bx bx-video"></i></button>
                 <button class="action-btn"><i class="bx bx-info-circle"></i></button>
+            </div>
+
+            <div class="chat-input">
+                <div class="reply-preview" style="display: none;">
+                    <span class="reply-to-text"></span>
+                    <button class="cancel-reply">
+                        <i class="bx bx-x"></i>
+                    </button>
+                </div>
+                <button class="attachement-btn" aria-label="Joindre un fichier">
+                    <i class="bx bx-paperclip"></i>
+                </button>
+                <input type="file" id="file-input" style="display: none" multiple>
+                <input type="text" placeholder="Écrire un message...">
+                <button class="emoji-btn" title=" Inserer un emoji">
+                    <i class="bx bx-smile"></i>
+                </button>
+                <div class="emoji-picker"></div>  
+                <button class="send-btn" title="Enregistrer un message vocal">
+                    <i class="bx bx-microphone"></i>
+                </button>
+                <canvas id="visualizer" style="display: none; height: 40px; width: 100%;"></canvas>
             </div>
         </div>
 
@@ -238,6 +262,17 @@
             <div class="message sent">
                 <p>Bonjour ! Comment ça va ?</p>
                 <span class="time">10:30</span>
+                <div class="message-actions">
+                    <button class="reply-btn" title="Répondre">
+                        <i class="bx bx-reply"></i>
+                    </button>
+                    <button class="edit-btn" title="Modifier">
+                        i<i class="bx bx-edit"></i>
+                    </button>
+                </div>
+                <button class="delete-btn">
+                    <i class="bx bx-trash"></i>
+                </button>
             </div>
             <div class="message received">
                 <p>Salut ! Ça va bien, merci. Et toi ?</p>
@@ -254,14 +289,13 @@
         </div>
     </div>
  
-    <div class="chat-input">
-        <button class="attachement-btn"><i class="bx bx-paperclip"></i></button>
-        <input type="text" placeholder="Écrire un message...">
-        <button class="emoji-btn"><i class="bx bx-smile"></i></button>
-        <button class="send-btn"><i class="bx bx-send"></i></button>
-    </div>
-    
- 
+
 <script src="../JS/script index.js"></script>
+<script src="../JS/emoji.js"></script>
+<script src="../JS/attachements.js"></script>
+<script src="../JS/voice.js"></script>
+<script src="../JS/edit-message.js"></script>
+<script src="../JS/audio-visualiser.js"></script>
+<script src="../JS/reply.js"></script>
 
 </body>
