@@ -105,9 +105,11 @@
         <div class="discussions-list">
             <div class="discussions-header">
                 <h2>Discussions</h2>
-                <button class="new-chat-btn">
-                    <i class='bx bx-plus'></i>
-                </button>
+                <div class="header-actions">
+                    <button class="new-chat-btn">
+                        <i class='bx bx-plus'></i>
+                    </button>
+                </div>   
             </div>
 
             <div class="dicusssions">
@@ -119,6 +121,10 @@
                     <div class="chat-info">
                         <h3>Nom de l'utilisateur</h3>
                         <p class="last-message">Dernier message...</p>
+                        <div class="chat-tags">
+                            <span class="tag important">Important</span>
+                            <span class="tag work">Travail</span>
+                        </div>
                     </div>
                     <div class="chat-meta">
                         <span class="time">10:30</span>
@@ -227,26 +233,65 @@
                 <div class="user-details">
                     <h3>Nom du contact</h3>
                     <span class="status">Enligne</span>
+                    <span class="typing-indicator" style="display: none">est en train d'écrire...</span>
                 </div>
             </div>
             <div class="chat-actions" style="margin-left: auto;">
                 <button class="action-btn"><i class="bx bx-phone"></i></button>
                 <button class="action-btn"><i class="bx bx-video"></i></button>
-                <button class="action-btn"><i class="bx bx-info-circle"></i></button>
+                <button class="action-btn info-btn">
+                    <i class="bx bx-info-circle"></i>
+                </button>
+                <div class="info-dropdown">
+                    <ul>
+                        <li> Voir le profile</li>
+                        <li> Recherche</li>
+                        <li> Media et Liens</li>
+                        <li> Mode Silencieux</li>
+                        <li> Messages éphémeres</li>
+                        <li class="notes-btn"> Notes personnelles <i class="bx bx-note"></i></li>
+                        <li> Plus <i class="bx bx-chevron-right"></i></li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="chat-input">
+            <div class="notes-panel" style="display: none;">
+                <div class="notes-header">
+                    <h3>Notes personnelles</h3>
+                    <button class="close-notes"><i class="bx bx-x"></i></button>
+                </div>
+                <div class="notes-content">
+                    <textarea placeholder="Écrire une note..."></textarea>
+                </div>
+                <div class="notes-footer">
+                    <button class="save-notes">Enregistrer</button>
+                </div>
+            </div>
+
+            <div class="chat-input"> 
                 <div class="reply-preview" style="display: none;">
                     <span class="reply-to-text"></span>
                     <button class="cancel-reply">
                         <i class="bx bx-x"></i>
                     </button>
+                    <div class="mentions-list" style="display: none;">
+                        <ul>
+                            <!-- Cette liste sera remplie dynamiquement -->
+                        </ul>
+                    </div>
                 </div>
                 <button class="attachement-btn" aria-label="Joindre un fichier">
                     <i class="bx bx-paperclip"></i>
                 </button>
                 <input type="file" id="file-input" style="display: none" multiple>
                 <input type="text" placeholder="Écrire un message...">
+                <input type="file" id="file-input" style="display: none" multiple>
+                <div class="upload-progress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="progress-text">0%</div>
+                </div>
                 <button class="emoji-btn" title=" Inserer un emoji">
                     <i class="bx bx-smile"></i>
                 </button>
@@ -258,16 +303,34 @@
             </div>
         </div>
 
+        <div class="pinned-message">
+            <h4>Message épinglés</h4>
+            <div class="pinned-message-list">
+                <!-- Les messages épinglés seront ajoutés ici dynamiquement -->
+            </div>
+        </div>
+
         <div class="chat-messages">
             <div class="message sent">
                 <p>Bonjour ! Comment ça va ?</p>
-                <span class="time">10:30</span>
+                <div class="message-footer">
+                        <span class="time">10:30</span>
+                        <span class="message-status">
+                            <i class="bx bx-check-double"></i>
+                        </span>
+                </div>
                 <div class="message-actions">
+                    <button class="pin-btn" title="Epingler le message">
+                        <i class="bx bx-pin"></i>
+                    </button>
                     <button class="reply-btn" title="Répondre">
                         <i class="bx bx-reply"></i>
                     </button>
                     <button class="edit-btn" title="Modifier">
                         i<i class="bx bx-edit"></i>
+                    </button>
+                    <button class="forward-btn" title="Transférer">
+                        <i class="bx bx-share"></i>
                     </button>
                 </div>
                 <button class="delete-btn">
@@ -286,9 +349,50 @@
                 <p>Super ! As-tu des nouvelles de notre projet ?</p>
                 <span class="time">10:33</span>
             </div>
+            <div class="link-preview">
+                <img src="" alt="apercu du lien" class="preview-image">
+                <div class="preview-content">
+                    <h4 class="preview-title"></h4>
+                    <p class="preview-description"></p>
+                    <span class="preview-url"></span>
+                </div>
+            </div>
+        </div>
+        <div class="message sent poll-message">
+            <div class="poll-container">
+                <h4 class="poll-question">Quel jour pour la reunion ?</h4>
+                <div class="poll-options">
+                    <div class="poll-option">
+                        <div class="option-header">
+                            <input type="radio" name="poll" id="option1">
+                            <label for="option1">Lundi 14h</label>
+                            <span class="vote-count">3 votes</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                    <div class="poll-option">
+                        <div class="option-header">
+                            <input type="radio" name="poll" id="option2">
+                            <label for="option2">Mardi 10h</label>
+                            <span class="vote-count">2 votes</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 40%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="poll-footer">
+                    <span class="total-votes">Total votes: 5</span>
+                    <button class="end-poll-btn">Terminer le sondage</button>
+                </div>
+            </div>
+            <div class="message-footer">
+                <span class="time">10:30</span>
+            </div>
         </div>
     </div>
- 
 
 <script src="../JS/script index.js"></script>
 <script src="../JS/emoji.js"></script>
@@ -297,5 +401,15 @@
 <script src="../JS/edit-message.js"></script>
 <script src="../JS/audio-visualiser.js"></script>
 <script src="../JS/reply.js"></script>
+<script src="../JS/message-status.js"></script>
+<script src="../JS/upload-progress.js"></script>
+<script src="../JS/forward.js"></script>
+<script src="../JS/mentions.js"></script>
+<script src="../JS/self-destruct.js"></script>
+<script src="../JS/pinned-message.js"></script>
+<script src="../JS/typing-indicator.js"></script>
+<script src="../JS/link-preview.js"></script>
+<script src="../JS/polls.js"></script>
+
 
 </body>

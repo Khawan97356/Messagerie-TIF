@@ -113,3 +113,21 @@ document.addEventListener('DOMContentLoaded', () => {
         subtree: true
     });
 });
+
+// Ajouter à la fin du fichier
+document.addEventListener('DOMContentLoaded', () => {
+    const infoBtn = document.querySelector('.info-btn');
+    const infoDropdown = document.querySelector('.info-dropdown');
+
+    infoBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        infoDropdown.classList.toggle('active');
+    });
+
+    // Fermer le menu si on clique ailleurs sur la page
+    document.addEventListener('click', (e) => {
+        if (!infoDropdown.contains(e.target) && !infoBtn.contains(e.target)) {
+            infoDropdown.classList.remove('active');
+        }
+    });
+});
