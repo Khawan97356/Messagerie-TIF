@@ -129,3 +129,74 @@
     }
 
     updateSecurityLevel();
+
+
+// Gestion du chiffrement
+document.getElementById('manageEncryptionKey').addEventListener('click', () => {
+    // Afficher une boîte de dialogue pour gérer la clé
+    const dialog = document.createElement('dialog');
+    dialog.innerHTML = `
+        <div class="dialog-content">
+            <h2>Gérer la clé de chiffrement</h2>
+            <div class="key-info">
+                <p>Clé actuelle : ********-****-****-********</p>
+                <p>Date de création : ${new Date().toLocaleDateString()}</p>
+            </div>
+            <div class="dialog-actions">
+                <button class="btn btn-secondary" id="generateNewKey">Générer nouvelle clé</button>
+                <button class="btn btn-primary" id="closeDialog">Fermer</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(dialog);
+    dialog.showModal();
+
+    dialog.querySelector('#closeDialog').addEventListener('click', () => {
+        dialog.close();
+        dialog.remove();
+    });
+
+    dialog.querySelector('#generateNewKey').addEventListener('click', () => {
+        // Simulation de génération de nouvelle clé
+        showToast('Nouvelle clé générée avec succès');
+    });
+});
+
+document.getElementById('backupEncryptionKey').addEventListener('click', () => {
+    // Simulation d'export de la clé
+    const dummyKey = {
+        key: "encrypted-key-data",
+        createdAt: new Date().toISOString(),
+        version: "1.0"
+    };
+
+    // Création du fichier à télécharger
+    const blob = new Blob([JSON.stringify(dummyKey, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    // Création du lien de téléchargement
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `encryption-key-backup-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    
+    // Nettoyage
+    setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }, 0);
+
+    showToast('Sauvegarde de la clé téléchargée');
+});
+
+// Fonction utilitaire pour afficher les messages toast
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}

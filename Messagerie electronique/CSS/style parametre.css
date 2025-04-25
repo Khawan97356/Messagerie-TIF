@@ -317,3 +317,49 @@ input:checked + .toggle-slider:before {
 .btn-danger:hover {
     background-color: #dc2626;
 }
+
+.encryption-details {
+    margin-left: 20px;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+}
+
+.security-status.active {
+    color: var(--color-success);
+    background-color: rgba(40, 167, 69, 0.1);
+    border-radius: 5px;
+    padding: 4px 8px;
+}
+
+dialog {
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dialog-content {
+    padding: 1.5rem;
+    min-width: 400px;  
+}
+
+.dialog-content h2 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.key-info {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.dialog-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+}

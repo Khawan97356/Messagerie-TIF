@@ -1,49 +1,40 @@
 // Switch entre le bouton micro et le bouton envoyer 
 
 document.addEventListener('DOMContentLoaded', function() {
-    const chatInput = document.querySelector('.chat-input input');
-    const sendButton = document.querySelector('.send-btn');
+    const chatInput = document.querySelector('.chat-input input[type="text"]');
+    const micButton = document.querySelector('.mic-btn');
+    const sendButton = document.querySelector('.send-message-btn');
 
     chatInput.addEventListener('input', function() {
         if (this.value.trim() !== '') {
-            // Changer en bouton d'envoi
-            sendButton.innerHTML = '<i class="bx bx-send"></i>';
-            sendButton.title = 'Envoyer le message';
+            micButton.style.display = 'none';
+            sendButton.style.display = 'block';
         } else {
-            // Remettre en bouton micro
-            sendButton.innerHTML = '<i class="bx bx-microphone"></i>';
-            sendButton.title = 'Enregistrer un message vocal';
+            micButton.style.display = 'block';
+            sendButton.style.display = 'none';
+        }
+    });
+
+    // Gérer l'envoi du message
+    sendButton.addEventListener('click', function() {
+        const messageText = chatInput.value.trim();
+        if (message !== '') {
+            // Ajoutez ici la logique d'envoi du message
+            messageInput.value = '';
+            // Réafficher le bouton micro après l'envoi*
+            micButton.style.display = 'block';
+            sendButton.style.display = 'none';
+        }
+    });
+
+    // Gérer l'envoi avec la touche "Entrée"
+    messageInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey && this.value.trim() !== '') {
+            e.preventDefault(); // Empêche le saut de ligne
+            sendButton.click(); // Simule le clic sur le bouton d'envoi
         }
     });
 });
-
-// Ajout d'animations entre les boutons d'envoi et micro
-document.addEventListener('DOMContentLoaded', function() {
-    const chatInput = document.querySelector('.chat-input input');
-    const sendButton = document.querySelector('.send-btn');
-    
-    // Initialiser le bouton avec les deux icones 
-    sendButton.innerHTML = '<i class="bx bx-microphone"></i><i class="bx bx-send hide"></i>';
-
-    chatInput.addEventListener('input', function() {
-        const micIcon = sendButton.querySelector('.bx-microphone');
-        const sendIcon = sendButton.querySelector('.bx-send');
-
-        if (this.value.trim() !== '') {
-            // Changer en bouton d'envoi
-            micIcon.classList.add('hide');
-            sendIcon.classList.remove('hide');
-            sendButton.title = 'Envoyer le message';
-            sendButton.classList.add('switch');
-        } else {
-            // Remettre en bouton micro
-            micIcon.classList.remove('hide');
-            sendIcon.classList.add('hide');
-            sendButton.title = 'Enregistrer un message vocal';
-            sendButton.classList.remove('switch');
-        }
-    });
-}); 
 
 
 // Interaction des emojis
