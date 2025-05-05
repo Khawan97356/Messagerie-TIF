@@ -1,29 +1,41 @@
-const emojiButton = document.querySelector('.emoji-btn');
-const input = document.querySelector('.chat-input input');
+document.addEventListener('DOMContentLoaded', () => {
+    const emojiButton = document.querySelector('.emoji-btn');
+    const messageInput = document.querySelector('.chat-input input[type="text"]');
+    const pickerContainer = document.querySelector('.emoji-picker');
 
-// Création d'une instance du picker
-const picker = new EmojiButton({
-    position: 'top-start',
-    theme: 'dark', // ou 'light' selon votre préférence
-    categories: ['smileys', 'people', 'animals', 'food', 'activities', 'travel', 'objects', 'symbols', 'flags']
-});
+    // Créer le picker d'emoji
+    const picker = new EmojiMart.Picker({
+        data: async () => {
+            const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
+            return response.json();
+        },
+        onEmojiSelect: (emoji) => {
+            // Insérer l'emoji dans le champ de texte
+            const cursorPos = messageInput.selectionStart;
+            const text = messageInput.value;
+            messageInput.value = text.slice(0, cursorPos) + emoji.native + text.slice(cursorPos);
+            messageInput.focus();
+            pickerContainer.style.display = 'none';
+        },
+        locale: 'fr',
+        theme: 'light'
+    });
 
-// Événement pour afficher le picker
-emojiButton.addEventListener('click', () => {
-    picker.togglePicker(emojiButton);
-});
+    // Ajouter le picker au conteneur
+    pickerContainer.innerHTML = '';
+    pickerContainer.appendChild(picker);
+    pickerContainer.style.display = 'none';
 
-// Événement lors de la sélection d'un emoji
-picker.on('emoji', selection => {
-    // Insérer l'emoji à la position du curseur
-    const cursorPosition = input.selectionStart;
-    const text = input.value;
-    const before = text.substring(0, cursorPosition);
-    const after = text.substring(cursorPosition);
-    input.value = before + selection.emoji + after;
-    
-    // Replacer le curseur après l'emoji
-    const newCursorPosition = cursorPosition + selection.emoji.length;
-    input.setSelectionRange(newCursorPosition, newCursorPosition);
-    input.focus();
+    // Gérer le clic sur le bouton emoji
+    emojiButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        pickerContainer.style.display = pickerContainer.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Fermer le picker si on clique en dehors
+    document.addEventListener('click', (e) => {
+        if (!emojiButton.contains(e.target) && !pickerContainer.contains(e.target)) {
+            pickerContainer.style.display = 'none';
+        }
+    });
 });

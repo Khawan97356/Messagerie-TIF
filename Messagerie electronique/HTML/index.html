@@ -8,13 +8,15 @@
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@emoji-mart/css@latest/css/emoji-mart.css">
 
     <link rel="stylesheet" href="../CSS/style index.css">
 
+    <link rel="manifest" href="../manifest.json">
 
     <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@latest/dist/index.min.js"></script>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="https://cdn.jsdelivr.net/npm/@emoji-mart/data@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emoji-mart/js@latest"></script>
     
 </head>
 
@@ -84,14 +86,14 @@
 
             <ul class="nav-list secondary-nav">
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-label="Profil">
+                    <a href="../HTML/Profile.html" class="nav-link" aria-label="Profil">
                         <i class='bx bx-user'></i>
                         <span class="nav-label">Profil</span>
                     </a>
                     <span class="nav-tooltip">Profil</span>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" aria-label="Déconnexion">
+                    <a href="../HTML/page connexion.html" class="nav-link" aria-label="Déconnexion">
                         <i class='bx bx-log-out'></i>
                         <span class="nav-label">Déconnexion</span>
                     </a>
@@ -108,14 +110,31 @@
     <main class="chat-container">
         <div class="discussions-list">
             <div class="discussions-header">
-                <h2>Discussions</h2>
                 <div class="search-discussions">
                     <div class="search-wrapper">
                         <i class="bx bx-search"></i>
-                        <input type="text" id="discussion-fliter" placeholder="Rechercher une conversation...">
-                        <button class="claer-search" style="display: none;">
-                            <i class="bx bx-x"></i>
-                        </button>
+                        <div class="search-fliters">
+                            <button class="fliter-btn" data-filter="Messages">Messages</button>
+                            <button class="fliter-btn" data-filter="Files">Fichiers</button>
+                            <button class="fliter-btn" data-filter="Links">Liens</button>
+                        </div>
+                    </div>
+                    <div class="advanced-search">
+                        <div class="search-filters">
+                            <select class="date-filter">
+                                <option value="">Toutes les dates</option>
+                                <option value="today">Aujourd'hui</option>
+                                <option value="week">Cette semaine</option>
+                                <option value="month">Ce mois</option>
+                            </select>
+                            <select class="type-filter">
+                                <option value="">Tous les types</option>
+                                <option value="text">Texte</option>
+                                <option value="media">Médias</option>
+                                <option value="files">Fichiers</option>
+                                <option value="links">Liens</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="header-actions">
@@ -138,6 +157,9 @@
                     <div class="chat-meta">
                         <span class="time">10:30</span>
                         <span class="unread-count">3</span>
+                        <button class="delete-chat-btn" title="Supprimer la conversation">
+                            <i class='bx bx-trash'></i>
+                        </button>
                     </div>
                 </div>
                 <div class="chat-item">
@@ -152,21 +174,9 @@
                     <div class="chat-meta">
                         <span class="time">10:30</span>
                         <span class="unread-count">3</span>
-                    </div>
-                </div>
-
-                <div class="chat-item">
-                    <div class="chat-avatar">
-                        <img src="https://via.placeholder.com/50" alt="">
-                        <span class="status-dot offline"></span>
-                    </div>
-                    <div class="chat-info">
-                        <h3>Nom de l'utilisateur</h3>
-                        <p class="last-message">Dernier message...</p>
-                    </div>
-                    <div class="chat-meta">
-                        <span class="time">10:30</span>
-                        <span class="unread-count">3</span>
+                        <button class="delete-chat-btn" title="Supprimer la conversation">
+                            <i class='bx bx-trash'></i>
+                        </button>
                     </div>
                 </div>
 
@@ -182,6 +192,9 @@
                     <div class="chat-meta">
                         <span class="time">10:30</span>
                         <span class="unread-count">3</span>
+                        <button class="delete-chat-btn" title="Supprimer la conversation">
+                            <i class='bx bx-trash'></i>
+                        </button>
                     </div>
                 </div>
 
@@ -197,6 +210,9 @@
                     <div class="chat-meta">
                         <span class="time">10:30</span>
                         <span class="unread-count">3</span>
+                        <button class="delete-chat-btn" title="Supprimer la conversation">
+                            <i class='bx bx-trash'></i>
+                        </button>
                     </div>
                 </div>
 
@@ -212,6 +228,9 @@
                     <div class="chat-meta">
                         <span class="time">10:30</span>
                         <span class="unread-count">3</span>
+                        <button class="delete-chat-btn" title="Supprimer la conversation">
+                            <i class='bx bx-trash'></i>
+                        </button>
                     </div>
                 </div>
 
@@ -227,6 +246,9 @@
                     <div class="chat-meta">
                         <span class="time">10:30</span>
                         <span class="unread-count">3</span>
+                        <button class="delete-chat-btn" title="Supprimer la conversation">
+                            <i class='bx bx-trash'></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -260,6 +282,8 @@
                         <li> Mode Silencieux</li>
                         <li> Messages éphémeres</li>
                         <li class="notes-btn"> Notes personnelles <i class="bx bx-note"></i></li>
+                        <li class="archive-chat"><i class="bx bx-archive"></i>Archiver la conversation</li>
+                        <li class="export-chat"><i class="bx bx-export"></i>Exporter la conversation</li>
                         <li> Plus <i class="bx bx-chevron-right"></i></li>
                     </ul>
                 </div>
@@ -333,6 +357,19 @@
                     <i class="bx bx-send"></i>
                 </button>               
                 <canvas id="visualizer" style="display: none; height: 40px; width: 100%;"></canvas>
+                <div class="file-preview-container" style="display: none;">
+                    <div class="file-preview-header">
+                        <h4>Fichiers à envoyer</h4>
+                        <button class="clear-files"><i class='bx bx-x'></i></button>
+                    </div>
+                    <div class="file-preview-list">
+                        <!-- Liste des fichiers -->
+                    </div>
+                    <div class="file-actions">
+                        <button class="compress-files">Compresser</button>
+                        <button class="send-files">Envoyer</button>
+                    </div>
+                </div>
             </div>
 
             <div class="search-messages" style="display: none;">
@@ -386,6 +423,48 @@
                     <button class="forward-btn" title="Transférer">
                         <i class="bx bx-share"></i>
                     </button>
+                    <button class="favorite-btn" title="Marquer comme favori">
+                        <i class="bx bx-star"></i>
+                    </button>
+                    <button class="save-message-btn" title="Sauvegarder pour plus tard">
+                        <i class="bx bx-bookmark"></i>
+                    </button>
+                    <div class="message-translation">
+                        <button class="translate-btn" title="Traduire le message">
+                            <i class="bx bx-translate"></i>
+                        </button>
+                        <div class="translation-content" style="display: none;"></div>
+
+                        <button class="reminder-btn" title="Me le rappeler plus tard">
+                            <i class="bx bx-time"></i>
+                        </button>
+                        <button class="quote-btn">
+                            <i class="bx bx-quote-right"></i>
+                        </button>
+                        <div class="reminder-popup" style="display: none;">
+                            <h4>Rappel</h4>
+                            <select class="reminder-time">
+                                <option value="1h">Dans 1 heure</option>
+                                <option value="2h">Dans 2 heures</option>
+                                <option value="1d">Demain</option>
+                                <option value="1w">Dans une semaine</option>
+                                <option value="custom">Personnalisé</option>
+                            </select>
+                            <input type="datetime-local" class="custom-reminder-time" style="display: none;">
+                            <div class="reminder-repeat">
+                                <label>
+                                    <input type="checkbox" class="reapeat-reminder">
+                                    Repeter 
+                                </label>
+                                <select class="repeat-interval" disabled>
+                                    <option value="daily">Chaque jour</option>
+                                    <option value="weekly">Chaque semaine</option>
+                                    <option value="monthly">Chaque mois</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="set-reminder-btn">Defiinir le rappel </button>
+                    </div>
                 </div>
                 <button class="delete-btn">
                     <i class="bx bx-trash"></i>
@@ -395,6 +474,13 @@
                 <p>Salut ! Ça va bien, merci. Et toi ?</p>
                 <span class="time">10:31</span>
             </div>
+            <div class="message-thread">
+                <button class="show-thread-btn">
+                    <i class="bx bx-git-branch"></i>
+                    <span>Voir le fil de disucssion (3)</span>
+                </button>
+                <div class="thread-message" style="display: none;"></div>
+            </div>
             <div class="message sent">
                 <p>Je vais bien aussi, merci !</p>
                 <span class="time">10:32</span>
@@ -402,6 +488,12 @@
             <div class="message received">
                 <p>Super ! As-tu des nouvelles de notre projet ?</p>
                 <span class="time">10:33</span>
+            </div>
+            <div class="message-thread">
+                <button class="show-thread-btn">
+                    <i class="bx bx-git-branch"></i>
+                    <span>Voir le fil de disucssion (3)</span>
+                </button>
             </div>
             <div class="link-preview">
                 <img src="" alt="apercu du lien" class="preview-image">
@@ -444,6 +536,12 @@
             </div>
             <div class="message-footer">
                 <span class="time">10:30</span>
+                <div class="read-status">
+                    <span class="read-by">Lus par 3 personnes</span>
+                    <div class="read-avatars">
+                        <!-- Les avatars des lecteurs seront ajoutés dynamiquement -->
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -468,7 +566,6 @@
     </div>
 </div>
 
-
 </div>
 
 <script src="../JS/script index.js"></script>
@@ -492,5 +589,8 @@
 <script src="../JS/media-gallery.js"></script>
 <script src="../JS/mobile-navigation.js"></script>
 <script src="../JS/video-call.js"></script>
-
+<script src="../JS/info-dropdown.js"></script>
+<script src="../JS/features.js"></script>
+<script src="../JS/delete-chat.js"></script>
 </body>
+</html>

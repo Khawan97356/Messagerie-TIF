@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parametre</title>
+    <meta name="description" content="Paramètres de l'application de messagerie">
+    <meta name="theme-color" content="#ffffff">
+    <title>Paramètres - Messagerie</title>
 
     <!-- css stylesheet -->
     <link rel="stylesheet" href="../CSS/style parametre.css">
 </head>
 <body>
 
-    <div class="container">
-        <div class="header">
+    <main class="container">
+        <header class="header">
             <h1>Paramètres</h1>
-        </div>
+        </header>
 
         <!-- Affichage -->
-        <div class="settings-card settings-section">
+        <section class="settings-card settings-section" role="region" aria-labelledby="display-title">
             <div class="settings-header">
                 <div class="settings-header-title">
+                    <h2 id="display-title">Affichage</h2>
                     <svg class="settings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="5"/>
                         <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
@@ -33,9 +36,10 @@
                 <div class="settings-row">
                     <span>Mode sombre</span>
                     <label class="toggle-switch">
-                        <input type="checkbox" id="darkModeToggle">
+                        <input type="checkbox" id="darkModeToggle" aria-describedby="darkModeHelp">
                         <span class="toggle-slider"></span>
                     </label>
+                    <small id="darkModeHelp" class="help-text">Activez pour réduire la fatigue oculaire</small>
                 </div>
                 <div class="settings-row">
                     <span>Taille de la police</span>
@@ -49,10 +53,10 @@
                     </label>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Accessibilité -->
-        <div class="settings-card settings-section">
+        <section class="settings-card settings-section">
             <div class="settings-header">
                 <div class="settings-header-title">
                     <svg class="settings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -81,10 +85,10 @@
                     </label>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Sécurité -->
-        <div class="settings-card settings-section">
+        <section class="settings-card settings-section">
             <div class="settings-header">
                 <div class="settings-header-title">
                     <svg class="settings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -192,12 +196,11 @@
                     Révoquer tous les accès
                 </button>
             </div>
-        </div>
-    </div>
-</div>
-</div>
+        </section>
+    </main>
 
-    <div class="toast" id="toast"></div>
+    <!-- Ajouter des messages de confirmation -->
+    <div class="toast" id="toast" role="alert" aria-live="polite"></div>
 
     <script src="../JS/script parametre.js"></script>
 </body>

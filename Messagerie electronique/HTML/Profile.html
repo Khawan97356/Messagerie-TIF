@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="profile-section">
+        <div class="profile-header">
+            <img src="profile-photo.jpg" alt="Photo de profil" class="profile-photo">
+            <button class="edit-photo-btn"><i class='bx bx-camera'></i></button>
+        </div>
+        
+        <div class="profile-info">
+            <div class="info-field">
+                <label>Nom d'utilisateur</label>
+                <input type="text" class="profile-input" value="Nom actuel">
+            </div>
+            <div class="info-field">
+                <label>Bio</label>
+                <textarea class="profile-input" placeholder="Parlez de vous..."></textarea>
+            </div>
+            <div class="info-field">
+                <label>Email</label>
+                <input type="email" class="profile-input">
+            </div>
+            <div class="info-field">
+                <label>Téléphone</label>
+                <input type="tel" class="profile-input">
+            </div>
+        </div>
+    </div>
+    <div class="privacy-settings">
+        <h3>Confidentialité</h3>
+        <div class="setting-item">
+            <span>Statut en ligne</span>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="setting-item">
+            <span>Voir mes stories</span>
+            <select>
+                <option>Tout le monde</option>
+                <option>Mes contacts</option>
+                <option>Personne</option>
+            </select>
+        </div>
+    </div>
+    <div class="notification-preferences">
+        <h3>Notifications</h3>
+        <div class="setting-item">
+            <span>Sons des messages</span>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="setting-item">
+            <span>Notifications d'appel</span>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+    <div class="security-settings">
+        <h3>Sécurité</h3>
+        <div class="setting-item">
+            <button class="change-password-btn">
+                <i class='bx bx-lock-alt'></i>
+                Changer le mot de passe
+            </button>
+        </div>
+        <div class="setting-item">
+            <button class="enable-2fa-btn">
+                <i class='bx bx-shield'></i>
+                Activer l'authentification à deux facteurs
+            </button>
+        </div>
+    </div>
+</body>
+</html>
