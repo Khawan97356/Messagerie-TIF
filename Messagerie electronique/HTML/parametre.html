@@ -26,7 +26,6 @@
                         <circle cx="12" cy="12" r="5"/>
                         <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
                     </svg>
-                    <span>Affichage</span>
                 </div>
                 <svg class="settings-icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M6 9l6 6 6-6"/>
@@ -202,6 +201,41 @@
     <!-- Ajouter des messages de confirmation -->
     <div class="toast" id="toast" role="alert" aria-live="polite"></div>
 
+    
+
     <script src="../JS/script parametre.js"></script>
+
+    <script>
+        const API_URL = "http://localhost:3000/api/settings";
+    
+        // Sauvegarder les paramètres via l'API
+        async function saveSettings(darkMode, fontSize) {
+            try {
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ darkMode, fontSize }),
+                });
+                const data = await response.json();
+                console.log("Paramètres sauvegardés :", data);
+            } catch (error) {
+                console.error("Erreur lors de la sauvegarde des paramètres :", error);
+            }
+        }
+    
+        // Gestion des événements
+        const darkModeToggle = document.getElementById("darkModeToggle");
+        const fontSizeSlider = document.getElementById("fontSizeSlider");
+    
+        darkModeToggle.addEventListener("change", () => {
+            const isDarkMode = darkModeToggle.checked;
+            saveSettings(isDarkMode, parseInt(fontSizeSlider.value));
+        });
+    
+        fontSizeSlider.addEventListener("input", () => {
+            const fontSize = parseInt(fontSizeSlider.value);
+            saveSettings(darkModeToggle.checked, fontSize);
+        });
+    </script>
 </body>
 </html>

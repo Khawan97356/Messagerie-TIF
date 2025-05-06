@@ -5,7 +5,7 @@ document.querySelectorAll('.add-reaction-btn').forEach(btn => {
 
 // Gestion des fils de discussion
 document.querySelectorAll('.show-thread-btn').forEach(btn => {
-    btn.addEventListener('click', toggleThread);
+    btn.addEventListener('click', toogleThread);
 });
 
 // Gestion des traductions

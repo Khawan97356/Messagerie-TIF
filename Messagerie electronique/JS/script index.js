@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatInput = document.querySelector('.chat-input input[type="text"]');
     const micButton = document.querySelector('.mic-btn');
     const sendButton = document.querySelector('.send-message-btn');
+    const chatMessages = document.querySelector('.chat-messages');
 
     chatInput.addEventListener('input', function() {
         if (this.value.trim() !== '') {
@@ -15,25 +16,44 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Gérer l'envoi du message
+    // Gerer le clic sur le bouton d'envoi
     sendButton.addEventListener('click', function() {
-        const messageText = chatInput.value.trim();
-        if (message !== '') {
-            // Ajoutez ici la logique d'envoi du message
-            messageInput.value = '';
-            // Réafficher le bouton micro après l'envoi*
-            micButton.style.display = 'block';
-            sendButton.style.display = 'none';
-        }
+        sendMessage();
     });
 
     // Gérer l'envoi avec la touche "Entrée"
     messageInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter' && !e.shiftKey && this.value.trim() !== '') {
             e.preventDefault(); // Empêche le saut de ligne
-            sendButton.click(); // Simule le clic sur le bouton d'envoi
+        sendButton.click(); // Simule le clic sur le bouton d'envoi
         }
     });
+
+    // Fonction pour envoyer le message
+    function sendMessage() {
+        const messageText = chatInput.value.trim();
+
+        if (messageText !== '') {
+            // Créer un nouvel élément de message
+            const messageElement = document.createElement('div');
+            newMessage.classList.add('message', 'sent');
+            messageElement.innerHTML = `
+                <div class="message-content">
+                    <p>${messageText}</p>
+                </div>
+                <div class="message-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+            `;
+
+            // Ajouter le message à la liste des messages
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Faire défiler vers le bas
+
+            // Réinitialiser le champ de saisie
+            chatInput.value = '';
+            micButton.style.display = 'block';
+            sendButton.style.display = 'none';
+        }
+    }
 });
 
 
@@ -41,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const emojiButton = document.querySelector('.emoji-btn');
     const emojiPicker = document.querySelector('.emoji-picker');
-    const chatInput = document.querySelector('.chat-input input');
+    const chatInput = document.querySelector('.chat-input input[type="text"]');
 
     // Gestionnaire du clic sur le bouton emoji 
     emojiButton.addEventListener('emoji-click', () => {
@@ -62,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fermer le picker si on clique ailleurs 
     document.addEventListener('click', (e) => {
-        if (!emojiButton.contains(e.target) && !emojiPicker.contains(event.target)) {
+        if (!emojiButton.contains(e.target) && !emojiPicker.contains(e.target)) {
             emojiPicker.classList.remove('visible');
         }
     });

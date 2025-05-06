@@ -1112,10 +1112,7 @@ body {
 
 .emoji-picker {
     position: absolute;
-    bottom: 100%;
-    right: 0;
-    margin-bottom: 10px;
-    z-index: 1000;
+    z-index: 9999 !important;
 }
 
 .emoji-picker__content {

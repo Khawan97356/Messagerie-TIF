@@ -14,7 +14,7 @@
 
     <link rel="manifest" href="../manifest.json">
 
-    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@latest/dist/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@4.6.2/dist/index.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emoji-mart/data@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emoji-mart/js@latest"></script>
     
@@ -592,5 +592,28 @@
 <script src="../JS/info-dropdown.js"></script>
 <script src="../JS/features.js"></script>
 <script src="../JS/delete-chat.js"></script>
+
+<script>
+    const API_URL = "http://localhost:3000/api/settings";
+
+    // Fonction pour récupérer les paramètres
+    async function loadSettings() {
+        try {
+            const response = await fetch(API_URL);
+            const settings = await response.json();
+            console.log("Paramètres chargés :", settings);
+
+            // Appliquer les paramètres
+            document.body.classList.toggle("dark-mode", settings.darkMode);
+            document.documentElement.style.setProperty("--font-size", `${settings.fontSize}rem`);
+        } catch (error) {
+            console.error("Erreur lors du chargement des paramètres :", error);
+        }
+    }
+
+    // Charger les paramètres au chargement de la page
+    window.addEventListener("DOMContentLoaded", loadSettings);
+</script>
+
 </body>
 </html>
