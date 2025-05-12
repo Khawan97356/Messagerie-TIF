@@ -1,85 +1,836 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Profil Utilisateur</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../CSS/style profile.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+
 </head>
 <body>
+    <div class="notifications-container">
+        <div class="notification success" id="success-notification">
+            <i class='bx bx-check-circle'></i>
+            Modifications enregistrées avec succès !
+        </div>
+        <div class="notification error" id="error-notification">
+            <i class='bx bx-error-circle'></i>
+            Erreur lors de l'enregistrement des modifications.
+        </div>
+        <div class="notification warning" id="network-error">
+            <i class='bx bx-wifi-off'></i>
+            Problème de connexion. Veuillez vérifier votre réseau.
+        </div>
+        <div class="notification info" id="retry-notification">
+            <i class='bx bx-refresh'></i>
+            Nouvelle tentative de sauvegarde...
+        </div>
+    </div>
+
     <div class="profile-section">
-        <div class="profile-header">
-            <img src="profile-photo.jpg" alt="Photo de profil" class="profile-photo">
-            <button class="edit-photo-btn"><i class='bx bx-camera'></i></button>
+        <!-- Remplacer la section actuelle de la photo de profil par ceci -->
+<div class="profile-header">
+    <div class="profile-photo-container">
+        <div class="avatar-container" id="avatar-container">
+            <!-- L'avatar sera généré ici -->
         </div>
+        <button class="edit-photo-btn" id="edit-avatar-btn">
+            <i class='bx bx-palette'></i>
+        </button>
+    </div>
+</div>
+
+<!-- Ajouter cette modale pour la personnalisation de l'avatar -->
+<div class="modal" id="avatar-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Personnalisez votre avatar</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="avatar-customization">
+                <div class="avatar-preview-container">
+                    <div id="avatar-preview" class="avatar-preview"></div>
+                </div>
+                
+                <div class="avatar-options">
+                    <div class="option-section">
+                        <h4>Style</h4>
+                        <div class="option-list" id="avatar-style-options">
+                            <button class="avatar-option" data-option="style" data-value="circle">Cercle</button>
+                            <button class="avatar-option" data-option="style" data-value="square">Carré</button>
+                            <button class="avatar-option" data-option="style" data-value="hexagon">Hexagone</button>
+                        </div>
+                    </div>
+                    
+                    <div class="option-section">
+                        <h4>Fond</h4>
+                        <div class="option-list" id="avatar-background-options">
+                            <button class="avatar-option" data-option="background" data-value="gradient">Dégradé</button>
+                            <button class="avatar-option" data-option="background" data-value="pattern">Motif</button>
+                            <button class="avatar-option" data-option="background" data-value="solid">Uni</button>
+                        </div>
+                    </div>
+                    
+                    <div class="option-section">
+                        <h4>Couleur principale</h4>
+                        <div class="color-selector" id="avatar-color-selector">
+                            <button class="color-option" data-color="#6366f1" style="background-color: #6366f1;"></button>
+                            <button class="color-option" data-color="#14b8a6" style="background-color: #14b8a6;"></button>
+                            <button class="color-option" data-color="#f59e0b" style="background-color: #f59e0b;"></button>
+                            <button class="color-option" data-color="#ef4444" style="background-color: #ef4444;"></button>
+                            <button class="color-option" data-color="#0ea5e9" style="background-color: #0ea5e9;"></button>
+                            <button class="color-option" data-color="#10b981" style="background-color: #10b981;"></button>
+                            <button class="color-option" data-color="#8b5cf6" style="background-color: #8b5cf6;"></button>
+                            <button class="color-option" data-color="#ec4899" style="background-color: #ec4899;"></button>
+                        </div>
+                    </div>
+                    
+                    <div class="option-section">
+                        <h4>Icône</h4>
+                        <div class="icon-selector" id="avatar-icon-selector">
+                            <button class="icon-option" data-icon="bx-user"><i class='bx bx-user'></i></button>
+                            <button class="icon-option" data-icon="bx-code-alt"><i class='bx bx-code-alt'></i></button>
+                            <button class="icon-option" data-icon="bx-palette"><i class='bx bx-palette'></i></button>
+                            <button class="icon-option" data-icon="bx-camera"><i class='bx bx-camera'></i></button>
+                            <button class="icon-option" data-icon="bx-music"><i class='bx bx-music'></i></button>
+                            <button class="icon-option" data-icon="bx-book"><i class='bx bx-book'></i></button>
+                            <button class="icon-option" data-icon="bx-game"><i class='bx bx-game'></i></button>
+                            <button class="icon-option" data-icon="bx-star"><i class='bx bx-star'></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="option-section">
+                        <h4>Ou télécharger une photo</h4>
+                        <div class="photo-upload">
+                            <button id="avatar-photo-btn" class="action-button">
+                                <i class='bx bx-upload'></i>
+                                Télécharger une photo
+                            </button>
+                            <input type="file" id="avatar-photo-input" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="reset-avatar" class="cancel-button">Réinitialiser</button>
+            <button id="save-avatar" class="apply-button">Appliquer</button>
+        </div>
+    </div>
+</div>
         
-        <div class="profile-info">
-            <div class="info-field">
-                <label>Nom d'utilisateur</label>
-                <input type="text" class="profile-input" value="Nom actuel">
+        <div class="profile-content">
+            <div class="profile-info">
+                <h2 class="section-title">Informations personnelles</h2>
+                <div class="info-field">
+                    <label>Nom d'utilisateur</label>
+                    <input type="text" class="profile-input" value="Nom actuel">
+                </div>
+                <div class="info-field">
+                    <label>Bio</label>
+                    <textarea class="profile-input" placeholder="Parlez de vous..."></textarea>
+                </div>
+                <div class="info-field">
+                    <label>Email</label>
+                    <input type="email" id="email" class="profile-input">
+                </div>
+                <div class="info-field">
+                    <label>Téléphone</label>
+                    <input type="tel" class="profile-input">
+                </div>
             </div>
-            <div class="info-field">
-                <label>Bio</label>
-                <textarea class="profile-input" placeholder="Parlez de vous..."></textarea>
+            <div class="setting-container social-links-container">
+                <h2 class="section-title">Réseaux sociaux</h2>
+                <p class="section-description">Connectez vos comptes de réseaux sociaux pour faciliter le partage et afficher vos liens sur votre profile</p>
+
+                <div class="social-links">
+                    <div class="social-link-item" data-platform="Instagram">
+                        <div class="social-link-header">
+                            <div class="social-icon Instagram">
+                                <i class="bx bxl-instagram"></i>
+                            </div>
+                            <div class="social-platform">Instagram</div>
+                            <div class="connection-status" id="instagram-status">Non connecté</div>
+                        </div>
+                        <div class="social-link-form">
+                            <input type="text" class="profile-input social-input" id="Instagram-input" placeholder="Votre nom d'utilisateur Instagram" data-preview-url="https://www.instagram.com/">
+                            <div class="social-preview" id="Instagram-preview">
+                                <a href="#" target="_blank" class="preview-link">
+                                    <i class="bx bx-link-external"></i>
+                                    <span class="preview-text">https://www.instagram.com/</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-link-item" data-platform="instagram">
+                        <div class="social-link-header">
+                            <div class="social-icon Meta">
+                                <i class="bx bxl-Meta"></i>
+                            </div>
+                            <div class="social-platform">Meta</div>
+                            <div class="connection-status" id="Meta-status">Non connecté</div>
+                        </div>
+                        <div class="social-link-form">
+                            <input type="text" class="profile-input social-input" id="Meta-input" placeholder="Votre nom d'utilisateur Meta" data-preview-url="https://www.Meta.com/">
+                            <div class="social-preview" id="Meta-preview">
+                                <a href="#" target="_blank" class="preview-link">
+                                    <i class="bx bx-link-external"></i>
+                                    <span class="preview-text">https://www.Meta.com/</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-link-item" data-platform="linkedin">
+                        <div class="social-link-header">
+                            <div class="social-icon linkedin">
+                                <i class="bx bxl-linkedin"></i>
+                            </div>
+                            <div class="social-platform">Linkedin</div>
+                            <div class="connection-status" id="linkedin-status">Non connecté</div>
+                        </div>
+                        <div class="social-link-form">
+                            <input type="text" class="profile-input social-input" id="linkedin-input" placeholder="Votre nom d'utilisateur Linkedin" data-preview-url="https://www.linkedin.com/">
+                            <div class="social-preview" id="linkedin-preview">
+                                <a href="#" target="_blank" class="preview-link">
+                                    <i class="bx bx-link-external"></i>
+                                    <span class="preview-text">https://www.linkedin.com/</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-link-item" data-platform="github">
+                        <div class="social-link-header">
+                            <div class="social-icon github">
+                                <i class="bx bxl-github"></i>
+                            </div>
+                            <div class="social-platform">Github</div>
+                            <div class="connection-status" id="github-status">Non connecté</div>
+                        </div>
+                        <div class="social-link-form">
+                            <input type="text" class="profile-input social-input" id="github-input" placeholder="Votre nom d'utilisateur Github" data-preview-url="https://www.github.com/">
+                            <div class="social-preview" id="github-preview">
+                                <a href="#" target="_blank" class="preview-link">
+                                    <i class="bx bx-link-external"></i>
+                                    <span class="preview-text">https://www.github.com/</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-container">
+                    <h2 class="section-title">Partage de Profile</h2>
+                    <p class="section-description">Controlez qui peut voir votre profil et comment il peut etre partagé.</p>
+
+                    <div class="profile-sharing">
+                        <div class="sharing-header">
+                            <button id="share-profile-btn" class="share-button">
+                                <i class="bx bx-share-alt"></i>
+                                Partager mon profil
+                            </button>
+                            <div class="profile-url-container">
+                                <input type="text" id="profile-url" class="profile-input" value="https://example.com/profile/votre-nom" readonly>
+                                <button id="copy-url-btn" class="copy-button">
+                                    <i class="bx bx-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="privacy-settings">
+                            <h3 class="privacy-title">Options de Confidentialité</h3>
+
+                            <div class="setting-item">
+                                <span>Visibilité du profil</span>
+                                <select id="profile-visibility" class="visibility-select">
+                                    <option value="public">Public - Visible par tous</option>
+                                    <option value="contacts">Contacts - Uniquement vos contacts</option>
+
+                                    <option value="private">Privé - Uniquement vous</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-item">
+                                <span>Autoriser le partage</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="allow-sharing">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                            <h3 class="privacy-title">Visibilité des Informations</h3>
+
+                            <div class="visibility-grid">
+                                <div class="visibility-item">
+                                    <div class="visibility-label">Email</div>
+                                    <select class="info-visibility" data-info="email">
+                                        <option value="public">Public</option>
+                                        <option value="contacts" selected>Contacts</option>
+                                        <option value="private">Privé</option>
+                                    </select>
+                                </div>
+
+                                <div class="visibility-item">
+                                    <div class="visibility-label">Téléphone</div>
+                                    <select class="info-visibility" data-info="phone">
+                                        <option value="public">Public</option>
+                                        <option value="contacts">Contacts</option>
+                                        <option value="private" selected>Privé</option>
+                                    </select>
+                                </div>
+
+                                <div class="visibility-item">
+                                    <div class="visibility-label">Réseaux sociaux</div>
+                                    <select class="info-visibility" data-info="social">
+                                        <option value="public" selected>Public</option>
+                                        <option value="contacts">Contacts</option>
+                                        <option value="private">Privé</option>
+                                    </select>
+                                </div>
+
+                                <div class="visibility-item">
+                                    <div class="visibility-label">Adresse</div>
+                                    <select class="info-visibility" data-info="badges">
+                                        <option value="public" selected>Public</option>
+                                        <option value="contacts">Contacts</option>
+                                        <option value="private">Privé</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modale de partage de profil -->
+                 <div class="modal" id="share-modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Partager mon profil</h3>
+                            <button class="close-modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="share-preview">
+                                <div class="share-profile-card">
+                                    <img src="" alt="Photode profil" id="share-profile-image" class="share-profile-image">
+                                    <div class="share-profile-info">
+                                        <h3 id="share-profile-name">Votre nom</h3>
+                                        <p id="share-profile-bio">Votre bio s'affichera ici...</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="share-options">
+                                <h4>Partager via</h4>
+                                <div class="share-buttons">
+                                    <button class="share-option-btn" data-platform="Gmail">
+                                        <i class="bx bxl-gmail"></i>
+                                        Gmail
+                                    </button>
+                                    <button class="share-option-btn" data-platform="Meta">
+                                        <i class="bx bxl-Meta"></i>
+                                        Meta
+                                    </button>
+                                    <button class="share-option-btn" data-platform="WhatsApp">
+                                        <i class="bx bxl-whatsapp"></i>
+                                        WhatsApp
+                                    </button>
+                                    <button class="share-option-btn" data-platform="Telegram">
+                                        <i class="bx bxl-telegram"></i>
+                                        Telegram
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="direct-link">
+                                <h4>Lien direct</h4>
+                                <div class="profile-url-container">
+                                    <input type="text" id="share-profile-url" class="profile-input" value="https://example.com/profile/votre-nom" readonly="readonly">
+                                    <button id="copy-url-btn" class="copy-button">
+                                        <i class="bx bx-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+
             </div>
-            <div class="info-field">
-                <label>Email</label>
-                <input type="email" class="profile-input">
+
+            <div class="settings-container">
+                <h2 class="section-title">Confidentialité</h2>
+                <div class="setting-item">
+                    <span>Statut en ligne</span>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <span>Voir mes stories</span>
+                    <select>
+                        <option>Tout le monde</option>
+                        <option>Mes contacts</option>
+                        <option>Personne</option>
+                    </select>
+                </div>
             </div>
-            <div class="info-field">
-                <label>Téléphone</label>
-                <input type="tel" class="profile-input">
+
+            <div class="setting-container badges-container">
+                <h2 section-title>Badges et certifications</h2>
+                <p class="section-description">Mettez en valeur vos compétences et réalisations avec des badges et certifications.</p>
+
+                <div class="badges-showcase" id="badges-showcase">
+                    <!-- Les badges seront ajoutés dynamiquement -->
+                </div>
+
+                <div class="badges-actions">
+                    <button id="add-badge-btn" class="action-button">
+                        <i class="bx bx-plus"></i> 
+                        Ajouter un badge
+                    </button>
+                    <button id="reorder-badge-btn" class="action-button secondary">
+                        <i class="bx bx-sort"></i> 
+                        Reorganiser
+                    </button>
+                </div>
+
+                <div class="certifications-scetion">
+                    <h3 class="subsection-title">Certifications</h3>
+                    <div class="certifications-list" id="certifications-list">
+                        <!-- Les certifications seront ajoutées dynamiquement -->
+                    </div>
+                    <button id="add-certification-btn" class="action-button">
+                        <i class="bx bx-plus"></i> 
+                        Ajouter une certification
+                    </button>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="privacy-settings">
-        <h3>Confidentialité</h3>
-        <div class="setting-item">
-            <span>Statut en ligne</span>
-            <label class="switch">
-                <input type="checkbox">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="setting-item">
-            <span>Voir mes stories</span>
-            <select>
-                <option>Tout le monde</option>
-                <option>Mes contacts</option>
-                <option>Personne</option>
-            </select>
-        </div>
-    </div>
-    <div class="notification-preferences">
-        <h3>Notifications</h3>
-        <div class="setting-item">
-            <span>Sons des messages</span>
-            <label class="switch">
-                <input type="checkbox">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="setting-item">
-            <span>Notifications d'appel</span>
-            <label class="switch">
-                <input type="checkbox">
-                <span class="slider"></span>
-            </label>
-        </div>
-    </div>
-    <div class="security-settings">
-        <h3>Sécurité</h3>
-        <div class="setting-item">
-            <button class="change-password-btn">
-                <i class='bx bx-lock-alt'></i>
-                Changer le mot de passe
+
+            <!-- Modale pour ajouter un badge -->
+             <div class="modal" id="badge-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="badge-modal-title">Ajouter un badge</h3>
+                        <button class="close-modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="badge-form">
+                            <div class="info-field">
+                                <label for="badge-name">Nom du badge</label>
+                                <input type="text" id="badge-name" class="profile-input" placeholder="Ex: Expert JavaScript">
+                            </div>
+
+                            <div class="info-field">
+                                <label for="badge-icon">Icône</label>
+                                <div class="icon-selector" id="icon-selector">
+                                    <button class="icon-option" data-info="bx-code-block"><i class="bx bx-code-block"></i></button>
+
+                                    <button class="icon-option" data-info="bx-data"><i class="bx bx-data"></i></button>
+
+                                    <button class="icon-option" data-info="bx-palette"><i class="bx bx-palette"></i></button>
+
+                                    <button class="icon-option" data-info="bx-world"><i class="bx bx-world"></i></button>
+
+                                    <button class="icon-option" data-info="bx-analyse"><i class="bx bx-analyse"></i></button>
+
+                                    <button class="icon-option" data-info="bx-briefcase"><i class="bx bx-briefcase"></i></button>
+
+                                    <button class="icon-option" data-info="bx-book-open"><i class="bx bx-book-open"></i></button>
+
+                                    <button class="icon-option" data-info="bx-chart"><i class="bx bx-chart"></i></button>
+                                </div>
+                                <input type="hidden" id="badge-icon-input" value="">
+                            </div>
+
+                            <div class="info-field">
+                                <label for="badge-color">Couleur</label>
+                                <div class="color-selector" id="color-selector">
+                                    <button class="color-option" data-color="#6366f1" style="background-color: #6366f1;"></button>
+
+                                    <button class="color-option" data-color="#14b8a6" style="background-color: #14b8a6;"></button>
+
+                                    <button class="color-option" data-color="#f59e0b" style="background-color: #f59e0b;"></button>
+
+                                    <button class="color-option" data-color="#ef4444" style="background-color: #ef4444;"></button>
+
+                                    <button class="color-option" data-color="#0ea5e9" style="background-color: #0ea5e9;"></button>
+
+                                    <button class="color-option" data-color="#10b981" style="background-color: #10b981;"></button>
+
+                                    <button class="color-option" data-color="#3b82f6" style="background-color: #3b82f6;"></button>
+
+                                    <button class="color-option" data-color="#ec4899" style="background-color: #ec4899;"></button>
+                                </div>
+                                <input type="hidden" id="badge-color-input" value="">
+                            </div>
+
+                            <div class="info-field">
+                                <label for="badge-description">Description</label>
+                                <textarea id="badge-description" class="profile-input" placeholder="Decrivez ce que représente ce badge..."></textarea>
+                            </div>
+
+                            <div class="badge-preview">
+                                <h4>Apercu</h4>
+                                <div class="badge-preview-container">
+                                    <div class="profile-badge" id="badge-preview">
+                                        <div class="badge-icon" style="background-color: #6366f1;">
+                                            <i class="bx bx-code-block"></i>
+                                        </div>
+                                        <div class="badge-info">
+                                            <div class="badge-name">Nom du badge</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cancel-badge" class="cancel-button">Annuler</button>
+                        <button id="save-button" class="apply-button">Appliquer</button>
+                    </div>
+                </div>
+             </div>
+
+            <!-- Ajouter après les badges ou comme nouvelle section -->
+             <div class="setting-container import-container">
+                <h2 class="section-title">Importer des données</h2>
+                <p class="section-description">Importez vos informations depuis d'autres plateformes pour completer votre profile rapidement.</p>
+
+                <div class="import-platforms">
+                    <div class="platform-card" data-platform="linkedin">
+                        <div class="platform-logo linkedin">
+                            <i class="bx bxl-linkedin"></i>
+                        </div>
+                        <div class="platform-info">
+                            <h3 class="platform-name">Linkedin</h3>
+                            <p class="platform-description">Importez vos informations professionnelles, compétences et certifications</p>
+                        </div>
+                        <button class="import-button">
+                            <i class="bx bx-import"></i>
+                            Importer
+                        </button>
+                    </div>
+
+                    <div class="platform-card" data-platform="github">
+                        <div class="platform-logo github">
+                            <i class="bx bxl-github"></i>
+                        </div>
+                        <div class="platform-info">
+                            <h3 class="platform-name">Github</h3>
+                            <p class="platform-description">Importez vos projets, competences et contributions</p>
+                        </div>
+                        <button class="import-button">
+                            <i class="bx bx-import"></i>
+                            Importer
+                        </button>
+                    </div>
+
+                    <div class="platform-card" data-platform="google">
+                        <div class="platform-logo google">
+                            <i class="bx bxl-google"></i>
+                        </div>
+                        <div class="platform-info">
+                            <h3 class="platform-name">Google</h3>
+                            <p class="platform-description">Importez vos projets, competences et contributions</p>
+                        </div>
+                        <button class="import-button">
+                            <i class="bx bx-import"></i>
+                            Importer
+                        </button>
+                    </div>
+                </div>
+
+                <div class="manual-import">
+                    <h3 class="subsection-title">Importer depuis un fichier</h3>
+                    <p class="import-description">Vous pouvez également importer vos données depuis un fichier JSON ou CSV.</p>
+
+                    <div class="file-upload-container">
+                        <label for="file-upload" class="file-upload-label">
+                            <i class="bx bx-upload"></i>
+                            Choisir un fichier
+                        </label>
+                        <input type="file" id="file-upload" accept=".json, .csv" style="display: none;">
+                        <span id="file-name" class="file-name"></span>
+                    </div>
+
+                    <button id="upload-file-btn" class="action-button" disabled>
+                        <i class="bx bx-import"></i> 
+                        Importer
+                    </button>
+                </div>
+             </div>
+
+             <!-- Modale pour l'importation -->
+              <div class="modal" id="import-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="import-modal-title">Importer depuis <span id="import-platform-name">Linkedin</span></h3>
+                        <button class="close-modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="import-authenfication" class="import-step">
+                            <p>Pour importer vos données depuis <span class="platform-name">cette plateforme</span>, vous devez d'abord vous authentifier</p>
+
+                            <div class="oauth-button-container">
+                                <button class="oauth-button">
+                                    <i class="bx bx-lock-open-alt"></i>
+                                    Se connecter à <span class="platform-name">la plateforme</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="import-selection" class="import-step" style="display: none;">
+                            <p>Sélectionner les informations que vous souhaitez importer :</p>
+
+                            <div class="import-options">
+                                <label class="import-option">
+                                    <input type="checkbox" class="import-checkbox" value="profile">
+                    
+                                    <span>Informations du profil</span>
+                                </label>
+
+                                <label class="import-option">
+                                    <input type="checkbox" class="import-checkbox" value="experience" checked>
+                                    <span>Experiences professionnelles</span>
+                                </label>
+
+                                <label class="import-option">
+                                    <input type="checkbox" class="import-checkbox" value="education">
+                                    <span>Formation</span>
+                                </label>
+
+                                <label class="import-option">
+                                    <input type="checkbox" class="import-checkbox" value="skills" checked>
+                                    <span>Competences</span>
+                                </label>
+
+                                <label class="import-option">
+                                    <input type="checkbox" class="import-checkbox" value="certifications" checked>
+                                    <span>Certifications</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="import-preview" class="import-step" style="display: none;">
+                            <p>Apercu des données à importer :</p>
+
+                            <div class="import-preview-container">
+                                <div class="import-preview-section">
+                                    <h4>Informations du profil</h4>
+                                    <ul class="import-preview-list"></ul>
+                                </div>
+
+                                <div class="import-section" data-section="certifications">
+                                    <h4>Certifications</h4>
+                                    <div class="import-preview-content"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="import-progress" class="import-step" style="display: none;">
+                            <p>Importation en cours...</p>
+
+                            <div class="progress-container">
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" id="import-progress-bar"></div>
+                                </div>
+                                <span class="progress-text" id="import-progress-text">0%</span>
+                            </div>
+
+                            <div class="import-status" id="import-status"></div>
+                        </div>
+
+                        <div id="import-success" class="import-step" style="display: none;">
+                            <div class="success-icon">
+                                <i class="bx bx-check"></i>
+                            </div>
+
+                            <h3>Importation reussie !</h3>
+                            <p>Vos données ont bien été importées.</p>
+
+                            <div class="import-summary" id="import-summary"></div>
+                        </div>
+
+                        <div id="import-error" class="import-step" style="display: none;">
+                            <div class="error-icon">
+                                <i class="bx bx-error"></i>
+                            </div>
+
+                            <h3>Erreur lors de l'importation</h3>
+                            <p id="import-error-message">Une erreur est survenue lors de l'importation des données.</p>
+
+                            <button id="retry-import-btn" class="action-button">
+                                <i class="bx bx-refresh"></i> 
+                                Reesayer
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer" id="import-modal-footer">
+                        <button id="cancel-import" class="cancel-button">Annuler</button>
+                        <button id="continue-import" class="apply-button" disabled>Continuer</button>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Modale pour ajouter une certification -->
+              <div class="modal" id="certification-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="certification-modal-title">Ajouter une certification</h3>
+                        <button class="close-modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="certification-form">
+                            <div class="info-field">
+                                <label for="certification-name">Nom de la certification</label>
+                                <input type="text" id="certification-name" class="profile-input" placeholder="Ex: AWS Certified Architect">
+                            </div>
+
+                            <div class="info-field">
+                                <label for="certification-issuer">Organisme émetteur</label>
+                                <input type="text" id="certification-issuer" class="profile-input" placeholder="Ex: Amazon Web Services">
+                            </div>
+
+                            <div class="info-field">
+                                <label for="certification-date">Date d'obtention</label>
+                                <input type="date" id="certification-date" class="profile-input">
+                            </div>
+
+                            <div class="info-field">
+                                <label for="certification-url">Lien de verification (optionnel)</label>
+                                <input type="url" id="certification-url" class="profile-input" placeholder="https://www.example.com/vertification/verification">
+                            </div>
+
+                            <div class="certification-preview">
+                                <h4>Apercu</h4>
+                                <div class="certification-item" id="certification-preview">
+                                    <div class="certification-logo">
+                                        <i class="bx bx-metal"></i>
+                                    </div>
+                                    <div class="certification-details">
+                                        <div class="certification-name">Nom de la certification</div>
+                                        <div class="certification-issuer">Organisme émetteur</div>
+                                        <div class="certification-date">Date d'obtention</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cancel-certification" class="cancel-button">Annuler</button>
+                        <button id="save-certification" class="apply-button">Appliquer</button>
+                    </div>
+                </div>
+
+              </div>
+
+            <div class="settings-container">
+                <h2 class="section-title">Notifications</h2>
+                <div class="setting-item">
+                    <span>Sons des messages</span>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <span>Notifications d'appel</span>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="progress-bar-container" style="display: none;">
+                <div class="progress-bar"></div>
+            </div>
+
+            <div class="autosave-status" id="autosave-status">
+                <span class="autosave-indicator"></span>
+                <span class="autosave-text">Modification enregistrées automatiquement</span>
+            </div>
+
+            <button class="save-button">
+                <i class='bx bx-save'></i>
+                Enregistrer les modifications
+            </button>
+            <button class="history-button" id="show-history-btn">
+                <i class='bx bx-history'></i>
+                Historique des modifications
             </button>
         </div>
-        <div class="setting-item">
-            <button class="enable-2fa-btn">
-                <i class='bx bx-shield'></i>
-                Activer l'authentification à deux facteurs
-            </button>
+    </div>
+
+    <div class="modal" id="crop-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Modifier la photo de profil</h2>
+                <button class="close-modal"><i class='bx bx-x'></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="image-container">
+                    <img id="Image a recadrer" src="" alt="Image de profil">
+    </div>
+    <div class="cropper-controls">
+        <button id="rotate-left"><i class='bx bx-rotate-left'></i> Rotation gauche</button>
+        <button id="rotate-right"><i class='bx bx-rotate-right'></i> Rotation droite</button>
+        <button id="zoom-in"><i class='bx bx-zoom-in'></i> Zoom +></button>
+        <button id="zoom-out"><i class='bx bx-zoom-out'></i> Zoom -</button>
+    </div>
+</div>
+<div class="modal-footer">
+    <button id="cancel-crop" class="cancel-button">Annuler</button>
+    <button id="apply-crop" class="apply-button">Appliquer</button>
+</div>
+</div>
+
+<div class="modal" id="history-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Historique des modifications</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="version-list" id="version-list"></div>
+            <!-- Les versions seront ajoutées ici dynamiquement -->
         </div>
     </div>
+    <div class="modal-footer">
+        <button class="cancel-button close-modal">Fermer</button>
+    </div>
+</div>
+
+<div class="modal" id="auth-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Authentification</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="auth-message">Pour des raison de sécurité, veuillez confirmer votre mot de passe pour effectuer cette modifications sensible.</p>
+            <div class="auth-field">
+                <label for="auth-password">MOT DE PASSE</label>
+                <input type="password" id="auth-password" class="profile-input" placeholder="Entrez votre mot de passe">
+                <div class="auth-error" id="auth-error"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="cancel-button close-modal">Annuler</button>
+            <button class="apply-button" id="confirm-auth">Confirmer</button>
+        </div>
+    </div>
+</div>
+
+<i class='bx bx-lock-alt sensitive-field-icon' title="Information sensible - vérification nécessaire pour modifier"></i>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
+    <script src="../JS/scripts profile.js"></script>
 </body>
 </html>

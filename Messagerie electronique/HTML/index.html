@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@emoji-mart/css@latest/css/emoji-mart.css">
 
     <link rel="stylesheet" href="../CSS/style index.css">
+    <link rel="stylesheet" href="../CSS/biometric-auth.css">
 
     <link rel="manifest" href="../manifest.json">
 
@@ -21,6 +22,66 @@
 </head>
 
 <body>
+    <!-- Fenetre de boimetrie d'authentification -->
+    <div class="biometric-overlay" id="biometricOverlay">
+        <div class="biometric-container">
+            <div class="biometric-content">
+                <div class="biometric-top">
+                    <h2 class="biometric-title">Authentification requise</h2>
+                    <p class="biometric-subtitle">Veuillez vous authentifier pour acceder a votre messagerie</p>
+                </div>
+
+                <div class="biometric-middle">
+                    
+                    <div class="pin-container" id="pinContainer">
+                        <div class="pin-option">
+                            <i class="bx bx-lock-alt biometric-icon"></i>
+                            <span class="biometric-label">Code PIN</span>
+                        </div>
+    
+                        <div class="pin-input-container">
+                            <div class="pin-dots">
+                                <span class="pin-dot" id="dot1"></span>
+                                <span class="pin-dot" id="dot2"></span>
+                                <span class="pin-dot" id="dot3"></span>
+                                <span class="pin-dot" id="dot4"></span>
+                            </div>
+
+                            <div id="biometricStatus" class="biometric-status"></div>
+    
+                            <div class="pin-keypad">
+                                <button class="pin-key" id="key1">1</button>
+                                <button class="pin-key" id="key2">2</button>
+                                <button class="pin-key" id="key3">3</button>
+                                <button class="pin-key" id="key4">4</button>
+                                <button class="pin-key" id="key5">5</button>
+                                <button class="pin-key" id="key6">6</button>
+                                <button class="pin-key" id="key7">7</button>
+                                <button class="pin-key" id="key8">8</button>
+                                <button class="pin-key" id="key9">9</button>
+                                <button class="pin-key pin-clear" data-key="clear">
+                                    <i class="bx bx-x"></i>
+                                </button>
+                                <button class="pin-key" id="key0">0</button>
+                                <button class="pin-key pin-delete" data-key="delete">
+                                    <i class="bx bx-backspace"></i>
+                                </button>   
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="scaning-animation" id="scaningAnimation"></div>
+
+                </div>
+            </div>
+ 
+            <div class="biometric-bottom">
+                <button class="biometric-skip" id="skipBiometric">Acceder sans authentification</button>
+            </div>
+        </div>  
+    </div>
+
+
     <aside class="sidebar">
 
         <!-- En-tête de la barre latérale --> 
@@ -503,8 +564,7 @@
                     <span class="preview-url"></span>
                 </div>
             </div>
-        </div>
-        <div class="message sent poll-message">
+            <div class="message sent poll-message">
             <div class="poll-container">
                 <h4 class="poll-question">Quel jour pour la reunion ?</h4>
                 <div class="poll-options">
@@ -544,6 +604,8 @@
                 </div>
             </div>
         </div>
+    </div>
+        
 
         
     <div class="video-call-container">
@@ -592,6 +654,7 @@
 <script src="../JS/info-dropdown.js"></script>
 <script src="../JS/features.js"></script>
 <script src="../JS/delete-chat.js"></script>
+<script src="../JS/biometric-auth.js"></script>
 
 <script>
     const API_URL = "http://localhost:3000/api/settings";

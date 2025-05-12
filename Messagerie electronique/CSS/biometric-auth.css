@@ -1,0 +1,248 @@
+/* Styles pour la fenêtre de biométrie */
+.biometric-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    font-family: 'Poppins', sans-serif;
+}
+
+.biometric-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    width: 90%;
+    max-width: 380px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    /* Position ajustée - réduit le top */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.biometric-status {
+    text-align: center;
+    margin: 15px 0;
+    height: 20px;
+    font-weight: medium;
+    transition: all 0.3s ease;
+}
+
+/* Structure interne */
+.biometric-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 260px;
+}
+
+.biometric-top {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.biometric-middle {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.biometric-bottom {
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+}
+
+.biometric-title {
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+.biometric-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+/* Options de code PIN */
+.pin-container {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.pin-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.biometric-icon {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #4d7cff, #7e57c2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.biometric-label {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.pin-input-container {
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto;
+}
+
+.pin-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.pin-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    transition: background-color 0.3s ease;
+}
+
+.pin-dot.filled {
+    background-color: #4d7cff;
+}
+
+.pin-keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.pin-key {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+}
+
+.pin-key:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    transform: scale(1.05);
+}
+
+.pin-key:active {
+    background-color: rgba(220, 220, 220, 0.8);
+    transform: scale(0.95);
+}
+
+.pin-clear, .pin-delete {
+    font-size: 1.2rem;
+    color: #777;
+}
+
+.biometric-status {
+    margin: 8px 0;
+    padding: 5px 10px;
+    color: #4d7cff;
+    font-weight: 500;
+    min-height: 18px;
+    font-size: 0.85rem;
+}
+
+.biometric-skip {
+    background: none;
+    border: 1px solid #ddd;
+    padding: 6px 12px;
+    border-radius: 8px;
+    color: #777;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto;
+    display: block;
+    font-size: 0.85rem;
+}
+
+.biometric-skip:hover {
+    border-color: #aaa;
+    color: #555;
+    background-color: #f9f9f9;
+}
+
+/* Styles spécifiques pour les mobiles */
+@media (max-width: 576px) {
+    .biometric-container {
+        padding: 15px;
+        max-width: 300px;
+    }
+    
+    .biometric-title {
+        font-size: 1.1rem;
+    }
+    
+    .biometric-subtitle {
+        font-size: 0.8rem;
+    }
+    
+    .biometric-icon {
+        font-size: 2rem;
+    }
+    
+    .biometric-skip {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .pin-key {
+        width: 42px;
+        height: 42px;
+        font-size: 0.95rem;
+    }
+}
+
+/* Ajustements pour les écrans très petits */
+@media (max-width: 350px) {
+    .biometric-container {
+        padding: 12px;
+        max-width: 280px;
+    }
+    
+    .pin-key {
+        width: 38px;
+        height: 38px;
+        font-size: 0.9rem;
+    }
+}

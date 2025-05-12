@@ -41,7 +41,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="message-content">
                     <p>${messageText}</p>
                 </div>
-                <div class="message-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                <div class="message-footer">
+                    <span class="time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                    <div class="message-status">
+                        <i class="bx bx-check"></i>
+                    </div>
+                </div>
             `;
 
             // Ajouter le message à la liste des messages
