@@ -147,3 +147,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Gestion de la bascule de la barre latérale
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebarToggler = document.querySelector('.sidebar-toggler');
+    const sidebar = document.querySelector('.sidebar');
+    
+    if (sidebarToggler && sidebar) {
+        sidebarToggler.addEventListener('click', function() {
+            sidebar.classList.toggle('collapsed');
+        });
+    }
+    
+    // Gestion du menu en mode mobile
+    const menuToggler = document.querySelector('.menu-toggler');
+    if (menuToggler && sidebar) {
+        menuToggler.addEventListener('click', function() {
+            sidebar.classList.toggle('menu-active');
+        });
+    }
+    
+    // Fermer le menu si on clique en dehors
+    document.addEventListener('click', function(e) {
+        if (!sidebar.contains(e.target) && sidebar.classList.contains('menu-active')) {
+            sidebar.classList.remove('menu-active');
+        }
+    });
+});

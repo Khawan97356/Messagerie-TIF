@@ -86,6 +86,374 @@
             </div>
         </section>
 
+        <!-- Sauvegarde et données -->
+         <section class="setting-card settings-section">
+            <div class="settings-header">
+                <div class="settings-header-titile">
+                    <svg class="settings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                        <path d="M17 8V5a2 2 0 00-2-2H9a2 2 0 00-2 2v3"/>
+                    </svg>
+                    <span>Sauvegarde et données</span>
+                </div>
+                <svg class="settings-icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6"/>
+                </svg>
+            </div>
+            <div class="settings-content">
+                <div class="settings-row">
+                    <div class="security-option">
+                        <span>Sauvegarde des conversations</span>
+                        <span class="security-status">Derniere sauvegarde: Jamais</span>
+                    </div>
+                    <button class="btn-icon" id="backupConversations">
+                        Sauvegarder
+                    </button>
+                </div>
+                <div class="settings-row">
+                    <div class="security-option">
+                        <span>Exporter des données</span>
+                        <span class="security-status">Format: ZIP, JSON</span>
+                    </div>
+                    <button class="btn-icon" id="exportHistory">
+                        Exporter 
+                    </button>
+                </div>
+                <div class="settings-row">
+                    <span>Suppression automatique des messages</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="autoDeleteToggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="setting-row auto-delete-options" id="autoDeleteOptions" style="display: none;">
+                    <span>Délai de suppression</span>
+                    <select id="autoDeleteDelay" class="setting-select">
+                        <option value="1">Apres 24 heures</option>
+                        <option value="7">Apres 7 jours</option>
+                        <option value="30">Apres 30 jours</option>
+                        <option value="90">Apres 3 mois</option>
+                        <option value="365">Apres 1 an</option>
+                    </select>
+                </div>
+                <div class="data-actions">
+                    <button class="btn btn-secondary" id="backupSettings">
+                        Sauvegarder les paramètres
+                    </button>
+                    <button class="btn btn-danger" id="restoreAllData">
+                        Restaurer des données
+                    </button>
+                    <button class="btn btn-danger" id="clearAllData">
+                        Effacer toutes les données
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Langue et Localisation -->
+        <section class="settings-card settings-section">
+        <div class="settings-header">
+         <div class="settings-header-title">
+                <svg class="settings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                    <path d="M2 12h20"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+                <span>Langue et Localisation</span>
+            </div>
+            <svg class="settings-icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+            </svg>
+        </div>
+        <div class="settings-content">
+            <div class="settings-row">
+                <span>Langue de l'interface</span>
+                <select id="languageSelect" class="settings-select">
+                    <option value="fr">Français</option>
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="de">Deutsch</option>
+                    <option value="it">Italiano</option>
+                    <option value="pt">Português</option>
+                    <option value="ar">العربية</option>
+                    <option value="zh">中文</option>
+                    <option value="ja">日本語</option>
+                    <option value="ru">Русский</option>
+                </select>
+            </div>
+            <div class="settings-row">
+                <span>Format de date</span>
+                <select id="dateFormatSelect" class="settings-select">
+                    <option value="dd/mm/yyyy">JJ/MM/AAAA</option>
+                    <option value="mm/dd/yyyy">MM/JJ/AAAA</option>
+                    <option value="yyyy-mm-dd">AAAA-MM-JJ</option>
+                    <option value="dd-mm-yyyy">JJ-MM-AAAA</option>
+                    <option value="dd.mm.yyyy">JJ.MM.AAAA</option>
+                </select>
+            </div>
+            <div class="settings-row">
+                <span>Format d'heure</span>
+                <select id="timeFormatSelect" class="settings-select">
+                <option value="24h">24 heures</option>
+                <option value="12h">12 heures (AM/PM)</option>
+                </select>
+            </div>
+            <div class="settings-row">
+                <span>Fuseau horaire</span>
+                <select id="timezoneSelect" class="settings-select">
+                    <option value="auto">Détecter automatiquement</option>
+                    <option value="Europe/Paris">Europe/Paris (UTC+1)</option>
+                    <option value="Europe/London">Europe/Londres (UTC+0)</option>
+                    <option value="America/New_York">Amérique/New York (UTC-5)</option>
+                    <option value="America/Los_Angeles">Amérique/Los Angeles (UTC-8)</option>
+                    <option value="Asia/Tokyo">Asie/Tokyo (UTC+9)</option>
+                    <option value="Australia/Sydney">Australie/Sydney (UTC+10)</option>
+                </select>
+            </div>
+            <div class="settings-row">
+                <span>Premier jour de la semaine</span>
+                <select id="firstDaySelect" class="settings-select">
+                    <option value="1">Lundi</option>
+                    <option value="0">Dimanche</option>
+                </select>
+            </div>
+            <div class="settings-row">
+                <span>Format numérique</span>
+                <select id="numberFormatSelect" class="settings-select">
+                    <option value="fr">1 234,56 (FR)</option>
+                    <option value="en">1,234.56 (EN)</option>
+                </select>
+            </div>
+            <div class="settings-row">
+                <span>Traduction automatique</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="autoTranslateToggle">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="settings-row">
+                <div class="security-option">
+                    <span>Langues de traduction</span>
+                    <span class="security-status">Langues disponibles</span>
+                </div>
+            <button class="btn-icon" id="configureLanguages">
+                Configurer
+            </button>
+            </div>
+        </div>
+    </section>
+        
+<!-- Intégrations et applications connectées -->
+<section class="settings-card settings-section">
+    <div class="settings-header">
+        <div class="settings-header-title">
+            <svg class="settings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2m5.66 0H14a2 2 0 0 1 2 2v3.34l1 1L23 7v10"/>
+                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+                <path d="M2.42 11.5c.69-1.2 2.4-3.69 5.2-5.5"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+            </svg>
+            <span>Intégrations et Applications</span>
+        </div>
+        <svg class="settings-icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"/>
+        </svg>
+    </div>
+    <div class="settings-content">
+        <div class="settings-row">
+            <div class="security-option">
+                <span>Applications connectées</span>
+                <span class="security-status">3 applications autorisées</span>
+            </div>
+            <button class="btn-icon" id="manageApps">
+                Gérer
+            </button>
+        </div>
+        <div class="settings-row">
+            <div class="security-option">
+                <span>Services externes</span>
+                <span class="security-status">1 service connecté</span>
+            </div>
+            <button class="btn-icon" id="manageServices">
+                Gérer
+            </button>
+        </div>
+        <div class="settings-row">
+            <span>Synchronisation Google</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="googleSyncToggle">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        <div class="settings-row">
+            <span>Synchronisation Microsoft</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="microsoftSyncToggle">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        <div class="settings-row">
+            <div class="security-option">
+                <span>API et Webhooks</span>
+                <span class="security-status">Accès développeur</span>
+            </div>
+            <button class="btn-icon" id="manageAPI">
+                Configurer
+            </button>
+        </div>
+        <div class="integration-section">
+            <h3>Intégrer avec des nouveaux services</h3>
+            <div class="integration-grid">
+                <div class="integration-item">
+                    <div class="integration-logo google-logo"></div>
+                    <span>Google</span>
+                    <button class="btn-icon btn-sm" id="connectGoogle">Connecter</button>
+                </div>
+                <div class="integration-item">
+                    <div class="integration-logo microsoft-logo"></div>
+                    <span>Microsoft</span>
+                    <button class="btn-icon btn-sm" id="connectMicrosoft">Connecter</button>
+                </div>
+                <div class="integration-item">
+                    <div class="integration-logo dropbox-logo"></div>
+                    <span>Dropbox</span>
+                    <button class="btn-icon btn-sm" id="connectDropbox">Connecter</button>
+                </div>
+                <div class="integration-item">
+                    <div class="integration-logo slack-logo"></div>
+                    <span>Slack</span>
+                    <button class="btn-icon btn-sm" id="connectSlack">Connecter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Journal d'activité et audit -->
+<section class="settings-card settings-section">
+    <div class="settings-header">
+        <div class="settings-header-title">
+            <svg class="settings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <path d="M14 2v6h6"/>
+                <path d="M16 13H8"/>
+                <path d="M16 17H8"/>
+                <path d="M10 9H8"/>
+            </svg>
+            <span>Journal d'activité et Audit</span>
+        </div>
+        <svg class="settings-icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"/>
+        </svg>
+    </div>
+    <div class="settings-content">
+        <div class="activity-summary">
+            <div class="activity-stat">
+                <span class="activity-label">Connexions</span>
+                <span class="activity-value">12</span>
+                <span class="activity-period">ce mois</span>
+            </div>
+            <div class="activity-stat">
+                <span class="activity-label">Modifications</span>
+                <span class="activity-value">27</span>
+                <span class="activity-period">ce mois</span>
+            </div>
+            <div class="activity-stat">
+                <span class="activity-label">Transferts</span>
+                <span class="activity-value">5</span>
+                <span class="activity-period">ce mois</span>
+            </div>
+        </div>
+        
+        <div class="settings-row">
+            <div class="security-option">
+                <span>Historique de connexion</span>
+                <span class="security-status">Dernière: Aujourd'hui</span>
+            </div>
+            <button class="btn-icon" id="viewLoginHistory">
+                Voir
+            </button>
+        </div>
+        
+        <div class="settings-row">
+            <div class="security-option">
+                <span>Journal des modifications</span>
+                <span class="security-status">Dernière: Hier</span>
+            </div>
+            <button class="btn-icon" id="viewChangeLog">
+                Voir
+            </button>
+        </div>
+        
+        <div class="settings-row">
+            <div class="security-option">
+                <span>Audit de sécurité</span>
+                <span class="security-status">Dernier: Il y a 15 jours</span>
+            </div>
+            <button class="btn-icon" id="runSecurityAudit">
+                Lancer
+            </button>
+        </div>
+        
+        <div class="settings-row">
+            <span>Notifications d'activité suspecte</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="suspiciousActivityToggle" checked>
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        
+        <div class="settings-row">
+            <span>Rapport d'activité mensuel</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="monthlyReportToggle">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        
+        <div class="activity-actions">
+            <button class="btn btn-secondary" id="downloadActivityReport">
+                Télécharger rapport d'activité
+            </button>
+            <button class="btn btn-secondary" id="exportAuditLog">
+                Exporter journal d'audit
+            </button>
+        </div>
+        
+        <div class="recent-activity">
+            <h3>Activité récente</h3>
+            <ul class="activity-list">
+                <li class="activity-item">
+                    <div class="activity-icon login-icon"></div>
+                    <div class="activity-details">
+                        <span class="activity-text">Connexion depuis Paris, France</span>
+                        <span class="activity-time">Aujourd'hui, 14:32</span>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-icon security-icon"></div>
+                    <div class="activity-details">
+                        <span class="activity-text">Mot de passe modifié</span>
+                        <span class="activity-time">Hier, 09:15</span>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-icon device-icon"></div>
+                    <div class="activity-details">
+                        <span class="activity-text">Nouvel appareil connecté: iPhone 14</span>
+                        <span class="activity-time">Il y a 3 jours</span>
+                    </div>
+                </li>
+            </ul>
+            <button class="btn btn-secondary" id="viewMoreActivity">
+                Voir plus d'activité
+            </button>
+        </div>
+    </div>
+</section>
+
         <!-- Sécurité -->
         <section class="settings-card settings-section">
             <div class="settings-header">
@@ -99,7 +467,7 @@
                     <path d="M6 9l6 6 6-6"/>
                 </svg>
             </div>
-            <div class="setting-content">
+            <div class="settings-content">
                 <!-- Niveau de sécurité -->
                  <div class="security-level">
                      <span>Niveau de sécurité</span>
