@@ -88,6 +88,45 @@
     
     <!-- js code -->
     <script src="../JS/script connexion.js"></script>
+    <script src="../JS/auth.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Slectionner le formulaire de connexion
+            const loginForm = document.querySelector('form'); // Ajustez le selecteur selon votre HTML
+
+            loginForm.addEventListener('submit', async function(e) {
+                // Empecher le comportement par defaut du formulaire
+                e.preventDefault();
+
+                // Recuperer les valeurs du formulaire
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                try {
+                    // Afficher un indicateur de chargement
+                    const loginButton = document.querySelector('button[type="submit"]');
+                    loginButton.disabled = true;
+                    loginButton.textContent = 'Connexion en cours...';
+
+                    // Appeler la fonction de connexion
+                    await window.auth.loginUser({ email, password });
+
+                    // La redirection se fait dans la fonction loginUser
+                } catch (error) {
+                    // Afficher l'erreur à l'utilisateur
+                    const errorElement = document.createElement('div');
+                    errorElement.classname = 'error-message';
+                    errorElement.textContent = error.message;
+                    loginForm.appendChild(errorElement);
+
+                    // Réactiver le bouton
+                    loginButton.disabled = false;
+                    loginButton.textContent = 'Se connecter';
+                }
+            });
+        });         
+    </script>
 
 </body>
 </html>

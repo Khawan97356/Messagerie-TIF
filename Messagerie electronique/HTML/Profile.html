@@ -832,5 +832,79 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 
     <script src="../JS/scripts profile.js"></script>
+    <script src="../JS/auth.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+        // Vérifier si l'utilisateur est connecté
+        window.auth.requireAuth();
+        
+        try {
+            // Récupérer les données du profil
+            const userProfile = await window.auth.getCurrentUserProfile();
+            
+            // Remplir les champs du formulaire avec les données actuelles
+            document.getElementById('username').value = userProfile.username || '';
+            document.getElementById('email').value = userProfile.email || '';
+            document.getElementById('bio').value = userProfile.bio || '';
+            
+            if (userProfile.avatar) {
+                document.querySelector('.profile-avatar img').src = userProfile.avatar;
+            }
+            
+            // Sélectionner le formulaire de mise à jour du profil
+            const profileForm = document.querySelector('form'); // Ajustez le sélecteur selon votre HTML
+            
+            profileForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Récupérer les valeurs du formulaire
+                const username = document.getElementById('username').value;
+                const bio = document.getElementById('bio').value;
+                
+                try {
+                    // Afficher un indicateur de chargement
+                    const updateButton = profileForm.querySelector('button[type="submit"]');
+                    updateButton.disabled = true;
+                    updateButton.textContent = 'Mise à jour en cours...';
+                    
+                    // Appeler la fonction de mise à jour
+                    const updatedProfile = await window.auth.updateUserProfile({ 
+                        username, 
+                        bio 
+                    });
+                    
+                    // Afficher un message de succès
+                    const successElement = document.createElement('div');
+                    successElement.className = 'success-message';
+                    successElement.textContent = 'Profil mis à jour avec succès !';
+                    profileForm.appendChild(successElement);
+                    
+                    // Réactiver le bouton
+                    updateButton.disabled = false;
+                    updateButton.textContent = 'Mettre à jour';
+                    
+                    // Mettre à jour les informations affichées
+                    if (updatedProfile.avatar) {
+                        document.querySelector('.profile-avatar img').src = updatedProfile.avatar;
+                    }
+                } catch (error) {
+                    // Afficher l'erreur à l'utilisateur
+                    const errorElement = document.createElement('div');
+                    errorElement.className = 'error-message';
+                    errorElement.textContent = error.message;
+                    profileForm.appendChild(errorElement);
+                    
+                    // Réactiver le bouton
+                    updateButton.disabled = false;
+                    updateButton.textContent = 'Mettre à jour';
+                }
+            });
+        } catch (error) {
+            console.error("Erreur lors du chargement du profil:", error);
+        }
+    });
+    </script>
+
 </body>
 </html>
