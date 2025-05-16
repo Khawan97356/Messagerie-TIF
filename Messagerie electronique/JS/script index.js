@@ -1,3 +1,38 @@
+// Au début de script index.js, scripts profile.js, etc.
+
+import authService from './auth.js';
+
+// Vérifier si l'utilisateur est connecté
+function checkAuth() {
+  if (!authService.isLoggedIn()) {
+    // Rediriger vers la page de connexion
+    window.location.href = '/HTML/page connexion.html';
+    return false;
+  }
+  return true;
+}
+
+// Exécuter la vérification lors du chargement de la page
+document.addEventListener('DOMContentLoaded', () => {
+  if (!checkAuth()) return;
+  
+  // Charger les données de l'utilisateur
+  const user = authService.getCurrentUser();
+  // Personnaliser l'interface avec les informations de l'utilisateur
+  if (user) {
+    document.getElementById('userProfileName').textContent = user.username;
+    // Autres personnalisations...
+  }
+  
+  // Continuer avec l'initialisation normale de la page
+  initPage();
+});
+
+function initPage() {
+  // Code d'initialisation spécifique à la page
+  // ...
+}
+
 // Switch entre le bouton micro et le bouton envoyer 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -22,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Gérer l'envoi avec la touche "Entrée"
-    messageInput.addEventListener('keypress', function(e) {
+    chatInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter' && !e.shiftKey && this.value.trim() !== '') {
             e.preventDefault(); // Empêche le saut de ligne
         sendButton.click(); // Simule le clic sur le bouton d'envoi
@@ -36,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (messageText !== '') {
             // Créer un nouvel élément de message
             const messageElement = document.createElement('div');
-            newMessage.classList.add('message', 'sent');
+            messageElement.classList.add('message', 'sent');
             messageElement.innerHTML = `
                 <div class="message-content">
                     <p>${messageText}</p>

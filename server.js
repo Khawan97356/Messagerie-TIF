@@ -1,37 +1,38 @@
-require('dotenv').config();
-
 const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const errorMiddleware = require('./api/middleware/errorMiddleware');
-
-// Routes
-const userRoutes = require('./api/routes/userRoutes');
-
-// Charger les variables d'environnement
-dotenv.config();
-
-// Initialiser Express
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(cors());
+// Exemple de configuration dans server.js ou app.js
+
+// 1. Routes publiques
+app.use('/api/auth', require('./routes/auth.routes'));
+app.use('/api/public', require('./routes/public.routes'));
+
+// 2. Routes protégées (authentification requise)
+app.use('/api/messages', [authJwt.verifyToken], require('./routes/messages.routes'));
+app.use('/api/profile', [authJwt.verifyToken], require('./routes/profile.routes'));
+
+// 3. Routes avec protection spécifique
+app.use('/api/admin', [authJwt.verifyToken, authJwt.isAdmin], require('./routes/admin.routes'));
+app.use('/api/premium', [authJwt.verifyToken, authJwt.isPremium], require('./routes/premium.routes'));
+
+
+// Middleware crucial pour parser le JSON
 app.use(express.json());
 
-// Connexion à la base de données
-mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log('Connecté à MongoDB'))
-.catch(err => console.error('Erreur de connexion à MongoDB:', err));
+// Middleware de logging pour voir les requêtes
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  console.log('Body:', req.body);
+  next();
+});
 
-// Routes
-app.use('/api/users', userRoutes);
+// Route de test simple
+app.post('/test', (req, res) => {
+  res.json({ message: 'Succès', reçu: req.body });
+});
 
-// Middleware d'erreur
-app.use(errorMiddleware);
-
-// Démarrer le serveur
+// Démarrage du serveur
+const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`Serveur démarré sur le port ${PORT}`);
+  console.log(`Serveur de test démarré sur le port ${PORT}`);
 });

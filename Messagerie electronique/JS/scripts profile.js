@@ -1,3 +1,38 @@
+// Au début de script index.js, scripts profile.js, etc.
+
+import authService from './auth.js';
+
+// Vérifier si l'utilisateur est connecté
+function checkAuth() {
+  if (!authService.isLoggedIn()) {
+    // Rediriger vers la page de connexion
+    window.location.href = '/HTML/page connexion.html';
+    return false;
+  }
+  return true;
+}
+
+// Exécuter la vérification lors du chargement de la page
+document.addEventListener('DOMContentLoaded', () => {
+  if (!checkAuth()) return;
+  
+  // Charger les données de l'utilisateur
+  const user = authService.getCurrentUser();
+  // Personnaliser l'interface avec les informations de l'utilisateur
+  if (user) {
+    document.getElementById('userProfileName').textContent = user.username;
+    // Autres personnalisations...
+  }
+  
+  // Continuer avec l'initialisation normale de la page
+  initPage();
+});
+
+function initPage() {
+  // Code d'initialisation spécifique à la page
+  // ...
+}
+
 // Fonction pour afficher les notifications
 function showNotification(id) {
     const notification = document.getElementById(id);

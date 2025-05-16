@@ -1,154 +1,140 @@
-// Fichier: ../JS/auth.js
+// JS/auth.js
+class AuthService {
+  constructor() {
+    this.API_URL = 'http://localhost:8080/api/auth';
+    this.TOKEN_KEY = 'auth-token';
+    this.REFRESH_TOKEN_KEY = 'auth-refresh-token';
+    this.USER_KEY = 'auth-user';
+  }
 
-const AUTH_API_URL = "http://localhost:3000/api";
-
-// Stockage du token JWT dans le localStorage
-const setAuthToken = (token) => {
-    localStorage.setItem('authToken', token);
-};
-
-const getAuthToken = () => {
-    return localStorage.getItem('authToken');
-};
-
-const removeAuthToken = () => {
-    localStorage.removeItem('authToken');
-};
-
-// Fonction d'inscription
-async function registerUser(userData) {
+  async login(email, password) {
     try {
-        const response = await fetch(`${AUTH_API_URL}/users/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userData)
-        });
-        
-        const data = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(data.message || 'Erreur lors de l\'inscription');
-        }
-        
-        // Stocker le token et rediriger vers la page principale
-        if (data.token) {
-            setAuthToken(data.token);
-            window.location.href = "/HTML/index.html";
-        }
-        
-        return data;
-    } catch (error) {
-        console.error("Erreur d'inscription:", error);
-        throw error;
-    }
-}
+      const response = await fetch(`${this.API_URL}/signin`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-// Fonction de connexion
-async function loginUser(credentials) {
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Échec de la connexion');
+      }
+
+      const data = await response.json();
+      this.setTokens(data.accessToken, data.refreshToken);
+      this.setUser(data);
+      return data;
+    } catch (error) {
+      console.error('Erreur de connexion:', error);
+      throw error;
+    }
+  }
+
+  async register(username, email, password) {
     try {
-        const response = await fetch(`${AUTH_API_URL}/users/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(credentials)
-        });
-        
-        const data = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(data.message || 'Identifiants incorrects');
-        }
-        
-        // Stocker le token et rediriger vers la page principale
-        if (data.token) {
-            setAuthToken(data.token);
-            window.location.href = "/HTML/index.html";
-        }
-        
-        return data;
+      const response = await fetch(`${this.API_URL}/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Échec de l\'inscription');
+      }
+
+      return await response.json();
     } catch (error) {
-        console.error("Erreur de connexion:", error);
-        throw error;
+      console.error('Erreur d\'inscription:', error);
+      throw error;
     }
-}
+  }
 
-// Fonction de déconnexion
-function logoutUser() {
-    removeAuthToken();
-    window.location.href = "/HTML/page connexion.html";
-}
-
-// Fonction pour récupérer le profil de l'utilisateur actuel
-async function getCurrentUserProfile() {
+  async logout() {
     try {
-        const response = await fetch(`${AUTH_API_URL}/users/profile`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${getAuthToken()}`,
-                'Content-Type': 'application/json'
-            }
+      const refreshToken = this.getRefreshToken();
+      if (refreshToken) {
+        await fetch(`${this.API_URL}/logout`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ refreshToken }),
         });
-        
-        const data = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(data.message || 'Erreur lors de la récupération du profil');
-        }
-        
-        return data;
+      }
     } catch (error) {
-        console.error("Erreur de récupération du profil:", error);
-        throw error;
+      console.error('Erreur de déconnexion:', error);
+    } finally {
+      this.clearSession();
     }
-}
+  }
 
-// Fonction pour mettre à jour le profil utilisateur
-async function updateUserProfile(profileData) {
+  async refreshToken() {
     try {
-        const response = await fetch(`${AUTH_API_URL}/users/profile`, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${getAuthToken()}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(profileData)
-        });
-        
-        const data = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(data.message || 'Erreur lors de la mise à jour du profil');
-        }
-        
-        return data;
+      const refreshToken = this.getRefreshToken();
+      if (!refreshToken) {
+        throw new Error('Refresh token absent');
+      }
+
+      const response = await fetch(`${this.API_URL}/refreshtoken`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ refreshToken }),
+      });
+
+      if (!response.ok) {
+        this.clearSession();
+        throw new Error('Session expirée, veuillez vous reconnecter');
+      }
+
+      const data = await response.json();
+      this.setTokens(data.accessToken, data.refreshToken);
+      return data.accessToken;
     } catch (error) {
-        console.error("Erreur de mise à jour du profil:", error);
-        throw error;
+      console.error('Erreur de rafraîchissement du token:', error);
+      throw error;
     }
+  }
+
+  getToken() {
+    return localStorage.getItem(this.TOKEN_KEY);
+  }
+
+  getRefreshToken() {
+    return localStorage.getItem(this.REFRESH_TOKEN_KEY);
+  }
+
+  getUser() {
+    const userStr = localStorage.getItem(this.USER_KEY);
+    return userStr ? JSON.parse(userStr) : null;
+  }
+
+  setTokens(token, refreshToken) {
+    localStorage.setItem(this.TOKEN_KEY, token);
+    localStorage.setItem(this.REFRESH_TOKEN_KEY, refreshToken);
+  }
+
+  setUser(user) {
+    localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+  }
+
+  clearSession() {
+    localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem(this.REFRESH_TOKEN_KEY);
+    localStorage.removeItem(this.USER_KEY);
+  }
+
+  isLoggedIn() {
+    return !!this.getToken();
+  }
 }
 
-// Fonction pour vérifier si l'utilisateur est connecté
-function isUserLoggedIn() {
-    return getAuthToken() !== null;
-}
-
-// Fonction de protection des routes (redirection si non connecté)
-function requireAuth() {
-    if (!isUserLoggedIn()) {
-        window.location.href = "/HTML/page connexion.html";
-    }
-}
-
-// Exporter les fonctions
-window.auth = {
-    registerUser,
-    loginUser,
-    logoutUser,
-    getCurrentUserProfile,
-    updateUserProfile,
-    isUserLoggedIn,
-    requireAuth
-};
+// Exporter le service d'authentification comme singleton
+const authService = new AuthService();
+export default authService;

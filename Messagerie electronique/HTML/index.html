@@ -127,14 +127,14 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a href="../HTML/journal d'appel.html" class="nav-link" aria-label="Appels">
+                    <a href="journal d'appel.html" class="nav-link" aria-label="Appels">
                         <i class='bx bx-phone-call'></i>
                         <span class="nav-label">Appels</span>
                     </a>
                     <span class="nav-tooltip">Appels</span>
                 </li>
                 <li class="nav-item">
-                    <a href="../HTML/parametre.html" class="nav-link" aria-label="Paramètres">
+                    <a href="parametre.html" class="nav-link" aria-label="Paramètres">
                         <i class='bx bx-cog'></i>
                         <span class="nav-label">Paramètres</span>
                     </a>
@@ -147,14 +147,14 @@
 
             <ul class="nav-list secondary-nav">
                 <li class="nav-item">
-                    <a href="../HTML/Profile.html" class="nav-link" aria-label="Profil">
+                    <a href="Profile.html" class="nav-link" aria-label="Profil">
                         <i class='bx bx-user'></i>
                         <span class="nav-label">Profil</span>
                     </a>
                     <span class="nav-tooltip">Profil</span>
                 </li>
                 <li class="nav-item">
-                    <a href="../HTML/page connexion.html" class="nav-link" aria-label="Déconnexion">
+                    <a href="page-connexion.html" class="nav-link" aria-label="Déconnexion">
                         <i class='bx bx-log-out'></i>
                         <span class="nav-label">Déconnexion</span>
                     </a>
@@ -630,7 +630,7 @@
 
 </div>
 
-<script src="../JS/script index.js"></script>
+<script type="module" src="../JS/script index.js"></script>
 <script src="../JS/emoji.js"></script>
 <script src="../JS/attachements.js"></script>
 <script src="../JS/voice.js"></script>
@@ -652,32 +652,15 @@
 <script src="../JS/mobile-navigation.js"></script>
 <script src="../JS/video-call.js"></script>
 <script src="../JS/info-dropdown.js"></script>
-<script src="../JS/features.js"></script>
+<script type="module" src="../JS/features.js"></script>
 <script src="../JS/delete-chat.js"></script>
 <script src="../JS/biometric-auth.js"></script>
-<script src="../JS/auth.js"></script>
-<script src="../JS/messages.js"></script>
+<script type="module" src="../JS/auth.js"></script>
+<script type="module" src="../JS/messages.js"></script>
 
-<script>
-    const API_URL = "http://localhost:3000/api/settings";
-
-    // Fonction pour récupérer les paramètres
-    async function loadSettings() {
-        try {
-            const response = await fetch(API_URL);
-            const settings = await response.json();
-            console.log("Paramètres chargés :", settings);
-
-            // Appliquer les paramètres
-            document.body.classList.toggle("dark-mode", settings.darkMode);
-            document.documentElement.style.setProperty("--font-size", `${settings.fontSize}rem`);
-        } catch (error) {
-            console.error("Erreur lors du chargement des paramètres :", error);
-        }
-    }
-
-    // Charger les paramètres au chargement de la page
-    window.addEventListener("DOMContentLoaded", loadSettings);
+<script type="module"> 
+    import { auth } from "../JS/auth.js";
+    import { messageSystem } from "../JS/messages.js";
 
     document.addEventListener("DOMContentLoaded", function() {
         // Vérifier si l'utilisateur est connecté
