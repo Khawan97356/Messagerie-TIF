@@ -8,6 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  // Gerer le bouton de deconnexion
+  const logoutBtn = document.getElementById('logout-btn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      authService.logout();
+    });
+  }
+
   // Formulaire de connexion
   const loginForm = document.getElementById('login-form');
   if (loginForm) {

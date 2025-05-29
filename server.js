@@ -1,38 +1,121 @@
 const express = require('express');
 const app = express();
+const path = require('path');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-// Exemple de configuration dans server.js ou app.js
-
-// 1. Routes publiques
-app.use('/api/auth', require('./routes/auth.routes'));
-app.use('/api/public', require('./routes/public.routes'));
-
-// 2. Routes protégées (authentification requise)
-app.use('/api/messages', [authJwt.verifyToken], require('./routes/messages.routes'));
-app.use('/api/profile', [authJwt.verifyToken], require('./routes/profile.routes'));
-
-// 3. Routes avec protection spécifique
-app.use('/api/admin', [authJwt.verifyToken, authJwt.isAdmin], require('./routes/admin.routes'));
-app.use('/api/premium', [authJwt.verifyToken, authJwt.isPremium], require('./routes/premium.routes'));
-
+// Définir le port
+const PORT = 3000;
+const JWT_SECRET = 'votre_clé_secrète_jwt';
 
 // Middleware crucial pour parser le JSON
 app.use(express.json());
 
-// Middleware de logging pour voir les requêtes
+// Middleware de logging
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
-  console.log('Body:', req.body);
+  if (req.body && Object.keys(req.body).length) {
+    console.log('Body:', req.body);
+  }
   next();
 });
 
-// Route de test simple
-app.post('/test', (req, res) => {
-  res.json({ message: 'Succès', reçu: req.body });
+// Servir les fichiers statiques
+app.use(express.static(path.join(__dirname, 'Messagerie electronique')));
+
+// Route racine
+app.get('/', (req, res) => {
+  res.redirect('/HTML/page-connexion.html');
+});
+
+// Connexion à MongoDB (à ajuster selon votre configuration)
+mongoose.connect('mongodb://localhost:27017/messagerie', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log('Connexion à MongoDB réussie'))
+.catch(err => console.error('Erreur de connexion à MongoDB:', err));
+
+// Modèle d'utilisateur
+const userSchema = new mongoose.Schema({
+  username: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now }
+});
+
+const User = mongoose.model('User', userSchema);
+
+// Routes d'authentification
+app.post('/api/auth/register', async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+    
+    // Vérifier si l'utilisateur existe déjà
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Cet email est déjà utilisé' });
+    }
+    
+    // Hasher le mot de passe
+    const hashedPassword = await bcrypt.hash(password, 10);
+    
+    // Créer un nouvel utilisateur
+    const user = new User({
+      username,
+      email,
+      password: hashedPassword
+    });
+    
+    await user.save();
+    
+    res.status(201).json({ message: 'Utilisateur créé avec succès' });
+  } catch (error) {
+    console.error('Erreur d\'inscription:', error);
+    res.status(500).json({ message: 'Erreur lors de l\'inscription' });
+  }
+});
+
+app.post('/api/auth/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    
+    // Rechercher l'utilisateur
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Email ou mot de passe incorrect' });
+    }
+    
+    // Vérifier le mot de passe
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Email ou mot de passe incorrect' });
+    }
+    
+    // Générer un token JWT
+    const token = jwt.sign(
+      { id: user._id, email: user.email },
+      JWT_SECRET,
+      { expiresIn: '24h' }
+    );
+    
+    res.json({
+      message: 'Connexion réussie',
+      token,
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email
+      }
+    });
+  } catch (error) {
+    console.error('Erreur de connexion:', error);
+    res.status(500).json({ message: 'Erreur lors de la connexion' });
+  }
 });
 
 // Démarrage du serveur
-const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`Serveur de test démarré sur le port ${PORT}`);
+  console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });

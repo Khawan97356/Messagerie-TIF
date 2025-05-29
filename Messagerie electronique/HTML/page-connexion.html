@@ -15,7 +15,7 @@
 
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form action="#">
+            <form action="#" id="register-form">
                 <h1>Create Account</h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -24,16 +24,23 @@
                 </div>
                 <span>or use your email for registration</span>
                 <div class="infield">
-                    <input type="text" placeholder="Name" />
+                    <input type="text" placeholder="Name" id="username" required />
                     <label></label>
                 </div>
                 <div class="infield">
-                    <input type="email" placeholder="Email" name="email"/>
+                    <input type="email" placeholder="Email" name="email" id="register-email" required />
                     <label></label>
                 </div>
                 <div class="infield">
-                    <input type="password" placeholder="Password" />
-                    <button type ="button" class="toggle-password">
+                    <input type="password" placeholder="Password" id="register-password" required />
+                    <button type="button" class="toggle-password">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                    <label></label>
+                </div>
+                <div class="infield">
+                    <input type="password" placeholder="Confirm Password" id="confirm-password" required />
+                    <button type="button" class="toggle-password">
                         <i class="fa fa-eye"></i>
                     </button>
                     <label></label>
@@ -42,11 +49,13 @@
                     <div class="strength-bar"></div>
                     <span class="strength-text"></span>
                 </div>
-                <button>Sign Up</button>
+                <div id="register-error" style="color:red; display:none;"></div>
+                <div id="register-success" style="color:green; display:none;"></div>
+                <button type="submit">Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form action="#">
+            <form action="#" id="login-form">
                 <h1>Sign in</h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -55,15 +64,16 @@
                 </div>
                 <span>or use your account</span>
                 <div class="infield">
-                    <input type="email" placeholder="Email" name="email"/>
+                    <input type="email" placeholder="Email" name="email" id="email" required />
                     <label></label>
                 </div>
                 <div class="infield">
-                    <input type="password" placeholder="Password" />
+                    <input type="password" placeholder="Password" id="password" required />
                     <label></label>
                 </div>
+                <div id="login-error" style="color:red; display:none;"></div>
                 <a href="#" class="forgot">Forgot your password?</a>
-                <button>Sign In</button>
+                <button type="submit">Sign In</button>
             </form>
         </div>
         <div class="overlay-container" id="overlayCon">
@@ -71,12 +81,12 @@
                 <div class="overlay-panel overlay-left">
                     <h1>Welcome Back!</h1>
                     <p>To keep connected with us please login with your personal info</p>
-                    <button>Sign In</button>
+                    <button id="signIn">Sign In</button>
                 </div>
                 <div class="overlay-panel overlay-right">
                     <h1>Hello, Friend!</h1>
                     <p>Enter your personal details and start journey with us</p>
-                    <button>Sign Up</button>
+                    <button id="signUp">Sign Up</button>
                 </div>
             </div>
             <button id="overlayBtn"></button>
@@ -88,46 +98,202 @@
     </footer>
     
     <!-- js code -->
-    <script src="../JS/script connexion.js"></script>
-    <script src="../JS/auth.js"></script>
+    <script type="module">
+        console.log('=== CHERGEMENT DE LA PAGE DE CONNEXION ===');
+        console.log('localStorage', {...localStorage});
+        console.log('sessionStorage', {...sessionStorage});
 
-    <script>
+        import authService from '../JS/auth.js';
+
         document.addEventListener('DOMContentLoaded', function() {
-            // Slectionner le formulaire de connexion
-            const loginForm = document.querySelector('form'); // Ajustez le selecteur selon votre HTML
+            // Rediriger si déjà connecté
+            if (authService.isLoggedIn()) {
+                window.location.href = 'index.html';
+                return;
+            }
 
-            loginForm.addEventListener('submit', async function(e) {
-                // Empecher le comportement par defaut du formulaire
-                e.preventDefault();
+            // Configuration de l'interface utilisateur
+            const signUpButton = document.getElementById('signUp');
+            const signInButton = document.getElementById('signIn');
+            const container = document.getElementById('container');
+            const overlayBtn = document.getElementById('overlayBtn');
 
-                // Recuperer les valeurs du formulaire
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
+            // Toggle between sign-in and sign-up forms
+            signUpButton.addEventListener('click', () => {
+                container.classList.add('right-panel-active');
+                overlayBtn.classList.add('btnScaled');
+                setTimeout(() => {
+                    overlayBtn.classList.remove('btnScaled');
+                }, 600);
+            });
 
-                try {
-                    // Afficher un indicateur de chargement
-                    const loginButton = document.querySelector('button[type="submit"]');
-                    loginButton.disabled = true;
-                    loginButton.textContent = 'Connexion en cours...';
+            signInButton.addEventListener('click', () => {
+                container.classList.remove('right-panel-active');
+                overlayBtn.classList.add('btnScaled');
+                setTimeout(() => {
+                    overlayBtn.classList.remove('btnScaled');
+                }, 600);
+            });
 
-                    // Appeler la fonction de connexion
-                    await window.auth.loginUser({ email, password });
+            overlayBtn.addEventListener('click', () => {
+                if(container.classList.contains('right-panel-active')) {
+                    container.classList.remove('right-panel-active');
+                } else {
+                    container.classList.add('right-panel-active');
+                }
+                overlayBtn.classList.add('btnScaled');
+                setTimeout(() => {
+                    overlayBtn.classList.remove('btnScaled');
+                }, 600);
+            });
 
-                    // La redirection se fait dans la fonction loginUser
-                } catch (error) {
-                    // Afficher l'erreur à l'utilisateur
-                    const errorElement = document.createElement('div');
-                    errorElement.classname = 'error-message';
-                    errorElement.textContent = error.message;
-                    loginForm.appendChild(errorElement);
+            // Password visibility toggle
+            const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+            togglePasswordButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const passwordInput = this.previousElementSibling;
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    this.querySelector('i').classList.toggle('fa-eye');
+                    this.querySelector('i').classList.toggle('fa-eye-slash');
+                });
+            });
 
-                    // Réactiver le bouton
-                    loginButton.disabled = false;
-                    loginButton.textContent = 'Se connecter';
+            // Password strength indicator
+            const passwordInput = document.getElementById('register-password');
+            const strengthBar = document.querySelector('.strength-bar');
+            const strengthText = document.querySelector('.strength-text');
+
+            passwordInput.addEventListener('input', function() {
+                const password = this.value;
+                let strength = 0;
+                
+                if (password.length >= 8) strength += 25;
+                if (password.match(/[a-z]/)) strength += 25;
+                if (password.match(/[A-Z]/)) strength += 25;
+                if (password.match(/[0-9]/)) strength += 25;
+                if (password.match(/[^a-zA-Z0-9]/)) strength += 25;
+                
+                strengthBar.style.width = `${Math.min(strength, 100)}%`;
+                
+                if (strength < 25) {
+                    strengthBar.style.background = '#ff4d4d';
+                    strengthText.textContent = 'Très faible';
+                } else if (strength < 50) {
+                    strengthBar.style.background = '#ffa64d';
+                    strengthText.textContent = 'Faible';
+                } else if (strength < 75) {
+                    strengthBar.style.background = '#ffff4d';
+                    strengthText.textContent = 'Moyen';
+                } else {
+                    strengthBar.style.background = '#4dff4d';
+                    strengthText.textContent = 'Fort';
                 }
             });
-        });         
-    </script>
 
+            // Formulaire de connexion
+            const loginForm = document.getElementById('login-form');
+            if (loginForm) {
+                loginForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    // Récupérer les données du formulaire
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+                    
+                    // Afficher un indicateur de chargement
+                    const submitBtn = loginForm.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Connexion en cours...';
+                    
+                    try {
+                        // Tentative de connexion
+                        await authService.login(email, password);
+                        
+                        // Rediriger vers la page d'accueil après connexion réussie
+                        window.location.href = 'index.html';
+                    } catch (error) {
+                        // Afficher l'erreur
+                        const errorElement = document.getElementById('login-error');
+                        if (errorElement) {
+                            errorElement.textContent = error.message || 'Échec de la connexion. Veuillez réessayer.';
+                            errorElement.style.display = 'block';
+                        }
+                    } finally {
+                        // Restaurer le bouton
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                    }
+                });
+            }
+
+            // Formulaire d'inscription
+            const registerForm = document.getElementById('register-form');
+            if (registerForm) {
+                registerForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    // Récupérer les données du formulaire
+                    const username = document.getElementById('username').value;
+                    const email = document.getElementById('register-email').value;
+                    const password = document.getElementById('register-password').value;
+                    const confirmPassword = document.getElementById('confirm-password').value;
+                    
+                    // Vérifier que les mots de passe correspondent
+                    if (password !== confirmPassword) {
+                        const errorElement = document.getElementById('register-error');
+                        if (errorElement) {
+                            errorElement.textContent = 'Les mots de passe ne correspondent pas.';
+                            errorElement.style.display = 'block';
+                        }
+                        return;
+                    }
+                    
+                    // Afficher un indicateur de chargement
+                    const submitBtn = registerForm.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Inscription en cours...';
+                    
+                    try {
+                        // Tentative d'inscription
+                        await authService.register(username, email, password);
+                        
+                        // Afficher un message de succès
+                        const successElement = document.getElementById('register-success');
+                        if (successElement) {
+                            successElement.textContent = 'Inscription réussie! Vous pouvez maintenant vous connecter.';
+                            successElement.style.display = 'block';
+                        }
+                        
+                        // Réinitialiser le formulaire
+                        registerForm.reset();
+                        
+                        // Basculer vers le formulaire de connexion
+                        setTimeout(() => {
+                            signInButton.click();
+                        }, 2000);
+                    } catch (error) {
+                        // Afficher l'erreur
+                        const errorElement = document.getElementById('register-error');
+                        if (errorElement) {
+                            errorElement.textContent = error.message || 'Échec de l\'inscription. Veuillez réessayer.';
+                            errorElement.style.display = 'block';
+                        }
+                    } finally {
+                        // Restaurer le bouton
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                    }
+                });
+            }
+        });
+
+        window.addEventListener('beforeunload', () => {
+            console.log('=== AVANT DECHARGEMENT DE LA PAGE ===');
+            console.log('localStorage:', { ...localStorage });
+        });
+    </script>
 </body>
 </html>
