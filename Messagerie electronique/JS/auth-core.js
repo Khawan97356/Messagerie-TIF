@@ -1,4 +1,4 @@
-// JS/auth.js
+// JS/auth-core.js
 const authService = {
     isLoggedIn() {
         return localStorage.getItem('authToken') !== null;
@@ -28,6 +28,21 @@ const authService = {
         }
     },
 
+    // Dans auth-core.js, vous pourriez ajouter :
+async verifyToken() {
+    const token = this.getToken();
+    if (!token) return false;
+    
+    try {
+        const response = await fetch('/api/auth/verify', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        return response.ok;
+    } catch {
+        return false;
+    }
+},
+
     async login(email, password) {
         try {
             const response = await fetch('/api/auth/login', {
@@ -54,17 +69,9 @@ const authService = {
     },
 
     logout() {
-        localStorage.removeItem('token');
+        localStorage.removeItem('authToken');
         localStorage.removeItem('user');
-
-         // Effacer complètement le localStorage si nécessaire
-        // localStorage.clear();
-    
-    // Redirection directe sans utiliser window.location.href
-    document.location.replace('page-connexion.html');
-    
-    // Arrêter l'exécution de tout autre code
-    throw new Error('Déconnexion');
+        window.location.href = '/HTML/page-connexion.html';
     },
 
     getToken() {

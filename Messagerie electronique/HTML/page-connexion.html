@@ -99,20 +99,20 @@
     
     <!-- js code -->
     <script type="module">
-        console.log('=== CHERGEMENT DE LA PAGE DE CONNEXION ===');
-        console.log('localStorage', {...localStorage});
-        console.log('sessionStorage', {...sessionStorage});
-
-        import authService from '../JS/auth.js';
+        // ✅ Import corrigé
+        import authService from '../JS/auth-core.js';
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Rediriger si déjà connecté
+            console.log('Page de connexion chargée');
+
+            // ✅ Vérifier si déjà connecté
             if (authService.isLoggedIn()) {
-                window.location.href = 'index.html';
+                console.log('Déjà connecté, redirection...');
+                window.location.replace('/HTML/index.html');
                 return;
             }
 
-            // Configuration de l'interface utilisateur
+            // ✅ Configuration de l'interface utilisateur
             const signUpButton = document.getElementById('signUp');
             const signInButton = document.getElementById('signIn');
             const container = document.getElementById('container');
@@ -147,7 +147,7 @@
                 }, 600);
             });
 
-            // Password visibility toggle
+            // ✅ Password visibility toggle
             const togglePasswordButtons = document.querySelectorAll('.toggle-password');
             togglePasswordButtons.forEach(button => {
                 button.addEventListener('click', function() {
@@ -159,7 +159,7 @@
                 });
             });
 
-            // Password strength indicator
+            // ✅ Password strength indicator
             const passwordInput = document.getElementById('register-password');
             const strengthBar = document.querySelector('.strength-bar');
             const strengthText = document.querySelector('.strength-text');
@@ -191,58 +191,63 @@
                 }
             });
 
-            // Formulaire de connexion
+            // ✅ Formulaire de connexion (UNE SEULE FOIS)
             const loginForm = document.getElementById('login-form');
             if (loginForm) {
                 loginForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
                     
-                    // Récupérer les données du formulaire
                     const email = document.getElementById('email').value;
                     const password = document.getElementById('password').value;
                     
-                    // Afficher un indicateur de chargement
                     const submitBtn = loginForm.querySelector('button[type="submit"]');
                     const originalText = submitBtn.textContent;
                     submitBtn.disabled = true;
                     submitBtn.textContent = 'Connexion en cours...';
                     
+                    // Masquer les erreurs précédentes
+                    const errorElement = document.getElementById('login-error');
+                    if (errorElement) {
+                        errorElement.style.display = 'none';
+                    }
+                    
                     try {
-                        // Tentative de connexion
+                        console.log('Tentative de connexion avec:', email);
                         await authService.login(email, password);
-                        
-                        // Rediriger vers la page d'accueil après connexion réussie
-                        window.location.href = 'index.html';
+                        console.log('Connexion réussie, redirection...');
+                        window.location.replace('/HTML/index.html');
                     } catch (error) {
-                        // Afficher l'erreur
-                        const errorElement = document.getElementById('login-error');
+                        console.error('Erreur de connexion:', error);
                         if (errorElement) {
                             errorElement.textContent = error.message || 'Échec de la connexion. Veuillez réessayer.';
                             errorElement.style.display = 'block';
                         }
                     } finally {
-                        // Restaurer le bouton
                         submitBtn.disabled = false;
                         submitBtn.textContent = originalText;
                     }
                 });
             }
 
-            // Formulaire d'inscription
+            // ✅ Formulaire d'inscription
             const registerForm = document.getElementById('register-form');
             if (registerForm) {
                 registerForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
                     
-                    // Récupérer les données du formulaire
                     const username = document.getElementById('username').value;
                     const email = document.getElementById('register-email').value;
                     const password = document.getElementById('register-password').value;
                     const confirmPassword = document.getElementById('confirm-password').value;
                     
+                    // Masquer les messages précédents
+                    const errorElement = document.getElementById('register-error');
+                    const successElement = document.getElementById('register-success');
+                    if (errorElement) errorElement.style.display = 'none';
+                    if (successElement) successElement.style.display = 'none';
+                    
                     // Vérifier que les mots de passe correspondent
                     if (password !== confirmPassword) {
-                        const errorElement = document.getElementById('register-error');
                         if (errorElement) {
                             errorElement.textContent = 'Les mots de passe ne correspondent pas.';
                             errorElement.style.display = 'block';
@@ -250,24 +255,20 @@
                         return;
                     }
                     
-                    // Afficher un indicateur de chargement
                     const submitBtn = registerForm.querySelector('button[type="submit"]');
                     const originalText = submitBtn.textContent;
                     submitBtn.disabled = true;
                     submitBtn.textContent = 'Inscription en cours...';
                     
                     try {
-                        // Tentative d'inscription
+                        console.log('Tentative d\'inscription avec:', username, email);
                         await authService.register(username, email, password);
                         
-                        // Afficher un message de succès
-                        const successElement = document.getElementById('register-success');
                         if (successElement) {
                             successElement.textContent = 'Inscription réussie! Vous pouvez maintenant vous connecter.';
                             successElement.style.display = 'block';
                         }
                         
-                        // Réinitialiser le formulaire
                         registerForm.reset();
                         
                         // Basculer vers le formulaire de connexion
@@ -275,24 +276,17 @@
                             signInButton.click();
                         }, 2000);
                     } catch (error) {
-                        // Afficher l'erreur
-                        const errorElement = document.getElementById('register-error');
+                        console.error('Erreur d\'inscription:', error);
                         if (errorElement) {
                             errorElement.textContent = error.message || 'Échec de l\'inscription. Veuillez réessayer.';
                             errorElement.style.display = 'block';
                         }
                     } finally {
-                        // Restaurer le bouton
                         submitBtn.disabled = false;
                         submitBtn.textContent = originalText;
                     }
                 });
             }
-        });
-
-        window.addEventListener('beforeunload', () => {
-            console.log('=== AVANT DECHARGEMENT DE LA PAGE ===');
-            console.log('localStorage:', { ...localStorage });
         });
     </script>
 </body>

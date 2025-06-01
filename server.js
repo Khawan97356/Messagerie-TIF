@@ -21,12 +21,34 @@ app.use((req, res, next) => {
   next();
 });
 
+// Middleware pour vérifier le token
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ error: 'Token manquant' });
+  }
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    return res.status(401).json({ error: 'Token invalide' });
+  }
+};
+
+// Route pour vérifier le token
+app.get('/api/auth/verify', verifyToken, (req, res) => {
+  res.json({ valid: true, user: req.user });
+});
+
 // Servir les fichiers statiques
 app.use(express.static(path.join(__dirname, 'Messagerie electronique')));
 
 // Route racine
 app.get('/', (req, res) => {
-  res.redirect('/HTML/page-connexion.html');
+  // Rediriger vers la page de connexion par defaut
+  // La verification du token se fera coté client
+  res.sendFile(path.join(__dirname, 'Messagerie electronique', 'HTML', 'page-connexion.html'));
 });
 
 // Connexion à MongoDB (à ajuster selon votre configuration)

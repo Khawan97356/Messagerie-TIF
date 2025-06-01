@@ -1,0 +1,636 @@
+/* ===== ASSISTANT VOCAL ===== */
+
+/* Modal de l'assistant vocal */
+.voice-assistant-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 700px;
+    max-height: 85vh;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eaeaea;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #ff4d4d;
+}
+
+.modal-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Onglets de la modale */
+.voice-tabs, 
+.calendar-tabs, 
+.cloud-tabs, 
+.plugins-tabs,
+.widgets-tabs {
+    display: flex;
+    gap: 5px;
+    border-bottom: 1px solid #eaeaea;
+    margin-bottom: 20px;
+}
+
+.voice-tab, 
+.calendar-tab, 
+.cloud-tab, 
+.plugin-tab,
+.widgets-tab {
+    padding: 10px 15px;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.voice-tab.active, 
+.calendar-tab.active, 
+.cloud-tab.active, 
+.plugin-tab.active,
+.widgets-tab.active {
+    color: #4285F4;
+    border-bottom-color: #4285F4;
+}
+
+.voice-tab:hover, 
+.calendar-tab:hover, 
+.cloud-tab:hover, 
+.plugin-tab:hover,
+.widgets-tab:hover {
+    color: #4285F4;
+}
+
+/* Contenu des onglets */
+.voice-tab-content,
+.calendar-tab-content,
+.cloud-tab-content,
+.plugin-tab-content,
+.widgets-tab-content {
+    padding: 10px 0;
+}
+
+.voice-tab-content h4,
+.calendar-tab-content h4,
+.cloud-tab-content h4,
+.plugin-tab-content h4,
+.widgets-tab-content h4 {
+    font-size: 1.1rem;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Liste des commandes */
+.commands-list {
+    max-height: 350px;
+    overflow-y: auto;
+    margin-bottom: 25px;
+}
+
+.command-category {
+    margin-bottom: 20px;
+}
+
+.command-category h5 {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.command-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.command-item {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 12px 15px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.command-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.command-phrase {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.command-description {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Commandes personnalisées */
+.custom-commands {
+    margin-top: 20px;
+}
+
+.custom-commands-list {
+    margin-bottom: 15px;
+}
+
+.custom-command-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f6ff;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+}
+
+.command-details {
+    flex: 1;
+}
+
+.command-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-command-btn,
+.delete-command-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.edit-command-btn {
+    color: #4285F4;
+}
+
+.delete-command-btn {
+    color: #ff4d4d;
+}
+
+.edit-command-btn:hover,
+.delete-command-btn:hover {
+    opacity: 0.8;
+}
+
+.add-custom-command {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #f0f6ff;
+    color: #4285F4;
+    border: 1px dashed #4285F4;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.add-custom-command:hover {
+    background-color: #e3eeff;
+}
+
+.no-commands {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    padding: 15px;
+}
+
+/* Paramètres de l'assistant vocal */
+.voice-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.setting-label {
+    display: flex;
+    flex-direction: column;
+}
+
+.setting-label span:first-child {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 3px;
+}
+
+.setting-description {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+/* Switch toggle */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #4285F4;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #4285F4;
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+.slider.round {
+    border-radius: 24px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Contrôles de sélection */
+.voice-selection,
+.language-selection,
+.wake-word {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    width: 180px;
+}
+
+/* Services d'assistants vocaux */
+.assistant-services {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.service-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.service-item img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+.service-details {
+    flex: 1;
+}
+
+.service-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.service-status {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+.service-actions {
+    display: flex;
+    align-items: center;
+}
+
+.connect-service-btn {
+    padding: 6px 12px;
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.connect-service-btn:hover {
+    background-color: #3367d6;
+}
+
+.disconnect-btn {
+    padding: 6px 12px;
+    background-color: #f0f0f0;
+    color: #666;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.disconnect-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* Section des autorisations */
+.permissions-section {
+    margin-top: 25px;
+}
+
+.permissions-section h5 {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.permission-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.permission-item span:first-child {
+    flex: 1;
+    font-weight: 500;
+}
+
+.permission-status {
+    font-size: 0.85rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin: 0 10px;
+}
+
+.permission-status.granted {
+    background-color: #e6f4ea;
+    color: #34a853;
+}
+
+.permission-status.denied {
+    background-color: #fce8e6;
+    color: #ea4335;
+}
+
+.request-permission-btn {
+    padding: 4px 10px;
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+/* Widget flottant de l'assistant vocal */
+.voice-assistant-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 150px;
+    height: 150px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.voice-assistant-widget.active {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(66, 133, 244, 0.3);
+}
+
+.voice-widget-indicator {
+    text-align: center;
+}
+
+.status-indicator {
+    width: 16px;
+    height: 16px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin-bottom: 8px;
+    transition: background-color 0.3s;
+}
+
+.status-indicator.listening {
+    background-color: #4285F4;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.status-text {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 8px;
+}
+
+.voice-waves {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}
+
+.voice-waves span {
+    display: inline-block;
+    width: 4px;
+    height: 20px;
+    margin: 0 2px;
+    background-color: #4285F4;
+    border-radius: 2px;
+    animation: sound-wave 0.8s infinite ease-in-out alternate;
+}
+
+.voice-waves span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.voice-waves span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.voice-waves span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.voice-waves span:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+@keyframes sound-wave {
+    0% {
+        height: 8px;
+    }
+    100% {
+        height: 35px;
+    }
+}
+
+.voice-status {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 10px;
+}
+
+.voice-actions {
+    display: flex;
+    margin-top: 15px;
+}
+
+.voice-cancel {
+    background: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ff4d4d;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.voice-cancel:hover {
+    background-color: #e04343;
+}
+
+/* Bouton déclencheur d'assistant vocal */
+.voice-assistant-trigger {
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.voice-assistant-trigger:hover {
+    background-color: #3367d6;
+}
+
+/* Adaptations pour les écrans mobiles */
+@media (max-width: 768px) {
+    .voice-assistant-modal {
+        width: 95%;
+    }
+    
+    .service-item {
+        flex-wrap: wrap;
+    }
+    
+    .service-actions {
+        margin-top: 10px;
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .voice-assistant-widget {
+        width: 120px;
+        height: 120px;
+        bottom: 20px;
+        right: 20px;
+    }
+}

@@ -1,145 +1,147 @@
-// Au début de script index.js, scripts profile.js, etc.
-
-import authService from './auth.js';
-
-// Vérifier si l'utilisateur est connecté
-function checkAuth() {
-  if (!authService.isLoggedIn()) {
-    // Rediriger vers la page de connexion
-    window.location.href = '/HTML/page connexion.html';
-    return false;
-  }
-  return true;
-}
-
-// Exécuter la vérification lors du chargement de la page
-document.addEventListener('DOMContentLoaded', () => {
-  if (!checkAuth()) return;
-  
-  // Charger les données de l'utilisateur
-  const user = authService.getCurrentUser();
-  // Personnaliser l'interface avec les informations de l'utilisateur
-  if (user) {
-    document.getElementById('userProfileName').textContent = user.username;
-    // Autres personnalisations...
-  }
-  
-  // Continuer avec l'initialisation normale de la page
-  initPage();
-});
-
-function initPage() {
-  // Code d'initialisation spécifique à la page
-  // ...
-}
-
-// Switch entre le bouton micro et le bouton envoyer 
-
 document.addEventListener('DOMContentLoaded', function() {
-    const chatInput = document.querySelector('.chat-input input[type="text"]');
-    const micButton = document.querySelector('.mic-btn');
-    const sendButton = document.querySelector('.send-message-btn');
-    const chatMessages = document.querySelector('.chat-messages');
-
-    chatInput.addEventListener('input', function() {
-        if (this.value.trim() !== '') {
-            micButton.style.display = 'none';
-            sendButton.style.display = 'block';
-        } else {
-            micButton.style.display = 'block';
-            sendButton.style.display = 'none';
-        }
-    });
-
-    // Gerer le clic sur le bouton d'envoi
-    sendButton.addEventListener('click', function() {
-        sendMessage();
-    });
-
-    // Gérer l'envoi avec la touche "Entrée"
-    chatInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey && this.value.trim() !== '') {
-            e.preventDefault(); // Empêche le saut de ligne
-        sendButton.click(); // Simule le clic sur le bouton d'envoi
-        }
-    });
-
-    // Fonction pour envoyer le message
-    function sendMessage() {
-        const messageText = chatInput.value.trim();
-
-        if (messageText !== '') {
-            // Créer un nouvel élément de message
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message', 'sent');
-            messageElement.innerHTML = `
-                <div class="message-content">
-                    <p>${messageText}</p>
-                </div>
-                <div class="message-footer">
-                    <span class="time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-                    <div class="message-status">
-                        <i class="bx bx-check"></i>
-                    </div>
-                </div>
-            `;
-
-            // Ajouter le message à la liste des messages
-            chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight; // Faire défiler vers le bas
-
-            // Réinitialiser le champ de saisie
-            chatInput.value = '';
-            micButton.style.display = 'block';
-            sendButton.style.display = 'none';
-        }
+    // Vérification d'authentification
+    function checkAuth() {
+        // Pour le développement, on peut désactiver temporairement cette vérification
+        return true;
     }
-});
 
-
-// Interaction des emojis
-document.addEventListener('DOMContentLoaded', function() {
-    const emojiButton = document.querySelector('.emoji-btn');
-    const emojiPicker = document.querySelector('.emoji-picker');
+    if (!checkAuth()) return;
+    
+    // Éléments du DOM (avec sélecteurs corrigés)
     const chatInput = document.querySelector('.chat-input input[type="text"]');
-
-    // Gestionnaire du clic sur le bouton emoji 
-    emojiButton.addEventListener('emoji-click', () => {
-        emojiPicker.classList.toggle('visible');
-    });
-
-    // Gestionnaire du selection d'emoji
-    emojiPicker.addEventListener('emoji-select', event => {
-        const emoji = event.detail.unicode;
-        const cursorPos = chatInput.selectionStart;
-        const textBefore = chatInput.value.substring(0, cursorPos);
-        const textAfter = chatInput.value.substring(cursorPos);
-
-        chatInput.value = textBefore + emoji + textAfter;
-        chatInput.focus();
-        emojiPicker.classList.remove('visible');
-    });
-
-    // Fermer le picker si on clique ailleurs 
-    document.addEventListener('click', (e) => {
-        if (!emojiButton.contains(e.target) && !emojiPicker.contains(e.target)) {
-            emojiPicker.classList.remove('visible');
+    const micBtn = document.querySelector('.mic-btn');
+    const sendBtn = document.querySelector('.send-message-btn');
+    const chatMessages = document.querySelector('.chat-messages');
+    const emojiBtn = document.querySelector('.emoji-btn');
+    const attachBtn = document.querySelector('.attachement-btn');
+    const fileInput = document.getElementById('file-input');
+    const infoBtn = document.querySelector('.info-btn');
+    const infoDropdown = document.querySelector('.info-dropdown');
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarToggler = document.querySelector('.sidebar-toggler');
+    const menuToggler = document.querySelector('.menu-toggler');
+    
+    // CORRECTION 1: Initialisation visible des boutons d'envoi et micro
+    if (micBtn) micBtn.style.display = 'flex';
+    if (sendBtn) sendBtn.style.display = 'none';
+    
+    // CORRECTION 2: Gestion du changement entre micro et bouton d'envoi
+    if (chatInput) {
+        chatInput.addEventListener('input', function() {
+            if (this.value.trim() !== '') {
+                if (micBtn) micBtn.style.display = 'none';
+                if (sendBtn) sendBtn.style.display = 'flex';
+            } else {
+                if (micBtn) micBtn.style.display = 'flex';
+                if (sendBtn) sendBtn.style.display = 'none';
+            }
+        });
+    }
+    
+    // CORRECTION 3: Fonction d'envoi de message améliorée
+    function sendMessage() {
+        if (!chatInput) return;
+        
+        const messageText = chatInput.value.trim();
+        if (messageText === '') return;
+        
+        // Création du message avec une structure correcte
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message', 'sent');
+        
+        // HTML interne corrigé pour correspondre à la structure du document
+        messageElement.innerHTML = `
+            <p>${messageText}</p>
+            <div class="message-footer">
+                <span class="time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</span>
+                <span class="message-status">
+                    <i class="bx bx-check-double"></i>
+                </span>
+            </div>
+        `;
+        
+        // Ajout du bouton de suppression
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.innerHTML = '<i class="bx bx-trash"></i>';
+        deleteBtn.addEventListener('click', () => {
+            if (confirm('Voulez-vous vraiment supprimer ce message ?')) {
+                messageElement.remove();
+            }
+        });
+        messageElement.appendChild(deleteBtn);
+        
+        // Ajout du message à la conversation
+        if (chatMessages) {
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Réinitialisation du champ de saisie
+        chatInput.value = '';
+        if (micBtn) micBtn.style.display = 'flex';
+        if (sendBtn) sendBtn.style.display = 'none';
+    }
+    
+    // CORRECTION 4: Gestionnaires d'événements d'envoi
+    if (sendBtn) {
+        sendBtn.addEventListener('click', sendMessage);
+    }
+    
+    if (chatInput) {
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    }
+    
+    // Gestion des autres interactions UI
+    if (sidebarToggler && sidebar) {
+        sidebarToggler.addEventListener('click', function() {
+            sidebar.classList.toggle('collapsed');
+        });
+    }
+    
+    if (menuToggler && sidebar) {
+        menuToggler.addEventListener('click', function() {
+            sidebar.classList.toggle('menu-active');
+        });
+    }
+    
+    if (infoBtn && infoDropdown) {
+        infoBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            infoDropdown.classList.toggle('show');
+        });
+    }
+    
+    // Fermeture des éléments ouverts en cliquant ailleurs
+    document.addEventListener('click', function(e) {
+        // Fermer le menu mobile
+        if (sidebar && !sidebar.contains(e.target) && sidebar.classList.contains('menu-active')) {
+            sidebar.classList.remove('menu-active');
+        }
+        
+        // Fermer le dropdown d'info
+        if (infoDropdown && infoBtn && !infoDropdown.contains(e.target) && !infoBtn.contains(e.target)) {
+            infoDropdown.classList.remove('show');
         }
     });
-});
-
-// Gestion de suppressions de message 
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Fonction pour ajouter le bouton de suppression à chaque message
-    function addDeleteButtons() {
-        const messages = document.querySelectorAll('.message.sent');
-        messages.forEach(message => {
-            // Vérifier si le bouton n'existe pas déjà
+    
+    // Fonction pour ajouter des boutons de suppression aux messages existants
+    function initDeleteButtons() {
+        // Sélectionne tous les types de messages
+        const allMessages = document.querySelectorAll('.message');
+        
+        allMessages.forEach(message => {
             if (!message.querySelector('.delete-btn')) {
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.innerHTML = '<i class="bx bx-trash"></i>';
+                deleteBtn.style.opacity = '1'; // Rendre le bouton visible par défaut
+
                 deleteBtn.addEventListener('click', () => {
                     if (confirm('Voulez-vous vraiment supprimer ce message ?')) {
                         message.remove();
@@ -149,63 +151,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    // Ajouter les boutons de suppression aux message existants
-    addDeleteButtons();
-
-    // Observer les nouveaux messages
-    const chatMessages = document.querySelector('.chat-messages');
+    
+    // Initialiser les boutons de suppression
+    initDeleteButtons();
+    
+    // Observer les nouveaux messages ajoutés
     const observer = new MutationObserver(() => {
-        addDeleteButtons();
+        initDeleteButtons();
     });
-
-    observer.observe(chatMessages, { 
-        childList: true,
-        subtree: true
-    });
-});
-
-// Ajouter à la fin du fichier
-document.addEventListener('DOMContentLoaded', () => {
-    const infoBtn = document.querySelector('.info-btn');
-    const infoDropdown = document.querySelector('.info-dropdown');
-
-    infoBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        infoDropdown.classList.toggle('active');
-    });
-
-    // Fermer le menu si on clique ailleurs sur la page
-    document.addEventListener('click', (e) => {
-        if (!infoDropdown.contains(e.target) && !infoBtn.contains(e.target)) {
-            infoDropdown.classList.remove('active');
-        }
-    });
-});
-
-// Gestion de la bascule de la barre latérale
-document.addEventListener('DOMContentLoaded', function() {
-    const sidebarToggler = document.querySelector('.sidebar-toggler');
-    const sidebar = document.querySelector('.sidebar');
     
-    if (sidebarToggler && sidebar) {
-        sidebarToggler.addEventListener('click', function() {
-            sidebar.classList.toggle('collapsed');
+    // Configurer l'observation
+    if (chatMessages) {
+        observer.observe(chatMessages, { 
+            childList: true, 
+            subtree: true 
         });
     }
     
-    // Gestion du menu en mode mobile
-    const menuToggler = document.querySelector('.menu-toggler');
-    if (menuToggler && sidebar) {
-        menuToggler.addEventListener('click', function() {
-            sidebar.classList.toggle('menu-active');
-        });
-    }
-    
-    // Fermer le menu si on clique en dehors
-    document.addEventListener('click', function(e) {
-        if (!sidebar.contains(e.target) && sidebar.classList.contains('menu-active')) {
-            sidebar.classList.remove('menu-active');
-        }
-    });
+    console.log('Script de messagerie initialisé avec succès');
 });
