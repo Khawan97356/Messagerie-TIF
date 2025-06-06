@@ -9,6 +9,7 @@
 
     <!-- css stylesheet -->
     <link rel="stylesheet" href="../CSS/style parametre.css">
+    <link rel="stylesheet" href="../CSS/dark-mode.css">
 </head>
 <body>
 
@@ -40,6 +41,32 @@
                     </label>
                     <small id="darkModeHelp" class="help-text">Activez pour réduire la fatigue oculaire</small>
                 </div>
+
+                <div class="settings-row">
+                    <span>Mode d'activation du theme</span>
+                    <select id="themeMode" class="settings-select">
+                        <option value="manual">Manuel (selon le reglage ci-dessus)</option>
+
+                        <option value="system">Selon préférences systeme</option>
+
+                        <option value="auto">Automatique selon l'heure</option>
+                    </select>
+                </div>
+
+                <div id="autoThemeSettings" class="settings-row" style="display: none;">
+                    <div style="width: 100%;">
+                        <div style="margin-bottom: 10px;">Heures du mode sombre automatique</div>
+                        <div style="display: flex; justify-content: space-between; gap: 10px;">    
+                        </div>
+                            <label for="darkModeStart">Activer à</label>
+                            <input type="time" id="darkModeStart" class="settings-select" value="18:00">
+                    </div>
+                    <div>
+                        <label for="darkModeEnd">Desactiver à</label>
+                        <input type="time" id="darkModeEnd" class="settings-select" value="06:00">
+                    </div>
+                </div>
+
                 <div class="settings-row">
                     <span>Taille de la police</span>
                     <input type="range" min="1" max="5" value="3" class="range-slider" id="fontSizeSlider">
@@ -572,9 +599,10 @@
     
 
     <script src="../JS/script parametre.js"></script>
+    <script src="../JS/theme-manager.js"></script>
 
     <script>
-        const API_URL = "http://localhost:3000/api/settings";
+        const API_URL = "http://localhost:3000/api/settings"; 
     
         // Sauvegarder les paramètres via l'API
         async function saveSettings(darkMode, fontSize) {

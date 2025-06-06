@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../CSS/biometric-auth.css">
     <link rel="stylesheet" href="../CSS/intégration.css">
     <link rel="stylesheet" href="../CSS/voice-assitant.css">
+    <link rel="stylesheet" href="../CSS/dark-mode.css">
 
     <link rel="manifest" href="../manifest.json">
 
@@ -84,1489 +85,381 @@
     </div>
 
 
-    <aside class="sidebar">
-
-        <!-- En-tête de la barre latérale --> 
-
-        <header class="sidebar-header">
-            <a href="#" class="header-logo">
-                <img src="https://via.placeholder.com/46" alt="Logo de l'application">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">M</div>
+            <div class="app-name">Message</div>
+            <button class="sidebar-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 18l-6-6 6-6"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="sidebar-nav">
+            <a href="#" class="nav-item active">
+                <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </div>
+                <div class="nav-text">Conversations</div>
             </a>
-            <button class="toggler sidebar-toggler" aria-label="Réduire le menu">
-                <i class='bx bx-chevron-left'></i>
-            </button>
-            <button class="toggler menu-toggler" aria-label="Ouvrir/fermer le menu">
-                <span class="material-symbols-rounded">menu</span>
-            </button>
-        </header>
-
-        <nav class="sidebar-nav">  
-
-            <!-- Navigation principale -->
-
-            <ul class="nav-list primary-nav">
-
-                <li class="nav-item">
-                    <a href="#" class="nav-link" aria-label="Conversations">
-                        <i class='bx bx-chat'></i>
-                        <span class="nav-label">Conversations</span>
-                    </a>
-                    <span class="nav-tooltip">Conversations</span>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" aria-label="story">
-                        <i class='bx bx-story'></i>    
-                        <span class="nav-label">Story</span>
-                    </a>
-                    <span class="nav-tooltip">Story</span>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" aria-label="Équipes">
-                        <i class='bx bx-group'></i>
-                        <span class="nav-label">Équipes</span>
-                    </a>
-                    <span class="nav-tooltip">Équipes</span>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="journal d'appel.html" class="nav-link" aria-label="Appels">
-                        <i class='bx bx-phone-call'></i>
-                        <span class="nav-label">Appels</span>
-                    </a>
-                    <span class="nav-tooltip">Appels</span>
-                </li>
-
-
-                <li class="nav-item">
-                    <a href="#" class="nav-link integrations-toggle" aria-label="Intégrations">
-                        <i class='bx bx-extension'></i>
-                        <span class="nav-label">Intégrations</span>
-                    </a>
-                    <span class="nav-tooltip">Intégrations</span>
-                    <ul class="integrations-submenu">
-                        <li>
-                            <a href="#" class="calendar-integration-btn">
-                                <i class='bx bx-calendar'></i>
-                                <span>Calendrier</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="cloud-integration-btn">
-                                <i class='bx bx-cloud'></i>
-                                <span>Stockage Cloud</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="plugins-btn">
-                                <i class='bx bx-plug'></i>
-                                <span>Extensions</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="widgets-btn">
-                                <i class='bx bx-widget'></i>
-                                <span>Widgets</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="voice-assistant-btn">
-                                <i class='bx bx-microphone-alt'></i>
-                                <span>Assistant vocal</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                 
-                <li class="nav-item">
-                    <a href="parametre.html" class="nav-link" aria-label="Paramètres">
-                        <i class='bx bx-cog'></i>
-                        <span class="nav-label">Paramètres</span>
-                    </a>
-                    <span class="nav-tooltip">Paramètres</span>
-                </li>
-            </ul>
-
-
-            <!-- Navigation secondaire -->
-
-            <ul class="nav-list secondary-nav">
-                <li class="nav-item">
-                    <a href="Profile.html" class="nav-link" aria-label="Profil">
-                        <i class='bx bx-user'></i>
-                        <span class="nav-label">Profil</span>
-                    </a>
-                    <span class="nav-tooltip">Profil</span>
-                </li>
-                <li class="nav-item">
-                    <a href="page-connexion.html" class="nav-link logout-btn" aria-label="Déconnexion">
-                        <i class='bx bx-log-out'></i>
-                        <span class="nav-label">Déconnexion</span>
-                    </a>
-                    <span class="nav-tooltip">Déconnexion</span>
-                </li>
-            </ul>
-
-        </nav>
-
-    </aside>
-
-    <!-- Liste des Discussions -->
-
-    <main class="chat-container">
-        <div class="discussions-list">
-            <div class="discussions-header">
-                <div class="search-discussions">
-                    <div class="search-wrapper">
-                        <i class="bx bx-search"></i>
-                        <div class="search-filters">
-                            <button class="filter-btn" data-filter="Messages">Messages</button>
-                            <button class="filter-btn" data-filter="Files">Fichiers</button>
-                            <button class="filter-btn" data-filter="Links">Liens</button>
-                        </div>
-                    </div>
-                    <div class="advanced-search">
-                        <div class="search-filters">
-                            <select class="date-filter">
-                                <option value="">Toutes les dates</option>
-                                <option value="today">Aujourd'hui</option>
-                                <option value="week">Cette semaine</option>
-                                <option value="month">Ce mois</option>
-                            </select>
-                            <select class="type-filter">
-                                <option value="">Tous les types</option>
-                                <option value="text">Texte</option>
-                                <option value="media">Médias</option>
-                                <option value="files">Fichiers</option>
-                                <option value="links">Liens</option>
-                            </select>
-                        </div>
-                    </div>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="10" r="3"></circle>
+                        <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"></path>
+                    </svg>
                 </div>
-                <div class="header-actions">
-                    <button class="new-chat-btn">
-                        <i class='bx bx-plus'></i>
-                    </button>
-                </div>   
-            </div>
-
-            <div class="discussions">
-                <div class="chat-item">
-                    <div class="chat-avatar">
-                        <img src="https://via.placeholder.com/50" alt="Avatar de l'utilisateur">
-                        <span class="status-dot online"></span>
-                    </div>
-                    <div class="chat-info">
-                        <h3>Nom de l'utilisateur</h3>
-                        <p class="last-message">Dernier message...</p>
-                    </div>
-                    <div class="chat-meta">
-                        <span class="time">10:30</span>
-                        <span class="unread-count">3</span>
-                        <button class="delete-chat-btn" title="Supprimer la conversation">
-                            <i class='bx bx-trash'></i>
-                        </button>
-                    </div>
+                <div class="nav-text">Story</div>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
                 </div>
-                <div class="chat-item">
-                    <div class="chat-avatar">
-                        <img src="https://via.placeholder.com/50" alt="Avatar de l'utilisateur">
-                        <span class="status-dot offline"></span>
-                    </div>
-                    <div class="chat-info">
-                        <h3>Nom de l'utilisateur</h3>
-                        <p class="last-message">Dernier message...</p>
-                    </div>
-                    <div class="chat-meta">
-                        <span class="time">10:30</span>
-                        <span class="unread-count">3</span>
-                        <button class="delete-chat-btn" title="Supprimer la conversation">
-                            <i class='bx bx-trash'></i>
-                        </button>
-                    </div>
+                <div class="nav-text">Équipes</div>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
                 </div>
-
-                <div class="chat-item">
-                    <div class="chat-avatar">
-                        <img src="https://via.placeholder.com/50" alt="Avatar de l'utilisateur">
-                        <span class="status-dot offline"></span>
-                    </div>
-                    <div class="chat-info">
-                        <h3>Nom de l'utilisateur</h3>
-                        <p class="last-message">Dernier message...</p>
-                    </div>
-                    <div class="chat-meta">
-                        <span class="time">10:30</span>
-                        <span class="unread-count">3</span>
-                        <button class="delete-chat-btn" title="Supprimer la conversation">
-                            <i class='bx bx-trash'></i>
-                        </button>
-                    </div>
+                <div class="nav-text">Appels</div>
+            </a>
+            <div class="nav-category">Outils</div>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
                 </div>
-
-                <div class="chat-item">
-                    <div class="chat-avatar">
-                        <img src="https://via.placeholder.com/50" alt="Avatar de l'utilisateur">
-                        <span class="status-dot offline"></span>
-                    </div>
-                    <div class="chat-info">
-                        <h3>Nom de l'utilisateur</h3>
-                        <p class="last-message">Dernier message...</p>
-                    </div>
-                    <div class="chat-meta">
-                        <span class="time">10:30</span>
-                        <span class="unread-count">3</span>
-                        <button class="delete-chat-btn" title="Supprimer la conversation">
-                            <i class='bx bx-trash'></i>
-                        </button>
-                    </div>
+                <div class="nav-text">Intégrations</div>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                    </svg>
                 </div>
-            </div>
+                <div class="nav-text">Stockage Cloud</div>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                </div>
+                <div class="nav-text">Paramètres</div>
+            </a>
         </div>
-    </main>
-  
-
-    <!-- Fenêtre de discussion -->
-
-     <div class="chat-box">
-        <div class="chat-header">
-            <div class="chat-user-info">
-                <img src="https://via.placeholder.com/50" alt="Avatar du contact">
-                <div class="user-details">
-                    <h3>Nom du contact</h3>
-                    <span class="status">En ligne</span>
-                    <span class="typing-indicator" style="display: none">est en train d'écrire...</span>
+        <div class="sidebar-footer">
+            <a href="#" class="nav-item">
+                <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
                 </div>
-            </div>
-            <div class="chat-actions" style="margin-left: auto;">
-                <button class="action-btn"><i class="bx bx-phone"></i></button>
-                
-                <button class="action-btn"><i class="bx bx-video"></i></button>
-                
-                <button class="action-btn lock-chat-btn"><i class="bx bx-lock-alt"></i></button>
-                
-                <button class="action-btn start-group-call" title="Démarrer appel vidéo en groupe"><i class="bx bx-video-plus"></i></button>
-                
-                <button class="action-btn quick-calendar-btn" title="Planifier un événement"><i class="bx bx-calendar-plus"></i></button>
-                
-                <button class="action-btn quick-cloud-btn" title="Partager depuis le cloud"><i class="bx bx-cloud-upload"></i></button>
-                
-                <button class="action-btn info-btn"><i class="bx bx-info-circle"></i></button>
-
-                <div class="info-dropdown">
-                    <ul>
-                        <li> Voir le profil</li>
-                        
-                        <li> Recherche</li>
-                        
-                        <li> Média et Liens</li>
-                        
-                        <li> Mode Silencieux</li>
-                        
-                        <li> Messages éphémères</li>
-                        
-                        <li class="notes-btn"> Notes personnelles <i class="bx bx-note"></i></li>
-                        
-                        <li class="archive-chat"><i class="bx bx-archive"></i>Archiver la conversation</li>
-                        
-                        <li class="export-chat"><i class="bx bx-export"></i>Exporter la conversation</li>
-
-                        <li class="calendar-events-btn"><i class="bx bx-calendar"></i> Événements partagés </li>
-
-                        <li class="cloud-files-btn"><i class="bx bx-folder"></i> Fichiers partagés </li>
-
-                        <li class="install-extension-btn"><i class="bx bx-extension"></i> Ajouter une extension</li>
-                        
-                        <li> Plus <i class="bx bx-chevron-right"></i></li>
-
-                    </ul>
+                <div class="nav-text">Profil</div>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
                 </div>
-            </div>
-
-            <div class="notes-panel" style="display: none;">
-                <div class="notes-header">
-                    <h3>Notes personnelles</h3>
-                    <button class="close-notes"><i class="bx bx-x"></i></button>
-                </div>
-                <div class="notes-content">
-                    <textarea placeholder="Écrire une note..."></textarea>
-                </div>
-                <div class="notes-footer">
-                    <button class="save-notes">Enregistrer</button>
-                </div>
-            </div>
-
-            <div class="media-gallery" style="display: none;">
-                <div class="gallery-header">
-                    <h3>Médias partagés</h3>
-                    <div class="gallery-tabs">
-                        <button class="tab-btn active" data-type="all"></button>
-                        <button class="tab-btn" data-type="images"></button>
-                        <button class="tab-btn" data-type="videos"></button>
-                        <button class="tab-btn" data-type="files"></button>
-                    </div>
-                    <button class="close-gallery">
-                        <i class="bx bx-x"></i>
-                    </button>
-                </div>
-                <div class="gallery-content">
-                    <div class="media-grid">
-                        <!--Les médias seront ajoutés ici dynamiquement -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="chat-input"> 
-                <div class="reply-preview" style="display: none;">
-                    <span class="reply-to-text"></span>
-                    <button class="cancel-reply">
-                        <i class="bx bx-x"></i>
-                    </button>
-                    <div class="mentions-list" style="display: none;">
-                        <ul>
-                            <!-- Cette liste sera remplie dynamiquement -->
-                        </ul>
-                    </div>
-                </div>
-                <button class="attachement-btn" aria-label="Joindre un fichier">
-                    <i class="bx bx-paperclip"></i>
-                </button>
-                <input type="file" id="file-input" style="display: none" multiple>
-                <input type="text" placeholder="Écrire un message...">
-                <input type="file" id="file-input-2" style="display: none" multiple>
-                <div class="upload-progress" style="display: none;">
-                    <div class="progress-bar">
-                        <div class="progress-fill"></div>
-                    </div>
-                    <div class="progress-text">0%</div>
-                </div>
-                <button class="emoji-btn" title="Insérer un emoji">
-                    <i class="bx bx-smile"></i>
-                </button>
-                <div class="emoji-picker"></div>  
-                <button class="send-btn mic-btn" title="Enregistrer un message vocal">
-                    <i class="bx bx-microphone"></i>
-                </button>
-                <button class="send-btn send-message-btn" style="display: none;" title="Envoyer le message">
-                    <i class="bx bx-send"></i>
-                </button>
-                <button class="voice-assistant-trigger" title="Utiliser l'assistant vocal" style="display: inline-flex; align-items: center; justify-content: center; background-color: #4285F4; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; margin-left: 8px; cursor: pointer;">
-                    <i class="bx bx-microphone-alt"></i>
-                </button>
-            
-                <!-- Icônes pour intégrations rapides -->
-                <button class="quick-integration-btn" title="Intégrations rapides">
-                    <i class="bx bx-plus"></i>
-                </button>
-                <div class="quick-integration-menu" style="display: none;">
-                    <button class="quick-calendar" title="Insérer un événement"><i class="bx bx-calendar"></i></button>
-                    
-                    <button class="quick-drive" title="Google Drive"><i class="bx bx-cloud"></i></button>
-                    
-                    <button class="quick-dropbox" title="Dropbox"><i class="bx bxl-dropbox"></i></button>
-                    
-                    <button class="quick-onedrive" title="OneDrive"><i class="bx bxl-microsoft"></i></button>
-                </div>              
-                <canvas id="visualizer" style="display: none; height: 40px; width: 100%;"></canvas>
-                <div class="file-preview-container" style="display: none;">
-                    <div class="file-preview-header">
-                        <h4>Fichiers à envoyer</h4>
-                        <button class="clear-files"><i class='bx bx-x'></i></button>
-                    </div>
-                    <div class="file-preview-list">
-                        <!-- Liste des fichiers -->
-                    </div>
-                    <div class="file-actions">
-                        <button class="compress-files">Compresser</button>
-                        <button class="send-files">Envoyer</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Nouvelles fenêtres modales pour les intégrations -->
-    
-            <!-- 1. Intégration de calendrier -->
-            <div class="integration-modal calendar-modal" style="display: none;">
-                <div class="modal-header">
-                    <h3>Intégration de calendrier</h3>
-                    <button class="close-modal"><i class="bx bx-x"></i></button>
-                </div>
-                <div class="modal-content">
-                    <div class="calendar-tabs">
-                        <button class="calendar-tab active" data-tab="connect">Connexion</button>
-
-                        <button class="calendar-tab" data-tab="create">Créer un événement</button>
-
-                        <button class="calendar-tab" data-tab="view">Voir les événements</button>
-                    </div>
-
-                    <div class="calendar-tab-content" id="connect-tab">
-                        <h4>Services de calendrier connectés</h4>
-                        <div class="connected-services">
-                            <div class="service-item">
-                                <img src="https://via.placeholder.com/50" alt="Google Calendar">
-                                <span>Google Calendar</span>
-                                <span class="connection-status connected">Connecté</span>
-                                <button class="disconnect-btn">Déconnecter</button>
-                            </div>
-                            <div class="service-item">
-                                <img src="https://via.placeholder.com/50" alt="Outlook">
-                                <span>Microsoft Outlook</span>
-                                <span class="connection-status disconnected">Non connecté</span>
-                                <button class="connect-btn">Connecter</button>
-                            </div>
-                            <div class="service-item">
-                                <img src="https://via.placeholder.com/50" alt="Apple Calendar">
-                                <span>Apple Calendar</span>
-                                <span class="connection-status disconnected">Non connecté</span>
-                                <button class="connect-btn">Connecter</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="calendar-tab-content" id="create-tab" style="display: none;">
-                        <h4>Créer un nouvel événement</h4>
-                        <form class="event-form">
-                            <div class="form-group">
-                                <label for="event-title">Titre</label>
-                                <input type="text" id="event-title" placeholder="Titre de l'événement...">
-                            </div>
-                            <div class="form-group">
-                                <label for="event-date">Date</label>
-                                <input type="date" id="event-date">
-                            </div>
-                            <div class="form-group">
-                                <label for="event-time">Heure</label>
-                                <input type="time" id="event-time">
-                            </div>
-                            <div class="form-group">
-                                <label for="event-duration">Durée</label>
-                                <select id="event-duration">
-                                    <option value="15">15 minutes</option>
-                                    <option value="30">30 minutes</option>
-                                    <option value="45">45 minutes</option>
-                                    <option value="60">1 heure</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="event-calendar">Calendrier</label>
-                                <select id="event-calendar">
-                                    <option value="google">Google Calendar</option>
-                                    <option value="outlook">Outlook Calendar</option>
-                                    <option value="apple">Apple Calendar</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="event-participants">Participants</label>
-                                <input type="text" id="event-participants" placeholder="Ajouter des participants...">
-                                <div class="participants-list">
-                                    <!-- Liste des participants seront ajoutées ici -->
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="event-location">Lieu</label>
-                                <input type="text" id="event-location" placeholder="Adresse ou lieu de réunion...">
-                            </div>
-                            <div class="form-group">
-                                <label for="event-description">Description</label>
-                                <textarea id="event-description" placeholder="Description de l'événement..."></textarea>
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit">Créer l'événement</button>
-                                <button type="button" class="cancel-event">Annuler</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="calendar-tab-content" id="view-tab" style="display: none;">
-                        <h4>Événements à venir</h4>
-                        <div class="event-filters">
-                            <select class="calendar-filter">
-                                <option value="all">Tous les événements</option>
-                                
-                                <option value="google">Google Calendar</option>
-                                
-                                <option value="outlook">Outlook Calendar</option>
-                                
-                                <option value="apple">Apple Calendar</option>
-                            </select>
-                            <select class="time-filter">
-                                <option value="today">Aujourd'hui</option>
-                                
-                                <option value="tomorrow">Demain</option>
-                                
-                                <option value="Week">Cette semaine</option>
-                                
-                                <option value="Month">Ce Mois</option>
-                            </select>
-                        </div>
-                        <div class="event-list">
-                            <div class="event-item">
-                                <div class="event-color" style="background-color: #4285F4;"></div>
-                                <div class="event-details">
-                                    <h5>Réunion d'équipe</h5>
-                                    <span class="event-time">Aujourd'hui, 14:00 - 15:00</span>
-                                    <span class="event-location">Salle de conférence virtuelle</span>
-                                </div>
-                                <div class="event-actions">
-                                    <button class="share-event-btn" title="Partager l'événement"><i class="bx bx-share"></i></button>
-                                    <button class="edit-event-btn" title="Modifier"><i class="bx bx-edit"></i></button>
-                                </div>
-                            </div>
-                            <div class="event-item">
-                                <div class="event-color" style="background-color: #34A853;"></div>
-                                <div class="event-details">
-                                    <h5>Appel client</h5>
-                                    <span class="event-time">Demain, 10:00 - 10:30</span>
-                                    <span class="event-location">Google Meet</span>
-                                </div>
-                                <div class="event-actions">
-                                    <button class="share-event-btn" title="Partager l'événement"><i class="bx bx-share"></i></button>
-                                    <button class="edit-event-btn" title="Modifier"><i class="bx bx-edit"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-             </div>
-
-             <!-- 2. Intégration de stockage cloud -->
-              <div class="integration-modal cloud-modal" style="display: none;">
-                <div class="modal-header">
-                    <h3>Intégration de stockage cloud</h3>
-                    <button class="close-modal"><i class="bx bx-x"></i></button>
-                </div>
-                <div class="modal-content">
-                    <div class="cloud-tabs">
-                        <button class="cloud-tab active" data-tab="account">Comptes</button>
-                        <button class="cloud-tab" data-tab="browse">Parcourir</button>
-                        <button class="cloud-tab" data-tab="recent">Récents</button>
-                    </div>
-
-                    <div class="cloud-tab-content" id="account-tab">
-                        <h4>Services de stockage connectés</h4>
-                        <div class="connected-services">
-                            <div class="service-item">
-                                <img src="https://via.placeholder.com/50" alt="Google Drive">
-                                <span>Google Drive</span>
-                                <span class="connection-status connected">Connecté</span>
-                                <button class="disconnect-btn">Déconnecter</button>
-                            </div>
-                            <div class="service-item">
-                                <img src="https://via.placeholder.com/50" alt="Dropbox">
-                                <span>Dropbox</span>
-                                <span class="connection-status not-connected">Non connecté</span>
-                                <button class="connect-btn">Connecter</button>
-                            </div>
-                            <div class="service-item">
-                                <img src="https://via.placeholder.com/50" alt="OneDrive">
-                                <span>OneDrive</span>
-                                <span class="connection-status not-connected">Connecté</span>
-                                <button class="connect-btn">Déconnecter</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cloud-tab-content" id="browse-tab" style="display: none;">
-                        <div class="cloud-service-selector">
-                            <select id="cloud-service">
-                                <option value="google-drive">Google Drive</option>
-                                
-                                <option value="dropbox">Dropbox</option>
-                                
-                                <option value="onedrive">OneDrive</option>
-                            </select>
-                        </div>
-
-                        <div class="file-browser">
-                            <div class="file-navigation">
-                                <button class="back-btn"><i class="bx bx-arrow-back"></i></button>
-
-                                <span class="current-path">/Document/Projets/</span>
-                            </div>
-
-                            <div class="files-list">
-                                <div class="file-item folder">
-                                    <i class="bx bx-folder"></i>
-                                    <span class="file-name">Marketing</span>
-                                </div>
-                                <div class="file-item folder">
-                                    <i class="bx bx-folder"></i>
-                                    <span class="file-name">Finances</span>
-                                </div>
-                                <div class="file-item document">
-                                    <i class="bx bx-file"></i>
-                                    <span class="file-name">Contrat de travail.docx</span>
-                                    <button class="share-file-btn"><i class="bx bx-share"></i></button>
-                                </div>
-                                <div class="file-item spreadsheet">
-                                    <i class="bx bx-spreadsheet"></i>
-                                    <span class="file-name">Budget 2025.xlsx</span>
-                                    <button class="share-file-btn"><i class="bx bx-share"></i></button>
-                                </div>
-                                <div class="file-item pdf">
-                                    <i class="bx bx-file"></i>
-                                    <span class="file-name">Contrat.pdf</span>
-                                    <button class="share-file-btn"><i class="bx bx-share"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cloud-tab-content" id="recent-tab" style="display: none;">
-                        <h4>Fichiers récemment consultés</h4>
-                        <div class="recent-files">
-                            <div class="file-item pdf">
-                                <i class="bx bxs-file-pdf"></i>
-                                <div class="file-details">
-                                    <span class="file-name">Présentation.pdf</span>
-                                    <span class="file-service">Google Drive</span>
-                                </div>
-                                <button class="share-file-btn"><i class="bx bx-share"></i></button>
-                            </div>
-                            <div class="file-item document">
-                                <i class="bx bx-file-doc"></i>
-                                <div class="file-details">
-                                    <span class="file-name">Notes de réunion.docx</span>
-                                    <span class="file-service">OneDrive</span>
-                                </div>
-                                <button class="share-file-btn"><i class="bx bx-share"></i></button>
-                            </div>
-                            <div class="file-item spreadsheet">
-                                <i class="bx bx-spreadsheet"></i>
-                                <div class="file-details">
-                                    <span class="file-name">Analyse.xlsx</span>
-                                    <span class="file-service">Google Drive</span>
-                                </div>
-                                <button class="share-file-btn"><i class="bx bx-share"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. Gestionnaire d'extensions/plugins -->
-             <div class="integration-modal plugins-modal" style="display: none;">
-                <div class="modal-header">
-                    <h3>Gestionnaire d'extensions/plugins</h3>
-                    <button class="close-modal"><i class="bx bx-x"></i></button>
-                </div>
-                <div class="modal-content">
-                    <div class="plugins-tabs">
-                        <button class="plugin-tab active" data-tab="installed">Installées</button>
-                        <button class="plugin-tab" data-tab="store">Découvrir</button>
-                        <button class="plugin-tab" data-tab="setting">Paramètres</button>
-                    </div>
-
-                    <div class="plugin-tab-content" id="installed-tab">
-                        <div class="search-plugins">
-                            <input type="text" placeholder="Rechercher une extension...">
-                            <button><i class="bx bx-search"></i></button>
-                        </div>
-
-                        <div class="plugins-list">
-                            <div class="plugin-item">
-                                <img src="https://via.placeholder.com/50" alt="Traduction instantanée">
-                                <div class="plugin-details">
-                                    <h5>Traduction instantanée</h5>
-                                    <span class="plugin-description">Traduit les messages en temps réel</span>
-                                </div>
-                                <div class="plugin-actions">
-                                    <label class="switch">
-                                        <input type="checkbox" checked>
-                                        <span class="slider round"></span>
-                                    </label>
-                                    <button class="plugin-settings-btn"><i class="bx bx-cog"></i></button>
-                                </div>
-                            </div>
-                            <div class="plugin-item">
-                                <img src="https://via.placeholder.com/50" alt="Prédictions IA">
-                                <div class="plugin-details">
-                                    <h5>Prédictions IA</h5>
-                                    <span class="plugin-description">Suggestions de réponses intelligentes</span>
-                                </div>
-                                <div class="plugin-actions">
-                                    <label class="switch">
-                                        <input type="checkbox">
-                                        <span class="slider round"></span>
-                                    </label>
-                                    <button class="plugin-settings-btn"><i class="bx bx-cog"></i></button>
-                                </div>
-                            </div>
-                            <div class="plugin-item">
-                                <img src="https://via.placeholder.com/50" alt="Résumé de conversation">
-                                <div class="plugin-details">
-                                    <h5>Résumé de conversation</h5>
-                                    <span class="plugin-description">Génère des résumés des discussions longues</span>
-                                </div>
-                                <div class="plugin-actions">
-                                    <label class="switch">
-                                        <input type="checkbox">
-                                        <span class="slider round"></span>
-                                    </label>
-                                    <button class="plugin-settings-btn"><i class="bx bx-cog"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="plugin-tab-content" id="store-tab" style="display: none;">
-                        <div class="search-plugins">
-                            <input type="text" placeholder="Rechercher une extension...">
-                            <button><i class="bx bx-search"></i></button>
-                        </div>
-
-                        <div class="plugins-categories">
-                            <button class="category-btn active">Tous</button>
-                            
-                            <button class="category-btn">Productivité</button>
-                            
-                            <button class="category-btn">Collaboration</button>
-                            
-                            <button class="category-btn">Sécurité</button>
-                            
-                            <button class="category-btn">Médias</button>
-                        </div>
-
-                        <div class="plugins-store-list">
-                            <div class="plugin-store-item">
-                                <img src="https://via.placeholder.com/50" alt="Agenda partagés">
-                                <div class="plugin-details">
-                                    <h5>Agenda partagés</h5>
-                                    <span class="plugin-description">Planifiez et partagez des événements collectifs</span>
-                                    <div class="plug-meta">
-                                        <span class="plugin-rating"><i class="bx bxs-star"></i>4.8</span>
-                                        <span class="plugin-installs">12K+ Installations</span>
-                                    </div>
-                                </div>
-                                <button class="install-plugin-btn">Installer</button>
-                            </div>
-                            <div class="plugin-store-item">
-                                <img src="https://via.placeholder.com/50" alt="Taskify">
-                                <div class="plugin-details">
-                                    <h5>Taskify</h5>
-                                    <span class="plugin-description">Transformez les messages en tâches assignables</span>
-                                    <div class="plug-meta">
-                                        <span class="plugin-rating"><i class="bx bxs-star"></i>4.6</span>
-                                        <span class="plugin-installs">8K+ Installations</span>
-                                    </div>
-                                </div>
-                                <button class="install-plugin-btn">Installer</button>
-                            </div>
-                            <div class="plugin-store-item">
-                                <img src="https://via.placeholder.com/50" alt="Statistiques de chat">
-                                <div class="plugin-details">
-                                    <h5>Statistiques de chat</h5>
-                                    <span class="plugin-description">Analysez vos conversations pour mieux comprendre vos utilisateurs</span>
-                                    <div class="plug-meta">
-                                        <span class="plugin-rating"><i class="bx bxs-star"></i>4.7</span>
-                                        <span class="plugin-installs">5K+ Installations</span>
-                                    </div>
-                                </div>
-                                <button class="install-plugin-btn">Installer</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="plugin-tab-content" id="settings-tab" style="display: none;">
-                        <h4>Paramètres des extensions</h4>
-                        <div class="plugin-setting-list">
-                            <div class="setting-item">
-                                <span>Autoriser les extensions à accéder aux messages</span>
-                                <label class="switch">
-                                    <input type="checkbox" checked>
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                            <div class="setting-item">
-                                <span>Lancer les extensions au démarrage</span>
-                                <label class="switch">
-                                    <input type="checkbox" checked>
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                            <div class="setting-item">
-                                <span>Partager des statistiques d'utilisation anonymes</span>
-                                <label class="switch">
-                                    <input type="checkbox" checked>
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="plugin-developer-options">
-                            <h4>Options de développement</h4>
-                            <button class="developer-mode-btn">Activer le mode développeur</button>
-
-                            <button class="api-docs-btn">Documentation de l'API</button>
-
-                            <button class="create-plugin-btn">Créer une extension</button>
-                        </div>
-                    </div>
-                </div>
-             </div>
-
-             <!-- 4.Gestionnaire de widgets -->
-              <div class="integration-modal widgets-modal" style="display: none;">
-                <div class="modal-header">
-                    <h3>Widgets pour l'écran d'accueil</h3>
-                    <button class="close-modal"><i class="bx bx-x"></i></button>
-                </div>
-                <div class="modal-content">
-                    <div class="widgets-tabs">
-                        <button class="widgets-tab active" data-tab="my-widgets">Mes widgets</button>
-
-                        <button class="widgets-tab" data-tab="gallery">Galerie</button>
-
-                        <button class="widgets-tab" data-tab="customize">Personnaliser</button>
-                    </div>
-
-                    <div class="widgets-tab-content active" id="my-widgets-tab">
-                        <h4>Widgets actifs</h4>
-                        <div class="widget-list">
-                            <div class="widget-item">
-                                <div class="widget-preview">
-                                    <i class="bx bx-chat widget-icon"></i>
-                                    <span class="widget-name">Conversations récentes</span>
-                                </div>
-                                <div class="widget-actions">
-                                    <button class="edit-widget-btn"><i class="bx bx-edit"></i></button>
-                                    <button class="remove-widget-btn"><i class="bx bx-trash"></i></button>
-                                </div>
-                            </div>
-                            <div class="widget-item">
-                                <div class="widget-preview">
-                                    <i class="bx bx-calendar widget-icon"></i>
-                                    <span class="widget-name">Calendrier</span>
-                                </div>
-                                <div class="widget-actions">
-                                    <button class="edit-widget-btn"><i class="bx bx-edit"></i></button>
-                                    <button class="remove-widget-btn"><i class="bx bx-trash"></i></button>
-                                </div>
-                            </div>
-                            <div class="widget-item">
-                                <div class="widget-preview">
-                                    <i class="bx bx-task widget-icon"></i>
-                                    <span class="widget-name">Tâches à faire</span>
-                                </div>
-                                <div class="widget-actions">
-                                    <button class="edit-widget-btn"><i class="bx bx-edit"></i></button>
-                                    <button class="remove-widget-btn"><i class="bx bx-trash"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="widget-tab-content" id="gallery-tab" style="display: none;">
-                        <h4>Ajouter un widget</h4>
-                        <div class="widgets-gallery">
-                            <div class="widget-gallery-item">
-                                <div class="widget-preview">
-                                    <i class="bx bx-file widget-icon"></i>
-                                    <span class="widget-name">Fichiers récents</span>
-                                </div>
-                                <button class="add-widget-btn">Ajouter</button>
-                            </div>
-                            <div class="widget-gallery-item">
-                                <div class="widget-preview">
-                                    <i class="bx bx-bar-chart widget-icon"></i>
-                                    <span class="widget-name">Statistiques d'activités</span>
-                                </div>
-                                <button class="add-widget-btn">Ajouter</button>
-                            </div>
-                            <div class="widget-gallery-item">
-                                <div class="widget-preview">
-                                    <i class="bx bx-timer widget-icon"></i>
-                                    <span class="widget-name">Minuteur Pomodoro</span>
-                                </div>
-                                <button class="add-widget-btn">Ajouter</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="widget-tab-content" id="customize-tab" style="display: none;">
-                    <h4>Personnalisation des widgets</h4>
-                    <div class="widget-customization">
-                        <div class="widget-selector">
-                            <label for="widget-to-customize">Sélectionner un widget</label>
-                            <select id="widget-to-customize">
-                                <option value="conversations">Conversations récentes</option>
-                                
-                                <option value="calendar">Calendrier</option>
-                                
-                                <option value="tasks">Tâches à faire</option>
-                            </select>
-                        </div>
-
-                        <div class="widget-options">
-                            <div class="option-group">
-                                <label>Taille</label>
-                                <div class="size-options">
-                                    <button class="size-option active">Petit</button>
-
-                                    <button class="size-option">Moyen</button>
-
-                                    <button class="size-option">Grand</button>
-                                </div>
-                            </div>
-
-                            <div class="option-group">
-                                <label>Position</label>
-                                <div class="position-grid">
-                                    <button class="position-btn" data-position="top-left"></button>
-
-                                    <button class="position-btn" data-position="top-center"></button>
-
-                                    <button class="position-btn" data-position="top-right"></button>
-
-                                    <button class="position-btn" data-position="middle-left"></button>
-
-                                    <button class="position-btn" data-position="middle-center"></button>
-
-                                    <button class="position-btn" data-position="middle-right"></button>
-
-                                    <button class="position-btn" data-position="bottom-left"></button>
-
-                                    <button class="position-btn" data-position="bottom-center"></button>
-
-                                    <button class="position-btn" data-position="bottom-right"></button>
-                                </div>
-                            </div>
-
-                            <div class="option-group">
-                                <label>Actualisation</label>
-                                <select class="refresh-rate">
-                                    <option value="30">30 secondes</option>
-                                    
-                                    <option value="60">1 minute</option>
-                                    
-                                    <option value="300">5 minutes</option>
-                                    
-                                    <option value="600">10 minutes</option>
-                                    
-                                    <option value="1800">30 minutes</option>
-                                </select>
-                            </div>
-
-                            <div class="option-group">
-                                <label>Apparence</label>
-                                <div class="theme-options">
-                                    <button class="theme-btn active" data-theme="light">Clair</button>
-
-                                    <button class="theme-btn" data-theme="dark">Sombre</button>
-
-                                    <button class="theme-btn" data-theme="system">Système</button>
-                                </div>
-                                <div class="color-picker">
-                                    <label for="accent-color">Couleur d'accent</label>
-                                    <input type="color" id="accent-color" value="#4285F4">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="widget-preview-panel">
-                            <h5>Aperçu</h5>
-                            <div class="widget-preview-container">
-                                <!-- L'aperçu du widget sera généré ici -->
-                                <div class="widget-preview-placeholder">
-                                    <div class="widget-header">
-                                        <span class="widget-title">Conversations récentes</span>
-                                        <div class="widget-controls">
-                                            <i class="bx bx-refresh"></i>
-                                            <i class="bx bx-cog"></i>
-                                        </div>
-                                    </div>
-                                    <div class="widget-content">
-                                        <!-- Contenu de prévisualisation -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="customization-actions">
-                            <button class="reset-defaults">Réinitialiser</button>
-                            <button class="save-customization">Enregistrer</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5. Configuration d'assistant vocal -->
-    <div class="integration-modal voice-assistant-modal" style="display: none;">
-        <div class="modal-header">
-            <h3>Assistant Vocal</h3>
-            <button class="close-modal"><i class="bx bx-x"></i></button>
-        </div>
-        <div class="modal-content">
-            <div class="voice-tabs">
-                <button class="voice-tab active" data-tab="commands">Commandes</button>
-                <button class="voice-tab" data-tab="settings">Paramètres</button>
-                <button class="voice-tab" data-tab="services">Services</button>
-            </div>
-            
-            <div class="voice-tab-content" id="commands-tab">
-                <h4>Commandes vocales disponibles</h4>
-                <div class="commands-list">
-                    <div class="command-category">
-                        <h5>Messages</h5>
-                        <div class="command-items">
-                            <div class="command-item">
-                                <div class="command-phrase">"Envoyer un message à [nom]"</div>
-                                <div class="command-description">Commence un nouveau message</div>
-                            </div>
-                            <div class="command-item">
-                                <div class="command-phrase">"Lire mes nouveaux messages"</div>
-                                <div class="command-description">Lit vos messages non lus</div>
-                            </div>
-                            <div class="command-item">
-                                <div class="command-phrase">"Répondre"</div>
-                                <div class="command-description">Répond au dernier message</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="command-category">
-                        <h5>Appels</h5>
-                        <div class="command-items">
-                            <div class="command-item">
-                                <div class="command-phrase">"Appeler [nom]"</div>
-                                <div class="command-description">Démarre un appel audio</div>
-                            </div>
-                            <div class="command-item">
-                                <div class="command-phrase">"Vidéo avec [nom]"</div>
-                                <div class="command-description">Démarre un appel vidéo</div>
-                            </div>
-                            <div class="command-item">
-                                <div class="command-phrase">"Raccrocher"</div>
-                                <div class="command-description">Termine l'appel en cours</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="command-category">
-                        <h5>Navigation</h5>
-                        <div class="command-items">
-                            <div class="command-item">
-                                <div class="command-phrase">"Ouvrir [section]"</div>
-                                <div class="command-description">Navigue vers une section spécifique</div>
-                            </div>
-                            <div class="command-item">
-                                <div class="command-phrase">"Chercher [terme]"</div>
-                                <div class="command-description">Lance une recherche</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="custom-commands">
-                    <h4>Commandes personnalisées</h4>
-                    <div class="custom-commands-list">
-                        <div class="custom-command-item">
-                            <div class="command-details">
-                                <div class="command-phrase">"Réunion d'équipe"</div>
-                                <div class="command-action">Crée un événement avec l'équipe</div>
-                            </div>
-                            <div class="command-actions">
-                                <button class="edit-command-btn"><i class="bx bx-edit"></i></button>
-                                <button class="delete-command-btn"><i class="bx bx-trash"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="add-custom-command">+ Ajouter une commande</button>
-                </div>
-            </div>
-            
-            <div class="voice-tab-content" id="settings-tab" style="display: none;">
-                <h4>Paramètres de l'assistant vocal</h4>
-                
-                <div class="voice-settings">
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <span>Activer l'assistant vocal</span>
-                            <span class="setting-description">Permet le contrôle par la voix</span>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox" checked>
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <span>Mode écoute continue</span>
-                            <span class="setting-description">L'assistant écoute en permanence</span>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <span>Confirmation vocale</span>
-                            <span class="setting-description">Confirme les commandes à voix haute</span>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox" checked>
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <span>Lecture des nouveaux messages</span>
-                            <span class="setting-description">Lit automatiquement les nouveaux messages</span>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <span>Voix de l'assistant</span>
-                        </div>
-                        <select class="voice-selection">
-                            <option value="voice1">Voix 1 (Féminine)</option>
-                            <option value="voice2">Voix 2 (Masculine)</option>
-                            <option value="voice3">Voix 3 (Neutre)</option>
-                        </select>
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <span>Mot d'activation</span>
-                            <span class="setting-description">Mot à dire pour activer l'assistant</span>
-                        </div>
-                        <input type="text" class="wake-word" value="Hey Assistant" placeholder="Mot d'activation">
-                    </div>
-                    
-                    <div class="setting-item">
-                        <div class="setting-label">
-                            <span>Langue de reconnaissance</span>
-                        </div>
-                        <select class="language-selection">
-                            <option value="fr-FR">Français (France)</option>
-                            <option value="en-US">Anglais (États-Unis)</option>
-                            <option value="es-ES">Espagnol (Espagne)</option>
-                            <option value="de-DE">Allemand</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="voice-tab-content" id="services-tab" style="display: none;">
-                <h4>Services d'assistants vocaux</h4>
-                
-                <div class="assistant-services">
-                    <div class="service-item">
-                        <img src="https://via.placeholder.com/30" alt="Assistant intégré">
-                        <div class="service-details">
-                            <span class="service-name">Assistant intégré</span>
-                            <span class="service-status">Actif (par défaut)</span>
-                        </div>
-                        <div class="service-actions">
-                            <label class="switch">
-                                <input type="checkbox" checked>
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="service-item">
-                        <img src="https://via.placeholder.com/30" alt="Google Assistant">
-                        <div class="service-details">
-                            <span class="service-name">Google Assistant</span>
-                            <span class="service-status">Non connecté</span>
-                        </div>
-                        <div class="service-actions">
-                            <button class="connect-service-btn">Connecter</button>
-                        </div>
-                    </div>
-                    
-                    <div class="service-item">
-                        <img src="https://via.placeholder.com/30" alt="Alexa">
-                        <div class="service-details">
-                            <span class="service-name">Amazon Alexa</span>
-                            <span class="service-status">Non connecté</span>
-                        </div>
-                        <div class="service-actions">
-                            <button class="connect-service-btn">Connecter</button>
-                        </div>
-                    </div>
-                    
-                    <div class="service-item">
-                        <img src="https://via.placeholder.com/30" alt="Siri">
-                        <div class="service-details">
-                            <span class="service-name">Siri</span>
-                            <span class="service-status">Non connecté</span>
-                        </div>
-                        <div class="service-actions">
-                            <button class="connect-service-btn">Connecter</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="permissions-section">
-                    <h5>Autorisations</h5>
-                    <div class="permission-item">
-                        <span>Accès au microphone</span>
-                        <span class="permission-status granted">Accordé</span>
-                    </div>
-                    <div class="permission-item">
-                        <span>Notifications</span>
-                        <span class="permission-status granted">Accordé</span>
-                    </div>
-                    <div class="permission-item">
-                        <span>Contacts</span>
-                        <span class="permission-status denied">Refusé</span>
-                        <button class="request-permission-btn">Demander</button>
-                    </div>
-                </div>
-            </div>
+                <div class="nav-text">Déconnexion</div>
+            </a>
         </div>
     </div>
 
-
-            <div class="search-messages" style="display: none;">
-                <div class="search-container">
-                    <input type="text" id="message-search" placeholder="Rechercher dans les messages...">
-                    <button class="close-search">
-                        <i class="bx bx-x"></i>
-                    </button>
-                </div>
-                <div class="search-results">
-                    <div class="results-count"></div>
-                    <div class="results-list"></div>
-                    <div class="navigation-buttons">
-                        <button class="prev-result" disabled>
-                            <i class="bx bx-up-arrow-alt"></i>
-                        </button>
-                        <button class="next-result" disabled>
-                            <i class="bx bx-down-arrow-alt"></i>
-                        </button>
+    <div class="main-container">
+        <div class="conversations">
+            <div class="conversations-header">
+                <div class="search-bar">
+                    <div class="search-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
                     </div>
+                    <input type="text" class="search-input" placeholder="Rechercher...">
+                </div>
+                <div class="tab-container">
+                    <div class="tab active">Messages</div>
+                    <div class="tab">Fichiers</div>
+                    <div class="tab">Liens</div>
+                </div>
+                <div class="filters">
+                    <select class="filter-select">
+                        <option>Toutes les dates</option>
+                        <option>Aujourd'hui</option>
+                        <option>Cette semaine</option>
+                        <option>Ce mois</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>Tous les types</option>
+                        <option>Messages</option>
+                        <option>Médias</option>
+                        <option>Documents</option>
+                    </select>
                 </div>
             </div>
-        </div>
-
-        <div class="pinned-messages">
-            <h4>Messages épinglés</h4>
-            <div class="pinned-message-list">
-                <!-- Les messages épinglés seront ajoutés ici dynamiquement -->
-            </div>
-        </div>
-
-        <div class="chat-messages">
-            <div class="message sent">
-                <p>Bonjour ! Comment ça va ?</p>
-                <div class="message-footer">
-                        <span class="time">10:30</span>
-                        <span class="message-status">
-                            <i class="bx bx-check-double"></i>
-                        </span>
-                </div>
-                <div class="message-actions">
-                    <button class="pin-btn" title="Épingler le message">
-                        <i class="bx bx-pin"></i>
-                    </button>
-                    <button class="reply-btn" title="Répondre">
-                        <i class="bx bx-reply"></i>
-                    </button>
-                    <button class="edit-btn" title="Modifier">
-                        <i class="bx bx-edit"></i>
-                    </button>
-                    <button class="forward-btn" title="Transférer">
-                        <i class="bx bx-share"></i>
-                    </button>
-                    <button class="favorite-btn" title="Marquer comme favori">
-                        <i class="bx bx-star"></i>
-                    </button>
-                    <button class="save-message-btn" title="Sauvegarder pour plus tard">
-                        <i class="bx bx-bookmark"></i>
-                    </button>
-                    <div class="message-translation">
-                        <button class="translate-btn" title="Traduire le message">
-                            <i class="bx bx-translate"></i>
-                        </button>
-                        <div class="translation-content" style="display: none;"></div>
-
-                        <button class="reminder-btn" title="Me le rappeler plus tard">
-                            <i class="bx bx-time"></i>
-                        </button>
-                        <button class="quote-btn">
-                            <i class="bx bx-quote-right"></i>
-                        </button>
-                        <div class="reminder-popup" style="display: none;">
-                            <h4>Rappel</h4>
-                            <select class="reminder-time">
-                                <option value="1h">Dans 1 heure</option>
-                                <option value="2h">Dans 2 heures</option>
-                                <option value="1d">Demain</option>
-                                <option value="1w">Dans une semaine</option>
-                                <option value="custom">Personnalisé</option>
-                            </select>
-                            <input type="datetime-local" class="custom-reminder-time" style="display: none;">
-                            <div class="reminder-repeat">
-                                <label>
-                                    <input type="checkbox" class="repeat-reminder">
-                                    Répéter 
-                                </label>
-                                <select class="repeat-interval" disabled>
-                                    <option value="daily">Chaque jour</option>
-                                    <option value="weekly">Chaque semaine</option>
-                                    <option value="monthly">Chaque mois</option>
-                                </select>
-                            </div>
+            <div class="conversations-list">
+                <div class="conversation-item active">
+                    <div class="avatar">
+                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='%23CCCCCC'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/></svg>" alt="Avatar">
+                    </div>
+                    <div class="conversation-content">
+                        <div class="conversation-top">
+                            <div class="conversation-name">Nom du contact</div>
+                            <div class="conversation-time">10:30</div>
                         </div>
-                        <button class="set-reminder-btn">Définir le rappel</button>
+                        <div class="conversation-message">Est-ce que tu as des nouvelles du projet ?</div>
+                    </div>
+                    <div class="status-indicator"></div>
+                </div>
+                
+                <div class="conversation-item">
+                    <div class="avatar">
+                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='%23CCCCCC'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/></svg>" alt="Avatar">
+                    </div>
+                    <div class="conversation-content">
+                        <div class="conversation-top">
+                            <div class="conversation-name">Nom de l'utilisateur</div>
+                            <div class="conversation-time">10:30</div>
+                        </div>
+                        <div class="conversation-message">Dernier message...</div>
+                    </div>
+                    <div class="unread-badge">3</div>
+                </div>
+                
+                <div class="conversation-item">
+                    <div class="avatar">
+                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='%23CCCCCC'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/></svg>" alt="Avatar">
+                    </div>
+                    <div class="conversation-content">
+                        <div class="conversation-top">
+                            <div class="conversation-name">Nom de l'utilisateur</div>
+                            <div class="conversation-time">10:30</div>
+                        </div>
+                        <div class="conversation-message">Dernier message...</div>
+                    </div>
+                    <div class="unread-badge">3</div>
+                </div>
+                
+                <div class="conversation-item">
+                    <div class="avatar">
+                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='%23CCCCCC'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/></svg>" alt="Avatar">
+                    </div>
+                    <div class="conversation-content">
+                        <div class="conversation-top">
+                            <div class="conversation-name">Nom de l'utilisateur</div>
+                            <div class="conversation-time">10:30</div>
+                        </div>
+                        <div class="conversation-message">Dernier message...</div>
                     </div>
                 </div>
-                <button class="delete-btn">
-                    <i class="bx bx-trash"></i>
+            </div>
+        </div>
+
+        <div class="chat">
+            <div class="chat-header">
+                <button class="action-button back-button hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6"></path>
+                    </svg>
                 </button>
-            </div>
-            <div class="message received">
-                <p>Salut ! Ça va bien, merci. Et toi ?</p>
-                <span class="time">10:31</span>
-            </div>
-            <div class="message-thread">
-                <button class="show-thread-btn">
-                    <i class="bx bx-git-branch"></i>
-                    <span>Voir le fil de discussion (3)</span>
-                </button>
-                <div class="thread-message" style="display: none;"></div>
-            </div>
-            <div class="message sent">
-                <p>Je vais bien aussi, merci !</p>
-                <span class="time">10:32</span>
-            </div>
-            <div class="message received">
-                <p>Super ! As-tu des nouvelles de notre projet ?</p>
-                <span class="time">10:33</span>
-            </div>
-            <div class="message-thread">
-                <button class="show-thread-btn">
-                    <i class="bx bx-git-branch"></i>
-                    <span>Voir le fil de discussion (3)</span>
-                </button>
-            </div>
-            <div class="link-preview">
-                <img src="" alt="Aperçu du lien" class="preview-image">
-                <div class="preview-content">
-                    <h4 class="preview-title"></h4>
-                    <p class="preview-description"></p>
-                    <span class="preview-url"></span>
-                </div>
-            </div>
-            <div class="message sent poll-message">
-                <div class="poll-container">
-                    <h4 class="poll-question">Quel jour pour la réunion ?</h4>
-                    <div class="poll-options">
-                        <div class="poll-option">
-                            <div class="option-header">
-                                <input type="radio" name="poll" id="option1">
-                                <label for="option1">Lundi 14h</label>
-                                <span class="vote-count">3 votes</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 60%;"></div>
-                            </div>
-                        </div>
-                        <div class="poll-option">
-                            <div class="option-header">
-                                <input type="radio" name="poll" id="option2">
-                                <label for="option2">Mardi 10h</label>
-                                <span class="vote-count">2 votes</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 40%;"></div>
-                            </div>
-                        </div>
+                <div class="contact-info">
+                    <div class="avatar">
+                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='%23CCCCCC'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/></svg>" alt="Avatar">
                     </div>
-                    <div class="poll-footer">
-                        <span class="total-votes">Total votes: 5</span>
-                        <button class="end-poll-btn">Terminer le sondage</button>
+                    <div class="contact-details">
+                        <div class="contact-name">Nom du contact</div>
+                        <div class="contact-status">En ligne • est en train d'écrire...</div>
                     </div>
                 </div>
-                <div class="message-footer">
-                    <span class="time">10:30</span>
-                    <div class="read-status">
-                        <span class="read-by">Lus par 3 personnes</span>
-                        <div class="read-avatars">
-                            <!-- Les avatars des lecteurs seront ajoutés dynamiquement -->
-                        </div>
-                    </div>
+                <div class="chat-actions">
+                    <button class="action-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                    </button>
+                    <button class="action-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="1"></circle>
+                            <circle cx="19" cy="12" r="1"></circle>
+                            <circle cx="5" cy="12" r="1"></circle>
+                        </svg>
+                    </button>
+                    <button class="action-button primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                    </button>
                 </div>
             </div>
-        </div>
-    </div>
-        
-    <div class="video-call-container">
-        <div class="video-grid">
-            <!-- Les vidéos seront ajoutées ici dynamiquement -->
-        </div>
-        <div class="call-controls">
-            <button class="call-control-btn toggle-audio" title="Couper/Activer le micro">
-                <i class="bx bx-microphone"></i>
-            </button>
-            <button class="call-control-btn toggle-video" title="Couper/Activer la vidéo">
-                <i class="bx bx-video"></i>
-            </button>
-            <button class="call-control-btn share-screen" title="Partager l'écran">
-                <i class="bx bx-desktop"></i>
-            </button>
-            <button class="call-control-btn end-call" title="Terminer l'appel">
-                <i class="bx bx-phone-off"></i>
-            </button>
-        </div>
-    </div>
+            <div class="chat-messages">
+                <div class="thread-info">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <polyline points="9 21 3 21 3 15"></polyline>
+                        <line x1="21" y1="3" x2="14" y2="10"></line>
+                        <line x1="3" y1="21" x2="10" y2="14"></line>
+                    </svg>
+                    Voir le fil de discussion (3)
+                </div>
 
-    <!-- Widget de l'assistant vocal flottant -->
-    <div class="voice-assistant-widget" style="display: none;">
-        <div class="voice-widget-indicator">
-            <div class="voice-waves">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+                <div class="message-thread incoming">
+                    <div class="message incoming">
+                        Super ! As-tu des nouvelles de notre projet ?
+                    </div>
+                    <div class="message-time">10:15</div>
+                </div>
+
+                <div class="message-thread outgoing">
+                    <div class="message outgoing">
+                        Je vais bien aussi, merci !
+                    </div>
+                    <div class="message-time">10:22</div>
+                </div>
+
+                <div class="message-thread incoming">
+                    <div class="message incoming">
+                        <div class="thread-info">
+                            <button class="message-options-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <polyline points="9 21 3 21 3 15"></polyline>
+                                <line x1="21" y1="3" x2="14" y2="10"></line>
+                                <line x1="3" y1="21" x2="10" y2="14"></line>
+                            </svg>
+                            </button>
+                            <div class="message-options-menu">
+                                <button class="option-item">Repondre</button>
+                                <button class="option-item">Transferer</button>
+                                <button class="option-item">Copier</button>
+                                <button class="option-item">Supprimer</button>
+                            </div>
+                            Voir le fil de discussion (3)
+                        </div>
+                        <div class="link-preview">
+                            Aperçu du lien
+                        </div>
+                    </div>
+                    <div class="message-time">10:30</div>
+                </div>
+
+                <div class="message-thread outgoing">
+                    <div class="message outgoing">
+                        <div class="poll-container">
+                            <div class="poll-title">Quel jour pour la réunion ?</div>
+                            <div class="poll-option">
+                                <div class="poll-option-label">
+                                    <div class="poll-radio selected"></div>
+                                    <div>Option 1</div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 60%;"></div>
+                                </div>
+                                <div class="poll-stats">
+                                    <div>3 votes</div>
+                                    <div>60%</div>
+                                </div>
+                            </div>
+                            <div class="poll-option">
+                                <div class="poll-option-label">
+                                    <div class="poll-radio"></div>
+                                    <div>Option 2</div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 40%;"></div>
+                                </div>
+                                <div class="poll-stats">
+                                    <div>2 votes</div>
+                                    <div>40%</div>
+                                </div>
+                            </div>
+                            <div class="poll-footer">
+                                <div class="poll-votes">Total votes: 5</div>
+                                <button class="poll-button">Terminer le sondage</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="message-time">10:30 • vu par 3 personnes</div>
+                </div>
             </div>
-            <div class="voice-status">Écoute...</div>
-        </div>
-        <div class="voice-actions">
-            <button class="voice-cancel"><i class="bx bx-x"></i></button>
+            <div class="chat-composer">
+                <div class="composer-actions">
+                    <button class="composer-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                            <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                            <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="composer-input-container">
+                    <input type="text" class="composer-input" placeholder="Écrire un message...">
+                </div>
+                <div class="composer-actions">
+                    <button class="composer-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            <line x1="9" y1="10" x2="15" y2="10"></line>
+                            <line x1="12" y1="7" x2="12" y2="13"></line>
+                        </svg>
+                    </button>
+                    <button class="composer-button" id="attachFileBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                            <circle cx="12" cy="13" r="4"></circle>
+                        </svg>
+                    </button>
+                    <input type="file" id="fileInput" style="display: none;" multiple>
+                    <button class="composer-button send-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
 <script type="module" src="../JS/script index.js"></script>
-<script src="../JS/emoji.js"></script>
-<script src="../JS/attachements.js"></script>
 <script src="../JS/voice.js"></script>
-<script src="../JS/edit-message.js"></script>
 <script src="../JS/audio-visualiser.js"></script>
-<script src="../JS/reply.js"></script>
 <script src="../JS/message-status.js"></script>
-<script src="../JS/upload-progress.js"></script>
-<script src="../JS/forward.js"></script>
-<script src="../JS/mentions.js"></script>
-<script src="../JS/self-destruct.js"></script>
-<script src="../JS/pinned-message.js"></script>
 <script src="../JS/typing-indicator.js"></script>
 <script src="../JS/link-preview.js"></script>
-<script src="../JS/polls.js"></script>
-<script src="../JS/chat-lock.js"></script>
 <script src="../JS/search.js"></script>
-<script src="../JS/media-gallery.js"></script>
 <script src="../JS/mobile-navigation.js"></script>
 <script src="../JS/video-call.js"></script>
 <script src="../JS/info-dropdown.js"></script>
 <script type="module" src="../JS/features.js"></script>
-<script src="../JS/delete-chat.js"></script>
+
 <script src="../JS/biometric-auth.js"></script>
 <script type="module" src="../JS/auth.js"></script>
 <script type="module" src="../JS/messages.js"></script>
+<script type="module" src="../JS/dark-mode.js"></script>
+<script src="../JS/theme-manager.js"></script>
+<script src="../JS/file-attachment.js"></script>
 
 <!-- Nouveaux scripts pour les intégrations -->
 <script src="../JS/integrations/calendar-integration.js"></script>
@@ -1577,7 +470,7 @@
 <script src="../JS/integrations/main.js"></script>
 
 <script type="module"> 
-    import authService from "../JS/auth-core.js";
+    import authService from "../JS/auth-core.js"; 
     import { messageSystem } from "../JS/messages.js";
 
     document.addEventListener('DOMContentLoaded', function() {

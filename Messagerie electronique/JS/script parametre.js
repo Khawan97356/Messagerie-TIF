@@ -1250,3 +1250,98 @@ document.getElementById('exportAuditLog').addEventListener('click', () => {
 document.getElementById('viewMoreActivity').addEventListener('click', () => {
     showToast('Chargement de plus d\'activités...');
 });
+
+// Configuration avancée du mode sombre
+document.addEventListener('DOMContentLoaded', function() {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const themeMode = document.getElementById('themeMode');
+    const autoThemeSettings = document.getElementById('autoThemeSettings');
+    const darkModeStart = document.getElementById('darkModeStart');
+    const darkModeEnd = document.getElementById('darkModeEnd');
+    
+    // Initialisation basée sur les préférences stockées
+    if (window.themeManager) {
+        // Synchronisation du toggle avec l'état actuel
+        darkModeToggle.checked = window.themeManager.isDarkModeActive();
+        
+        // Configuration du mode
+        const currentMode = localStorage.getItem('app_theme_preference') || 'system';
+        
+        if (currentMode === 'dark' || currentMode === 'light') {
+            themeMode.value = 'manual';
+        } else {
+            themeMode.value = currentMode;
+        }
+        
+        // Afficher/masquer les réglages auto
+        autoThemeSettings.style.display = currentMode === 'auto' ? 'flex' : 'none';
+        
+        // Initialiser les heures
+        const startHour = localStorage.getItem('dark_mode_start_hour') || 18;
+        const endHour = localStorage.getItem('dark_mode_end_hour') || 6;
+        
+        darkModeStart.value = `${startHour.toString().padStart(2, '0')}:00`;
+        darkModeEnd.value = `${endHour.toString().padStart(2, '0')}:00`;
+        
+        // Écouteurs pour les changements
+        themeMode.addEventListener('change', function() {
+            const mode = themeMode.value;
+            
+            if (mode === 'manual') {
+                // Utiliser l'état actuel du toggle
+                window.themeManager.setMode(darkModeToggle.checked ? 'dark' : 'light');
+            } else {
+                // Utiliser le mode sélectionné
+                window.themeManager.setMode(mode);
+            }
+            
+            // Afficher/masquer les réglages auto
+            autoThemeSettings.style.display = mode === 'auto' ? 'flex' : 'none';
+            
+            showToast(`Mode ${mode} activé`);
+        });
+        
+        // Mettre à jour les heures pour le mode auto
+        darkModeStart.addEventListener('change', function() {
+            const [hours] = darkModeStart.value.split(':');
+            window.themeManager.setAutoHours(hours, window.themeManager.AUTO_DARK_END_HOUR);
+            showToast(`Mode sombre activé à ${darkModeStart.value}`);
+        });
+        
+        darkModeEnd.addEventListener('change', function() {
+            const [hours] = darkModeEnd.value.split(':');
+            window.themeManager.setAutoHours(window.themeManager.AUTO_DARK_START_HOUR, hours);
+            showToast(`Mode sombre désactivé à ${darkModeEnd.value}`);
+        });
+        
+        // Remplacer le gestionnaire d'événements existant pour le toggle
+        const existingListeners = getEventListeners(darkModeToggle);
+        if (existingListeners && existingListeners.change) {
+            for (const listener of existingListeners.change) {
+                darkModeToggle.removeEventListener('change', listener.listener);
+            }
+        }
+        
+        darkModeToggle.addEventListener('change', function() {
+            window.themeManager.setMode(darkModeToggle.checked ? 'dark' : 'light');
+            
+            // Si en mode manuel, mettre à jour le sélecteur de mode
+            if (themeMode.value !== 'manual') {
+                themeMode.value = 'manual';
+            }
+            
+            showToast(darkModeToggle.checked ? 'Mode sombre activé' : 'Mode sombre désactivé');
+        });
+    }
+});
+
+// Fonction utilitaire pour obtenir les écouteurs d'événements (peut ne pas fonctionner dans tous les navigateurs)
+function getEventListeners(element) {
+    // Cette fonction est une solution de secours, car l'accès aux listeners n'est pas standard
+    // Dans une application réelle, on pourrait utiliser une approche différente
+    try {
+        return element.__listeners || {};
+    } catch (e) {
+        return {};
+    }
+}

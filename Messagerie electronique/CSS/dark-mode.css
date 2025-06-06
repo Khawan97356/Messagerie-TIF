@@ -1,0 +1,136 @@
+/* Mode sombre global pour toute l'application */
+:root.dark-theme {
+    /* Couleurs principales */
+    --bg-primary: #181818;
+    --bg-secondary: #1e1e1e;
+    --bg-tertiary: #2d2d2d;
+    --text-primary: #F3F4F6;
+    --text-secondary: #b0b0b0;
+    --accent-color: #5D5CDE;
+    --accent-color-hover: #4847B3;
+    
+    /* Couleurs spécifiques aux composants */
+    --sidebar-bg: #1a1a1a;
+    --chat-bg: #121212;
+    --message-sent-bg: #2b5278;
+    --message-received-bg: #303030;
+    --input-bg: #2d2d2d;
+    --border-color: #444444;
+    --scrollbar-thumb: #555555;
+    --scrollbar-track: #1e1e1e;
+    --hover-bg: rgba(255, 255, 255, 0.05);
+    --dropdown-bg: #252525;
+    --modal-bg: #1e1e1e;
+    
+    /* Statuts */
+    --online-status: #10B981;
+    --offline-status: #777777;
+    
+    /* Notifications */
+    --notification-bg: #303030;
+    --unread-badge-bg: #5D5CDE;
+}
+
+/* Styles globaux pour le mode sombre */
+.dark-theme body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Compatibilité avec la classe dark existante dans la page de paramètres */
+body.dark {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Composants spécifiques en mode sombre */
+.dark-theme .sidebar {
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+}
+
+.dark-theme .discussions-list {
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+}
+
+.dark-theme .chat-item {
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dark-theme .chat-info h3, .dark-theme .chat-user-info h3 {
+    color: var(--text-primary);
+}
+
+.dark-theme .last-message, .dark-theme .chat-user-info .status {
+    color: var(--text-secondary);
+}
+
+.dark-theme .chat-header {
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dark-theme .chat-messages {
+    background-color: var(--chat-bg);
+}
+
+.dark-theme .message.sent {
+    background-color: var(--message-sent-bg);
+    color: var(--text-primary);
+}
+
+.dark-theme .message.received {
+    background-color: var(--message-received-bg);
+    color: var(--text-primary);
+}
+
+.dark-theme .chat-input {
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+}
+
+.dark-theme .chat-input input {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.dark-theme .settings-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.dark-theme .settings-row {
+    border-bottom-color: var(--border-color);
+}
+
+.dark-theme .btn-secondary {
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.dark-theme .btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark-theme .settings-select {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+/* Styles pour les scrollbars en mode sombre */
+.dark-theme ::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dark-theme ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+.dark-theme ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+}
